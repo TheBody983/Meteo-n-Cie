@@ -1,6 +1,6 @@
 <?php $title= 'Register'; ?>
 <?php ob_start(); ?>
-<form method="post" action="template">
+<form method="post" action="main">
     <label for="name"> Nom </label> :
     <input type="text" name="name" id="name"/>
     <br />
@@ -15,6 +15,6 @@
     <br />
     <input type="submit" value="Envoyer"/>
 </form>
-<a href="http://localhost/Meteo'n'Cie/index.php/template"> Annuler </a>
+<a href="http://localhost/Meteo'n'Cie/index.php/main"> Annuler </a>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

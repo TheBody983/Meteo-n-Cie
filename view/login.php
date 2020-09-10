@@ -1,7 +1,7 @@
 <?php $title= 'Connexion'; ?>
 <?php ob_start(); ?>
 <div>
-    <form method="post" action="template">
+    <form method="post" action="main">
         <p><label for="login"> Identifiant </label> :</p>
         <input type="text" name="login" id="login" maxlength="12" required/>
         <br />

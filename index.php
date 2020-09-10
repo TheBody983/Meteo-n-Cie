@@ -12,7 +12,8 @@ session_start();
 $action = explode('/',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 //PREND LE DERNIER MORCEAU DE $URI SOIT LE PARAMETRE
 $action = end($action);
-//echo $uri;
+
+
 
 //Enregistrement avant la vérification d'authentification
 if('register' == $action){
@@ -20,16 +21,6 @@ if('register' == $action){
     $error = ' ';
     register_action($login, $error);
     exit;
-}
-
-//Création d'un nouvel utilisateur si vient de register
-if(isset($_POST['mail'])){
-    if(isset($_POST['city'])) {
-        new_user($_POST['login'], $_POST['password'], $_POST['surname'], $_POST['name'], $_POST['mail'], $_POST['country'], $_POST['city']);
-    }
-    else{
-        new_user($_POST['login'], $_POST['password'], $_POST['surname'], $_POST['name'], $_POST['mail'], ' ', ' ');
-    }
 }
 
 // vérification utilisateur authentifié
@@ -54,27 +45,34 @@ else{
 }
 */
 
+
+
 //Temporaire
+echo "\$action = ".$action;
 if(isset($_POST['login'])) {
     $login = $_POST['login'];
     $_SESSION['login'] = $_POST['login'];
 }
-else {
+elseif($action != 'login') {
     $login = ' ';
-    $action = 'login';
+    $action = '';
 }
 
-if(!isset($login)){
-    //Corriger l'adresse pour éviter les bugs de type "/Annonce/annonces"
-    if($action == 'index.php')
-    {
-        header("refresh:0;url=../index.php/login");
-    }
-    $login = ' ';
-}
+
 if(!isset($error)){
     $error = ' ';
 }
+if(!isset($login)){
+    $login = ' ';
+}
+//if(!isset($login)){
+//Corriger l'adresse pour éviter les bugs de type "/Annonce/annonces"
+if($action == '')
+{
+    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
+}
+//}
+
 
 switch ( $action ) {
 
@@ -82,11 +80,11 @@ switch ( $action ) {
         login_action($login, $error);
         break;
 
-    case 'template' :                  //Connecter si pas de session
-        template_action($login, $error);
+    case 'main' :                       //Accèder à la page Principale
+        main_action($login, $error);
         break;
 
-    case 'index.php':                   //Rediriger vers annonces si index.php et Session
+    case 'index.php':                   //Rediriger vers annonces si index.php
         homepage();
         break;
 

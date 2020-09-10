@@ -9,18 +9,18 @@ function register_action($login, $error)
     require 'view/register.php';
 }
 
-function template_action($login, $error)
+function main_action($login, $error)
 {
-    require 'view/template.php';
+    require 'view/main.php';
 }
 
 function homepage(){
-    header("refresh:0;url=../index.php/");
+    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/main");
 }
 
 function logout(){
     session_destroy();
-    header("refresh:0;url=../index.php/login");
+    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
 
 }
 

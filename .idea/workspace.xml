@@ -20,18 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Etude préliminaire et Analyse des besoins.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exemples de Compte-Rendus/Objets Parles.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exemples de Compte-Rendus/Serious game but more gay.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exemples de Compte-Rendus/SeriousGame.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exemples de Compte-Rendus/Sunflower.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/layout.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/register.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/template.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/main.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +64,8 @@
       <updated>1599708242528</updated>
       <workItem from="1599708244501" duration="1796000" />
       <workItem from="1599710131593" duration="252000" />
+      <workItem from="1599710449150" duration="17000" />
+      <workItem from="1599710651703" duration="1331000" />
     </task>
     <servers />
   </component>
