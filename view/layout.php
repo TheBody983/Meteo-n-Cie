@@ -9,7 +9,7 @@
 
 <body>
 <header>
-    <h1><a href="http://localhost/Meteo'n'Cie/index.php">Site d'Annonces</a></h1>
+    <h1><a href="http://localhost/Meteo'n'Cie/index.php">Meteo'n'Cie</a></h1>
     <?php
     if($login != ' ') {
         echo '<div><p>Connecté en tant que '.$login.'</p> ' ;
