@@ -10,7 +10,7 @@
         <br/>
         <input type="submit" value="Envoyer">
         <p>Pas de compte ? </p>
-        <a href="/Meteo'n'Cie/index.php/register">Creer un compte</a>
+        <a href="/Meteo-n-Cie/index.php/register">Creer un compte</a>
     </form>
 </div>
 <?php $content = ob_get_clean(); ?>
