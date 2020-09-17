@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="">
+    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/layout.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/layout.php" afterDir="false" />
     </list>
@@ -69,6 +69,8 @@
       <workItem from="1599710449150" duration="17000" />
       <workItem from="1599710651703" duration="1594000" />
       <workItem from="1599712724752" duration="626000" />
+      <workItem from="1600301657789" duration="104000" />
+      <workItem from="1600301904000" duration="351000" />
     </task>
     <servers />
   </component>
@@ -89,8 +91,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="579" y="88" key="CommitChangelistDialog2" timestamp="1600302256948">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="579" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1600302256948" />
     <state x="604" y="336" key="NewPhpFileDialog" timestamp="1599709176076">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
