@@ -95,8 +95,8 @@ function is_user( $login, $password )
 
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
-        $hash = mysqli_fetch_array($query, MYSQLI_NUM);
-        if(password_verify($password, $hash[0])) { //Vérifie si le mot de passe entré correspond au mot de passe stocké
+        $hash = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+        if(password_verify($password, $hash)) { //Vérifie si le mot de passe entré correspond au mot de passe stocké
             echo "verified";
             $isuser = True;
         }
