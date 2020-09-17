@@ -1,6 +1,6 @@
 <?php
-//Code Source : https://github.com/TheBody983/Annonces
-
+//Code Source : https://github.com/TheBody983/Meteo-n-Cie
+//oui
 // charge et initialise les bibliothèques globales
 require_once 'model.php';
 require_once 'controllers.php';
