@@ -66,10 +66,9 @@ if(!isset($login)){
     $login = ' ';
 }
 //if(!isset($login)){
-//Corriger l'adresse pour éviter les bugs de type "/Annonce/annonces"
 if($action == '')
 {
-    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
 }
 //}
 
