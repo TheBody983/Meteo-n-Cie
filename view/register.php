@@ -15,6 +15,6 @@
     <br />
     <input type="submit" value="Envoyer"/>
 </form>
-<a href="http://localhost/Meteo'n'Cie/index.php/main"> Annuler </a>
+<a href="http://localhost/Meteo-n-Cie/index.php/main"> Annuler </a>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>
