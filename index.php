@@ -1,6 +1,6 @@
 <?php
-//Code Source : https://github.com/TheBody983/Annonces
-
+//Code Source : https://github.com/TheBody983/Meteo-n-Cie
+//oui
 // charge et initialise les bibliothèques globales
 require_once 'model.php';
 require_once 'controllers.php';
@@ -66,10 +66,9 @@ if(!isset($login)){
     $login = ' ';
 }
 //if(!isset($login)){
-//Corriger l'adresse pour éviter les bugs de type "/Annonce/annonces"
 if($action == '')
 {
-    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
 }
 //}
 
