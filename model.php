@@ -13,7 +13,7 @@ function close_database_connection($link)
 
 //USERS
 
-function get_all_users()
+/*function get_all_users()
 {
     $link = open_database_connection();
     $resultall = mysqli_query($link,'SELECT login, userID FROM users');
@@ -73,7 +73,7 @@ function getUserLogin($id)
     //Retourne le résultat
     return $login;
 }
-
+*/
 function is_user( $login, $password )
 {
     $isuser = False ;
@@ -134,9 +134,9 @@ function new_user($login,$pwd){
     close_database_connection($link);
 }
 
-function delete_user($userID){
+/*function delete_user($userID){
     $link = open_database_connection();
     $query= 'DELETE FROM users WHERE userID = "'.$userID.'"';
     mysqli_query($link, $query );
     close_database_connection($link);
-}
+}*/
