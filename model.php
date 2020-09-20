@@ -12,7 +12,6 @@ function close_database_connection($link)
 }
 
 //USERS
-
 function is_user( $login, $password )
 {
     /** Verifie si un utilisateur est enregistré
@@ -96,10 +95,8 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
      * @param string $vis la visibilité de la station
      * @param string $descr une description de la station
      * @param string $loc la localisation de la station
-     */
-
-    $link = open_database_connection();
-
+    */
+         
     $userID = intval($userID);
 
     $model = htmlspecialchars($model);
@@ -117,6 +114,37 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     //Prepare la requête
     $query = mysqli_prepare($link,'INSERT INTO stations(userID, model, visibility, description, localisation) VALUES (?, ?, ?, ?, ?)');
     mysqli_stmt_bind_param($query, 'issss', $userID, $model, $vis, $descr, $loc);
+    
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
+function new_mesure($stationID, $name, $value)
+{
+    /** Créé une nouvelle mesure dans la BDD
+     *
+     * Récupère une mesure, la sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param integer $stationID un identifiant de station
+     * @param string $name un nom de mesure
+     * @param string $value une valeur de mesure
+     */
+
+    $link = open_database_connection();
+
+
+    $stationID = intval($stationID);
+
+    $value = floatval($value);
+
+    $name = htmlspecialchars($name);
+    $name =  str_replace(array('\n','\r',PHP_EOL),' ',$name);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO mesures(stationID, mesure_name, mesure_value) VALUES (?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'isd', $stationID, $name, $value);
 
     //execute la requête
     mysqli_stmt_execute($query);
