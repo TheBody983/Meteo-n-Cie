@@ -91,13 +91,11 @@ function is_user( $login, $password )
 
     //Execute la requête
     if(mysqli_stmt_execute($query)) {
-        echo 'executed <br />';
 
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $hash = mysqli_fetch_array($query, MYSQLI_NUM)[0];
         if(password_verify($password, $hash)) { //Vérifie si le mot de passe entré correspond au mot de passe stocké
-            echo "verified";
             $isuser = True;
         }
     }
@@ -125,7 +123,6 @@ function new_user($login,$pwd){
 
     //Prepare la requête
     $query = mysqli_prepare($link,'INSERT INTO users(login, password) VALUES (?, ?)');
-    //echo mysqli_error( $link );
     mysqli_stmt_bind_param($query, 'ss', $login, $pwd);
 
     //execute la requête
