@@ -121,7 +121,7 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
-
+//MESURES
 function new_mesure($stationID, $name, $value)
 {
     /** Créé une nouvelle mesure dans la BDD
@@ -192,6 +192,35 @@ function get_mesures($mesure_name, $filter = NULL){
             $mesures[] = $mesuretmp;
         }
     }
+
+    close_database_connection($link);
+    return $mesures;
+}
+
+function del_mesures($date, $station){
+    /** Supprime une mesure
+     *
+     * @param string $date date de la mesure
+     * @param string $station station concernée
+    */
+
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Securise la chaîne date
+    $date = htmlspecialchars($date);
+    $date =  str_replace(array('\n','\r',PHP_EOL),' ',$date);
+
+    //Securise la chaîne station
+    $station = intval($station);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link, 'DELETE FROM mesures WHERE date = ? and stationID = ?');
+    mysqli_stmt_bind_param($query, 'si', $mesure_name, $stationID);
+
+    //Execute la requête
+    mysqli_stmt_execute($query);
 
     close_database_connection($link);
     return $mesures;
