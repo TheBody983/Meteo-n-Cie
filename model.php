@@ -121,6 +121,7 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
+
 function new_mesure($stationID, $name, $value)
 {
     /** Créé une nouvelle mesure dans la BDD
@@ -150,4 +151,48 @@ function new_mesure($stationID, $name, $value)
     mysqli_stmt_execute($query);
 
     close_database_connection($link);
+}
+
+function get_mesures($mesure_name, $filter = NULL){
+    /** Récupère des mesures
+     *
+     * Récupère des mesures correspondant à un paramètre
+     *
+     * @param string $mesure_name type de mesure recherchée p. ex. "temperature"
+     * @param string $filter pas encore implémenté
+     *
+     * @return array les mesures correspondantes aux données recherchées
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Securise la chaîne login
+    $mesure_name = htmlspecialchars($mesure_name);
+    $mesure_name =  str_replace(array('\n','\r',PHP_EOL),' ',$mesure_name);
+
+    //Prepare la requête
+    if(!isset($filter)) {
+        $query = mysqli_prepare($link, 'SELECT * FROM mesures WHERE mesure_name = ?');
+        mysqli_stmt_bind_param($query, 's', $mesure_name);
+    }
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $mesures = array();
+        while($mesure = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $mesuretmp = array(
+                "date" => $mesure[0],
+                "stationID" => $mesure[1],
+                "name" => $mesure[2],
+                "value" => $mesure[3]);
+            $mesures[] = $mesuretmp;
+        }
+    }
+
+    close_database_connection($link);
+    return $mesures;
 }
