@@ -1,8 +1,10 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
-require_once '../model.php';
 //temporaire, le temps d'avoir l'accès depuis index
-$mesures = get_mesures('temperature');
+require_once '../model.php';
+if(!isset($mesures)) {
+    $mesures = get_mesures('temperature');
+}
 ?>
 <table>
 <tr>
