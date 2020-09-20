@@ -1,5 +1,8 @@
 <?php $title= 'Register'; ?>
 <?php ob_start(); ?>
+
+// Demande à l'utilisateur ces informations pour la création de son compte
+
 <form method="post" action="main">
     <label for="name"> Nom </label> :
     <input type="text" name="name" id="name"/>
