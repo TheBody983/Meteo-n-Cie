@@ -13,69 +13,17 @@ function close_database_connection($link)
 
 //USERS
 
-/*function get_all_users()
-{
-    $link = open_database_connection();
-    $resultall = mysqli_query($link,'SELECT login, userID FROM users');
-    $users = array();
-    while ($row = mysqli_fetch_assoc($resultall)) {
-        $users[] = $row;
-    }
-    mysqli_free_result( $resultall);
-    close_database_connection($link);
-    return $users;
-
-}
-
-function getUserID($login)
-{
-    //Connexion à la BDD
-    $link = open_database_connection();
-
-    //Securise la chaîne login
-    $login = htmlspecialchars($login);
-    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT userID FROM users WHERE login=?');
-    mysqli_stmt_bind_param($query, 's', $login);
-
-    //Execute la requête et récupère les résultats
-    mysqli_stmt_execute($query);
-    mysqli_stmt_bind_result($query, $userID);
-
-    //Fermeture de la connexion à la BDD
-    close_database_connection($link);
-
-    //Retourne le résultat
-    return $userID;
-}
-
-function getUserLogin($id)
-{
-    //Connexion à la BDD
-    $link = open_database_connection();
-
-    //Securise la valeur id
-    $id = intval($id);
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT login FROM users WHERE userID=?');
-    mysqli_stmt_bind_param($query, 'i', $id);
-
-    //Execute la requête et récupère les résultats
-    mysqli_stmt_execute($query);
-    mysqli_stmt_bind_result($query, $login);
-
-    //Fermeture de la connexion à la BDD
-    close_database_connection($link);
-
-    //Retourne le résultat
-    return $login;
-}
-*/
 function is_user( $login, $password )
 {
+    /** Verifie si un utilisateur est enregistré
+     *
+     * Récupère un login et un password, les sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param string $login un nom d'utilisateur
+     * @param string $password un mot de passe
+     *
+     * @return True si l'utilisateur des enregistré, False sinon
+     */
     $isuser = False ;
 
     //Connexion à la BDD
@@ -104,7 +52,15 @@ function is_user( $login, $password )
     return $isuser;
 }
 
-function new_user($login,$pwd){
+function new_user($login,$pwd)
+{
+    /** Créé un nnouvel utilisateur dans la BDD
+     *
+     * Récupère un login et un password, les sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param string $login un nom d'utilisateur
+     * @param string $password un mot de passe
+     */
     $link = open_database_connection();
 
     //Securise la chaîne login
@@ -118,9 +74,6 @@ function new_user($login,$pwd){
     //hash le pwd
     $pwd= password_hash($pwd, PASSWORD_DEFAULT);
 
-    //echo $login;
-    //echo $pwd;
-
     //Prepare la requête
     $query = mysqli_prepare($link,'INSERT INTO users(login, password) VALUES (?, ?)');
     mysqli_stmt_bind_param($query, 'ss', $login, $pwd);
@@ -131,9 +84,42 @@ function new_user($login,$pwd){
     close_database_connection($link);
 }
 
-/*function delete_user($userID){
+//STATIONS
+function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $loc = ' ')
+{
+    /** Créé une nouvelle station dans la BDD
+     *
+     * Récupère les informations d'une station, les sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     * @param string $model un modèle de station
+     * @param string $vis la visibilité de la station
+     * @param string $descr une description de la station
+     * @param string $loc la localisation de la station
+     */
+
     $link = open_database_connection();
-    $query= 'DELETE FROM users WHERE userID = "'.$userID.'"';
-    mysqli_query($link, $query );
+
+    $userID = intval($userID);
+
+    $model = htmlspecialchars($model);
+    $model =  str_replace(array('\n','\r',PHP_EOL),' ',$model);
+
+    $vis = htmlspecialchars($vis);
+    $vis =  str_replace(array('\n','\r',PHP_EOL),' ',$vis);
+
+    $descr = htmlspecialchars($descr);
+    $descr =  str_replace(array('\n','\r',PHP_EOL),' ',$descr);
+
+    $loc = htmlspecialchars($loc);
+    $loc =  str_replace(array('\n','\r',PHP_EOL),' ',$loc);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO stations(userID, model, visibility, description, localisation) VALUES (?, ?, ?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'issss', $userID, $model, $vis, $descr, $loc);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
     close_database_connection($link);
-}*/
+}
