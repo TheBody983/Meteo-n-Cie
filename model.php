@@ -12,68 +12,6 @@ function close_database_connection($link)
 }
 
 //USERS
-
-/*function get_all_users()
-{
-    $link = open_database_connection();
-    $resultall = mysqli_query($link,'SELECT login, userID FROM users');
-    $users = array();
-    while ($row = mysqli_fetch_assoc($resultall)) {
-        $users[] = $row;
-    }
-    mysqli_free_result( $resultall);
-    close_database_connection($link);
-    return $users;
-
-}
-
-function getUserID($login)
-{
-    //Connexion à la BDD
-    $link = open_database_connection();
-
-    //Securise la chaîne login
-    $login = htmlspecialchars($login);
-    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT userID FROM users WHERE login=?');
-    mysqli_stmt_bind_param($query, 's', $login);
-
-    //Execute la requête et récupère les résultats
-    mysqli_stmt_execute($query);
-    mysqli_stmt_bind_result($query, $userID);
-
-    //Fermeture de la connexion à la BDD
-    close_database_connection($link);
-
-    //Retourne le résultat
-    return $userID;
-}
-
-function getUserLogin($id)
-{
-    //Connexion à la BDD
-    $link = open_database_connection();
-
-    //Securise la valeur id
-    $id = intval($id);
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT login FROM users WHERE userID=?');
-    mysqli_stmt_bind_param($query, 'i', $id);
-
-    //Execute la requête et récupère les résultats
-    mysqli_stmt_execute($query);
-    mysqli_stmt_bind_result($query, $login);
-
-    //Fermeture de la connexion à la BDD
-    close_database_connection($link);
-
-    //Retourne le résultat
-    return $login;
-}
-*/
 function is_user( $login, $password )
 {
     $isuser = False ;
@@ -131,9 +69,34 @@ function new_user($login,$pwd){
     close_database_connection($link);
 }
 
-/*function delete_user($userID){
+//STATIONS
+function new_mesure($stationID, $name, $value)
+{
+    /** Créé une nouvelle mesure dans la BDD
+     *
+     * Récupère une mesure, la sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param integer $stationID un identifiant de station
+     * @param string $name un nom de mesure
+     * @param string $value une valeur de mesure
+     */
+
     $link = open_database_connection();
-    $query= 'DELETE FROM users WHERE userID = "'.$userID.'"';
-    mysqli_query($link, $query );
+
+    $stationID = intval($stationID);
+
+    $value = floatval($value);
+
+    $name = htmlspecialchars($name);
+    $name =  str_replace(array('\n','\r',PHP_EOL),' ',$name);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO mesures(stationID, mesure_name, mesure_value) VALUES (?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'isd', $stationID, $name, $value);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
     close_database_connection($link);
-}*/
+}
+
