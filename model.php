@@ -196,3 +196,34 @@ function get_mesures($mesure_name, $filter = NULL){
     close_database_connection($link);
     return $mesures;
 }
+
+function get_mesure_name(){
+    /** Récupère les différents noms de mesures
+     *
+     * @return array les noms de mesure
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+
+    //Prepare la requête
+    if(!isset($filter)) {
+        $query = mysqli_prepare($link, 'SELECT DISTINCT mesure_name FROM mesures');
+    }
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $mesure_name = array();
+        while($mesure = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $mesure_name[] = $mesure[0];
+        }
+    }
+
+    close_database_connection($link);
+    return $mesure_name;
+}
+
