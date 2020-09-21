@@ -2,9 +2,7 @@
 <?php ob_start();
 //temporaire, le temps d'avoir l'accès depuis index
 require_once '../model.php';
-if(!isset($mesures)) {
-    $mesures = get_mesures('temperature');
-}
+$stations = get_all_stations(1);
 ?>
 <script>
 function showHint(str) {
@@ -40,9 +38,8 @@ function search(str){
     <input type="text" id="searchbar" name="searchbar" onkeyup="showHint(this.value)">
 </form>
 <p>Suggestions: <span id="hint"></span></p>
-<div id="table">
+<table id="table">
+</table>
 
-</div>
-<?php
-$content = ob_get_clean(); ?>
+<?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

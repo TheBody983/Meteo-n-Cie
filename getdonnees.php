@@ -9,7 +9,7 @@ if (!$con) {
 $sql="SELECT * FROM mesures WHERE mesure_name = '".$q."'";
 $result = mysqli_query($con,$sql);
 ?>
-<table>
+
 <tr>
   <td>Date de la Mesure</td>
   <td>Station</td>
@@ -24,6 +24,5 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['mesure_value'] . "</td>";
     echo "</tr>";
 }
-echo "</table>";
 mysqli_close($con);
 ?>
