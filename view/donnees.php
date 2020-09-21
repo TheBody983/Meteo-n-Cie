@@ -6,19 +6,43 @@ if(!isset($mesures)) {
     $mesures = get_mesures('temperature');
 }
 ?>
-<table>
-<tr>
-  <td>Date de la Mesure</td>
-  <td>Station</td>
-  <td>Valeur</td>
-</tr>
-<?php
-foreach( $mesures as $mesure){
-    echo '<tr><td>'.$mesure["date"].'</td>';
-    echo '<td>'.$mesure["stationID"].'</td>';
-    echo '<td>'.$mesure["value"].'</td></tr>';
-}?>
-</table>
+<script>
+function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("hint").innerHTML = "";
+        return;
+    }
+    else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("hint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "../ajaxtest.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+
+function search(str){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("table").innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET","../getdonnees.php?q="+str,true);
+    xmlhttp.send();
+}
+</script>
+
+<form action="">
+    <input type="text" id="searchbar" name="searchbar" onkeyup="showHint(this.value)">
+</form>
+<p>Suggestions: <span id="hint"></span></p>
+<div id="table">
+
+</div>
 <?php
 $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>
