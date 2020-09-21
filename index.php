@@ -24,7 +24,7 @@ if('register' == $action){
 }
 
 // vérification utilisateur authentifié
-/*
+
 if(!isset($_SESSION['login']) ) {
     if( !isset($_POST['login']) || !isset($_POST['password']) ) {
         $error='not connected';
@@ -43,7 +43,6 @@ if(!isset($_SESSION['login']) ) {
 else{
     $login = $_SESSION['login'] ;
 }
-*/
 
 
 
@@ -89,6 +88,18 @@ switch ( $action ) {
 
     case 'logout' :                     //Se déconnecter
         logout();
+        break;
+
+    case 'donnee' :                     //Recupere les mesures
+        mesures_action();
+        break;
+
+    case 'station' :                     //Recupère les données d'une station
+        station_action($login, $error);
+        break;
+
+    case 'allStation' :                     //Recupère les données de toutes les stations
+        allStations_action($login, $error);
         break;
 
     default :
