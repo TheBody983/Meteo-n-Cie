@@ -96,7 +96,9 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
      * @param string $descr une description de la station
      * @param string $loc la localisation de la station
     */
-         
+
+    $link = open_database_connection();
+
     $userID = intval($userID);
 
     $model = htmlspecialchars($model);
@@ -121,7 +123,42 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
+function get_all_stations($userID){
+    /** Récupère les informations de toutes les stations
+     *
+     * @return array la liste des stations avec leurs informations
+     */
 
+    $userID = intval($userID);
+
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $mesures = array();
+        while($mesure = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $mesuretmp = array(
+                "stationID" => $mesure[0],
+                "userID" => $mesure[1],
+                "model" => $mesure[2],
+                "description" => $mesure[4],
+                "localisation" => $mesure[5]);
+            $mesures[] = $mesuretmp;
+        }
+    }
+
+    close_database_connection($link);
+
+    return $mesures;
+}
+
+//MESURES
 function new_mesure($stationID, $name, $value)
 {
     /** Créé une nouvelle mesure dans la BDD
