@@ -16,19 +16,16 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/gestionStation" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Accueil/duck.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Accueil/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Accueil/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Accueil/menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Accueil/titre.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.ico" beforeDir="false" afterPath="$PROJECT_DIR$/Accueil/meteoncie.ico" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +36,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
@@ -54,7 +56,6 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Bureau/Cours/2020/Developpement Web/Projet/Meteo'N'Cie/meteoncie.css" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -63,7 +64,10 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="" />
@@ -88,39 +92,29 @@
       <workItem from="1600655953410" duration="7267000" />
       <workItem from="1600725293563" duration="713000" />
     </task>
-    <task id="LOCAL-00001" summary="test">
-      <created>1600302280596</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1600302280596</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Ajout fichiers base">
-      <created>1600302832883</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1600302832883</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Ajout fichiers base mais cette fois pour de vrai">
-      <created>1600303185995</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1600303185995</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/gestionStation" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -129,35 +123,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="test" />
-    <MESSAGE value="Ajout fichiers base" />
-    <MESSAGE value="Ajout fichiers base mais cette fois pour de vrai" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout fichiers base mais cette fois pour de vrai" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1149" y="163" key="#PHP" timestamp="1600637814190">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1149" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1600637814190" />
-    <state x="579" y="88" key="CommitChangelistDialog2" timestamp="1600303185139">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="579" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1600303185139" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600302795554">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600302795554" />
-    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1599709176076">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1599709176076" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600303192817">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600303192817" />
-    <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600302433304">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600302433304" />
   </component>
 </project>
