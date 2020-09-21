@@ -19,7 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="" />
+    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Accueil/duck.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Accueil/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Accueil/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Accueil/menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Accueil/titre.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Accueil/meteoncie.ico" beforeDir="false" afterPath="$PROJECT_DIR$/Accueil/meteoncie.ico" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,7 +78,15 @@
       <workItem from="1599712724752" duration="626000" />
       <workItem from="1600301657789" duration="104000" />
       <workItem from="1600301904000" duration="351000" />
-      <workItem from="1600302270819" duration="681000" />
+      <workItem from="1600302270819" duration="2006000" />
+      <workItem from="1600322453987" duration="1229000" />
+      <workItem from="1600635224318" duration="1980000" />
+      <workItem from="1600637234878" duration="3343000" />
+      <workItem from="1600640624623" duration="1394000" />
+      <workItem from="1600644582291" duration="973000" />
+      <workItem from="1600647112055" duration="2819000" />
+      <workItem from="1600655953410" duration="7267000" />
+      <workItem from="1600725293563" duration="713000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1600302280596</created>
@@ -84,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600302832883</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Ajout fichiers base mais cette fois pour de vrai">
+      <created>1600303185995</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600303185995</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,13 +131,18 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="test" />
     <MESSAGE value="Ajout fichiers base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout fichiers base" />
+    <MESSAGE value="Ajout fichiers base mais cette fois pour de vrai" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout fichiers base mais cette fois pour de vrai" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="579" y="88" key="CommitChangelistDialog2" timestamp="1600302832129">
+    <state x="1149" y="163" key="#PHP" timestamp="1600637814190">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="579" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1600302832129" />
+    <state x="1149" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1600637814190" />
+    <state x="579" y="88" key="CommitChangelistDialog2" timestamp="1600303185139">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="579" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1600303185139" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600302795554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -121,10 +151,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1599709176076" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600302841876">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1600303192817">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600302841876" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600303192817" />
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600302433304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
