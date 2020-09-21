@@ -26,9 +26,6 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f21164-fc85-4d4b-b448-550bbb7460d7" name="Default Changelist" comment="modification lien">
-      <change afterPath="$PROJECT_DIR$/view/donnees.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,15 +81,18 @@
       <workItem from="1599710449150" duration="17000" />
       <workItem from="1599710651703" duration="1594000" />
       <workItem from="1599712724752" duration="626000" />
+      <workItem from="1600301657789" duration="104000" />
+      <workItem from="1600301904000" duration="351000" />
+      <workItem from="1600302270819" duration="2006000" />
+      <workItem from="1600322453987" duration="1229000" />
+      <workItem from="1600635224318" duration="1980000" />
+      <workItem from="1600637234878" duration="3343000" />
+      <workItem from="1600640624623" duration="1394000" />
+      <workItem from="1600644582291" duration="973000" />
+      <workItem from="1600647112055" duration="2819000" />
+      <workItem from="1600655953410" duration="7267000" />
+      <workItem from="1600725293563" duration="713000" />
     </task>
-    <task id="LOCAL-00002" summary="modification lien">
-      <created>1600301471276</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1600301471276</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,14 +124,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Ajout Nom" />
-    <MESSAGE value="modification lien" />
-    <option name="LAST_COMMIT_MESSAGE" value="modification lien" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1600582704848">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1600582704848" />
   </component>
 </project>
