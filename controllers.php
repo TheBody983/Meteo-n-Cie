@@ -24,4 +24,18 @@ function logout(){
 
 }
 
+function mesures_action(){
+    get_mesure();
+    require 'view/donnee.php';
+}
+
+function station_action($login, $error){
+    get_station();
+    require 'view/model.php';
+}
+
+function allStations_action($login, $error){
+    get_all_stations();
+    require 'view/model.php';
+}
 ?>
