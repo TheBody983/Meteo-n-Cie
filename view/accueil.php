@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php $title= 'Accueil'; ?>
+<?php ob_start(); ?>
 <head>
 	<title>Meteo'N'Cie</title>
 	<meta charset="utf-8" />
@@ -11,11 +11,10 @@
 </head>
 <body>
 	<header>
-		<img id='titre' src="titre.png">
+		<img id='titre' src="../graphs/titre.png">
 	</header>
 	<div id="menu">
-		<img id='titremenu' src="menu.png">
-		<button id="connexion" onclick="window.location.href = 'login.html';">Se connecter/S'inscrire</button>
+		<img id='titremenu' src="../graphs/menu.png">
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
 			<p><a id="rubrique" href="login.html">Gestion des stations</a></p>
@@ -59,7 +58,8 @@
 	</script>
 	<footer>
 		<div id="avertissement">CANARTISSEMENT:</div>
-		<div id="textavertissement"><marquee behavior="scroll"><img id='canard' src="../graph/duck.png"> STATION WE, LIFOU HS </marquee></div>
+		<div id="textavertissement"><marquee behavior="scroll"><img id='canard' src="../graphs/duck.png"> STATION WE, LIFOU HS </marquee></div>
 	</footer>
 </body>
-</html>
+<?php $content = ob_get_clean(); ?>
+<?php include 'layout.php'; ?>

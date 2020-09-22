@@ -23,10 +23,18 @@ if('register' == $action){
     exit;
 }
 
-// vérification utilisateur authentifié
+if(isset($_POST['mail'])){
+    new_user($_POST['login'], $_POST['password'], $_POST['name'],$_POST['surname'],$_POST['mail']);
+}
 
+// vérification utilisateur authentifié
 if(!isset($_SESSION['login']) ) {
-    if( !isset($_POST['login']) || !isset($_POST['password']) ) {
+    if($action == 'index.php')
+    {
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
+        exit;
+    }
+    elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
         $error='not connected';
         $action = 'login';
     }
@@ -35,8 +43,8 @@ if(!isset($_SESSION['login']) ) {
         $action = 'login';
     }
     else {
-        $_SESSION['userID'] = getUserID($_POST['login']);
-        $_SESSION['login'] = getUserLogin($_SESSION['userID']);
+        //$_SESSION['userID'] = getUserID($_POST['login']);
+        $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
     }
 }
@@ -44,32 +52,13 @@ else{
     $login = $_SESSION['login'] ;
 }
 
-
-
-//Temporaire
-echo "\$action = ".$action;
-if(isset($_POST['login'])) {
-    $login = $_POST['login'];
-    $_SESSION['login'] = $_POST['login'];
-}
-elseif($action != 'login') {
-    $login = ' ';
-    $action = '';
-}
-
-
 if(!isset($error)){
     $error = ' ';
 }
 if(!isset($login)){
     $login = ' ';
 }
-//if(!isset($login)){
-if($action == '')
-{
-    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
-}
-//}
+
 
 
 switch ( $action ) {
