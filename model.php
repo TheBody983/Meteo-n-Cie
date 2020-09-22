@@ -51,7 +51,39 @@ function is_user( $login, $password )
     return $isuser;
 }
 
-function new_user($login,$pwd)
+function get_userID($login){
+    /** récupère l'userID d'un utilistateur
+     *
+     * Récupère un login et renvoie l'userID associé
+     *
+     * @param string $login un nom d'utilisateur
+     *
+     * @return integer un identifiant d'utilisateur
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Securise la chaîne login
+    $login = htmlspecialchars($login);
+    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT userID FROM users WHERE login=?');
+    mysqli_stmt_bind_param($query, 's', $login);
+
+    //Execute la requête
+    mysqli_stmt_execute($query);
+
+    $query = mysqli_stmt_get_result($query);
+    $userID = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+
+    close_database_connection($link);
+    return $userID;
+
+}
+
+function new_user($login,$pwd,$nom,$prenom,$mail)
 {
     /** Créé un nnouvel utilisateur dans la BDD
      *
@@ -59,6 +91,9 @@ function new_user($login,$pwd)
      *
      * @param string $login un nom d'utilisateur
      * @param string $password un mot de passe
+     * @param string $nom le nom de l'utilisateur
+     * @param string $prenom le prenom de l'utilisateur
+     * @param string $mail le mail de l'utilisateur
      */
     $link = open_database_connection();
 
@@ -74,8 +109,8 @@ function new_user($login,$pwd)
     $pwd= password_hash($pwd, PASSWORD_DEFAULT);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'INSERT INTO users(login, password) VALUES (?, ?)');
-    mysqli_stmt_bind_param($query, 'ss', $login, $pwd);
+    $query = mysqli_prepare($link,'INSERT INTO users(login, password, nom, prenom, mail) VALUES (?, ?, ?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'sssss', $login, $pwd,$nom,$prenom,$mail);
 
     //execute la requête
     mysqli_stmt_execute($query);
@@ -123,6 +158,56 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
+function update_station($stationID, $field, $value)
+{
+    /** Met à jour les données d'une station dans la BDD
+     *
+     * @param integer $stationID Un indentifiant de station
+     * @param string $field un champ à modifier
+     * @param string $value la valeur par laquelle remplacer ce champ
+    */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    $field = htmlspecialchars($field);
+    $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
+
+    $value = htmlspecialchars($value);
+    $value =  str_replace(array('\n','\r',PHP_EOL),' ',$value);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'UPDATE stations SET ? = ? WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'ssi', $field, $value, $stationID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
+function del_station($stationID)
+{
+    /** Supprime une station dans la BDD
+     *
+     * @param integer $stationID Un indentifiant de station
+    */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM stations WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $stationID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
 function get_all_stations($userID){
     /** Récupère les informations de toutes les stations
      *
@@ -141,21 +226,57 @@ function get_all_stations($userID){
     if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
-        $mesures = array();
-        while($mesure = mysqli_fetch_array($query, MYSQLI_NUM)){
-            $mesuretmp = array(
-                "stationID" => $mesure[0],
-                "userID" => $mesure[1],
-                "model" => $mesure[2],
-                "description" => $mesure[4],
-                "localisation" => $mesure[5]);
-            $mesures[] = $mesuretmp;
+
+        $stations = array();
+        while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $stationtmp = array(
+                "stationID" => $station[0],
+                "userID" => $station[1],
+                "model" => $station[2],
+                "description" => $station[4],
+                "localisation" => $station[5]);
+            $stations[] = $stationtmp;
         }
     }
 
     close_database_connection($link);
 
-    return $mesures;
+    return $station;
+}
+
+function get_station($stationID){
+    /** Récupère les informations de toutes les stations
+     *
+     * @param int $stationID un identifiant de station
+     *
+     * @return array la liste des stations avec leurs informations
+     */
+
+    $userID = intval($userID);
+
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM stations WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+
+        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
+        $station = array(
+                "stationID" => $stationtmp[0],
+                "userID" => $stationtmp[1],
+                "model" => $stationtmp[2],
+                "description" => $stationtmp[4],
+                "localisation" => $stationtmp[5]);
+    }
+
+    close_database_connection($link);
+
+    return $station;
 }
 
 //MESURES
@@ -262,5 +383,30 @@ function get_mesure_name(){
 
     close_database_connection($link);
     return $mesure_name;
+}
+
+function del_mesure($date, $stationID)
+{
+    /** Supprime une station dans la BDD
+     *
+     * @param string $date un horodatage de mesure
+     * @param int $stationID un identifiant de station
+     */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    $date = htmlspecialchars($date);
+    $date =  str_replace(array('\n','\r',PHP_EOL),' ',$date);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM mesures WHERE stationID = ? and date = ?');
+    mysqli_stmt_bind_param($query, 'is', $stationID, $date);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
 }
 
