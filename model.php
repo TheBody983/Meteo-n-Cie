@@ -182,19 +182,19 @@ function get_station($stationID){
     if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
-        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
-            $station = array(
-                "stationID" => $station[0],
-                "userID" => $station[1],
-                "model" => $station[2],
-                "description" => $station[4],
-                "localisation" => $station[5]);
 
+        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
+        $station = array(
+                "stationID" => $stationtmp[0],
+                "userID" => $stationtmp[1],
+                "model" => $stationtmp[2],
+                "description" => $stationtmp[4],
+                "localisation" => $stationtmp[5]);
     }
 
     close_database_connection($link);
 
-    return $mesures;
+    return $station;
 }
 
 //MESURES
