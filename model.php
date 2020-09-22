@@ -126,6 +126,56 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
+function update_station($stationID, $field, $value)
+{
+    /** Met à jour les données d'une station dans la BDD
+     *
+     * @param integer $stationID Un indentifiant de station
+     * @param string $field un champ à modifier
+     * @param string $value la valeur par laquelle remplacer ce champ
+    */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    $field = htmlspecialchars($field);
+    $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
+
+    $value = htmlspecialchars($value);
+    $value =  str_replace(array('\n','\r',PHP_EOL),' ',$value);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'UPDATE stations SET ? = ? WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'ssi', $field, $value, $stationID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
+function del_station($stationID)
+{
+    /** Supprime une station dans la BDD
+     *
+     * @param integer $stationID Un indentifiant de station
+    */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM stations WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $stationID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
 function get_all_stations($userID){
     /** Récupère les informations de toutes les stations
      *
