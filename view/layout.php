@@ -14,7 +14,7 @@
 
 <body>
 <header>
-    <a href="../index.php/main"><img id='titre' src="../graphs/titre.png"></a>
+    <a href="../index.php"><img id='titre' src="../graphs/titre.png"></a>
 
     <?php
     if(isset($login)) {
