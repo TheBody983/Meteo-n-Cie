@@ -1,6 +1,6 @@
 <?php
-//Code Source : https://github.com/TheBody983/Annonces
-
+//Code Source : https://github.com/TheBody983/Meteo-n-Cie
+//oui
 // charge et initialise les bibliothèques globales
 require_once 'model.php';
 require_once 'controllers.php';
@@ -14,7 +14,6 @@ $action = explode('/',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $action = end($action);
 
 
-
 //Enregistrement avant la vérification d'authentification
 if('register' == $action){
     $login = ' ';
@@ -23,10 +22,18 @@ if('register' == $action){
     exit;
 }
 
+if(isset($_POST['mail'])){
+    new_user($_POST['login'], $_POST['password'], $_POST['name'],$_POST['surname'],$_POST['mail']);
+}
+
 // vérification utilisateur authentifié
-/*
 if(!isset($_SESSION['login']) ) {
-    if( !isset($_POST['login']) || !isset($_POST['password']) ) {
+    if($action == 'index.php' || $action == '')
+    {
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
+        exit;
+    }
+    elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
         $error='not connected';
         $action = 'login';
     }
@@ -35,29 +42,14 @@ if(!isset($_SESSION['login']) ) {
         $action = 'login';
     }
     else {
-        $_SESSION['userID'] = getUserID($_POST['login']);
-        $_SESSION['login'] = getUserLogin($_SESSION['userID']);
+        //$_SESSION['userID'] = getUserID($_POST['login']);
+        $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
     }
 }
 else{
     $login = $_SESSION['login'] ;
 }
-*/
-
-
-
-//Temporaire
-echo "\$action = ".$action;
-if(isset($_POST['login'])) {
-    $login = $_POST['login'];
-    $_SESSION['login'] = $_POST['login'];
-}
-elseif($action != 'login') {
-    $login = ' ';
-    $action = '';
-}
-
 
 if(!isset($error)){
     $error = ' ';
@@ -65,13 +57,7 @@ if(!isset($error)){
 if(!isset($login)){
     $login = ' ';
 }
-//if(!isset($login)){
-//Corriger l'adresse pour éviter les bugs de type "/Annonce/annonces"
-if($action == '')
-{
-    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
-}
-//}
+
 
 
 switch ( $action ) {
@@ -90,6 +76,18 @@ switch ( $action ) {
 
     case 'logout' :                     //Se déconnecter
         logout();
+        break;
+
+    case 'donnees' :                     //Recupere les mesures
+        mesures_action();
+        break;
+
+    case 'station' :                     //Recupère les données d'une station
+        station_action($login, $error);
+        break;
+
+    case 'allStation' :                     //Recupère les données de toutes les stations
+        allStations_action($login, $error);
         break;
 
     default :
