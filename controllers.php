@@ -11,22 +11,22 @@ function register_action($login, $error)
 
 function main_action($login, $error)
 {
-    require 'view/main.php';
+    require 'view/accueil.php';
 }
 
 function homepage(){
-    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/main");
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
 }
 
 function logout(){
     session_destroy();
-    header("refresh:0;url=http://localhost/Meteo'n'Cie/index.php/login");
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
 
 }
 
 function mesures_action(){
-    get_mesure();
-    require 'view/donnee.php';
+    //get_mesures();
+    require 'view/donnees.php';
 }
 
 function station_action($login, $error){

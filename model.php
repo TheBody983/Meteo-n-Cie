@@ -51,7 +51,7 @@ function is_user( $login, $password )
     return $isuser;
 }
 
-function new_user($login,$pwd)
+function new_user($login,$pwd,$nom,$prenom,$mail)
 {
     /** Créé un nnouvel utilisateur dans la BDD
      *
@@ -59,6 +59,9 @@ function new_user($login,$pwd)
      *
      * @param string $login un nom d'utilisateur
      * @param string $password un mot de passe
+     * @param string $nom le nom de l'utilisateur
+     * @param string $prenom le prenom de l'utilisateur
+     * @param string $mail le mail de l'utilisateur
      */
     $link = open_database_connection();
 
@@ -74,8 +77,8 @@ function new_user($login,$pwd)
     $pwd= password_hash($pwd, PASSWORD_DEFAULT);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'INSERT INTO users(login, password) VALUES (?, ?)');
-    mysqli_stmt_bind_param($query, 'ss', $login, $pwd);
+    $query = mysqli_prepare($link,'INSERT INTO users(login, password, nom, prenom, mail) VALUES (?, ?, ?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'sssss', $login, $pwd,$nom,$prenom,$mail);
 
     //execute la requête
     mysqli_stmt_execute($query);
