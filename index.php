@@ -14,7 +14,6 @@ $action = explode('/',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $action = end($action);
 
 
-
 //Enregistrement avant la vérification d'authentification
 if('register' == $action){
     $login = ' ';
@@ -29,7 +28,7 @@ if(isset($_POST['mail'])){
 
 // vérification utilisateur authentifié
 if(!isset($_SESSION['login']) ) {
-    if($action == 'index.php')
+    if($action == 'index.php' || $action == '')
     {
         header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
         exit;
