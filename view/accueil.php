@@ -1,6 +1,6 @@
 <?php $title= 'Accueil'; ?>
 <?php ob_start(); ?>
-<head>
+<!--<head>
 	<title>Meteo'N'Cie</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +8,17 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 	<link rel="stylesheet" href="../index.css"/>
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-</head>
+</head>-->
 <body>
-	<header>
-		<img id='titre' src="../graphs/titre.png">
-	</header>
-	<div id="menu">
+	<section id="menu">
 		<img id='titremenu' src="../graphs/menu.png">
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
-			<p><a id="rubrique" href="login.html">Gestion des stations</a></p>
-			<p><a id="rubrique" href="login.html">Messagerie</a></p>
-			<p><a id="rubrique" href="login.html">Projet</a></p>
-        <form method="post" action="donnees"><input type="submit" value="Données"></form>
-	</div>
+			<p><a id="rubrique" href="">Gestion des stations</a></p>
+			<p><a id="rubrique" href="">Messagerie</a></p>
+			<p><a id="rubrique" href="">Projet</a></p>
+			<p><a id="rubrique" href="donnees">Données</a></p>
+	</section>
 	<div id="mapid"></div>
 	<script>
 

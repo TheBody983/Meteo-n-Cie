@@ -71,7 +71,7 @@ switch ( $action ) {
         break;
 
     case 'index.php':                   //Rediriger vers annonces si index.php
-        homepage();
+        homepage($login, $error);
         break;
 
     case 'logout' :                     //Se déconnecter
@@ -79,7 +79,7 @@ switch ( $action ) {
         break;
 
     case 'donnees' :                     //Recupere les mesures
-        mesures_action();
+        mesures_action($login, $error);
         break;
 
     case 'station' :                     //Recupère les données d'une station

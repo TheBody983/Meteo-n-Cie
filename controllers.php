@@ -14,7 +14,7 @@ function main_action($login, $error)
     require 'view/accueil.php';
 }
 
-function homepage(){
+function homepage($login, $error){
     header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
 }
 
@@ -24,7 +24,7 @@ function logout(){
 
 }
 
-function mesures_action(){
+function mesures_action($login, $error){
     //get_mesures();
     require 'view/donnees.php';
 }
