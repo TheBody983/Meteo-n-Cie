@@ -51,6 +51,38 @@ function is_user( $login, $password )
     return $isuser;
 }
 
+function get_userID($login){
+    /** récupère l'userID d'un utilistateur
+     *
+     * Récupère un login et renvoie l'userID associé
+     *
+     * @param string $login un nom d'utilisateur
+     *
+     * @return integer un identifiant d'utilisateur
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Securise la chaîne login
+    $login = htmlspecialchars($login);
+    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT userID FROM users WHERE login=?');
+    mysqli_stmt_bind_param($query, 's', $login);
+
+    //Execute la requête
+    mysqli_stmt_execute($query);
+
+    $query = mysqli_stmt_get_result($query);
+    $userID = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+
+    close_database_connection($link);
+    return $userID;
+
+}
+
 function new_user($login,$pwd,$nom,$prenom,$mail)
 {
     /** Créé un nnouvel utilisateur dans la BDD

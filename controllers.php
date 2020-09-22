@@ -31,11 +31,11 @@ function mesures_action($login, $error){
 
 function station_action($login, $error){
     get_station();
-    require 'view/model.php';
+    require 'view/station.php';
 }
 
 function allStations_action($login, $error){
-    get_all_stations();
-    require 'view/model.php';
+    get_all_stations(get_userID($login));
+    require 'view/gestionStation.php';
 }
 ?>

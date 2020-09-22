@@ -17,19 +17,21 @@
     <a href="../index.php/main"><img id='titre' src="../graphs/titre.png"></a>
 
     <?php
-    if($login != ' ') {
-        echo '<div><p>Connecté en tant que '.$login.'</p> ' ;
-        echo '<button><a href="../index.php/logout">Déconnexion</a></button></div>';
-    }
+    if(isset($login)) {
+        if ($login != ' ') {
+            echo '<div><p>Connecté en tant que ' . $login . '</p> ';
+            echo '<button><a href="../index.php/logout">Déconnexion</a></button></div>';
+        }
 
-    switch( $error ) {
+        switch ($error) {
             case 'not connected':
                 echo "<p>Vous n'êtes pas connecté. Veuillez vous connecter ou vous créer un compte.</p>";
                 break;
             case 'bad login/pwd':
                 echo "<p>Erreur d'authentification. Veuillez vous connecter ou vous créer un compte.</p>";
                 break;
-        }?>
+        }
+    }?>
 
 </>
 
