@@ -12,6 +12,7 @@
 <body>
 	<section id="menu">
 		<img id='titremenu' src="../graphs/menu.png">
+        <button id="connexion" onclick=""window.location.href = 'login';">Se connecter/ S'inscrire</button>
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
 			<p><a id="rubrique" href="allStation">Gestion des stations</a></p>
@@ -55,8 +56,8 @@
 		
 	</script>
 	<footer>
-		<div id="avertissement">CANARTISSEMENT:</div>
-		<div id="textavertissement"><marquee behavior="scroll"><img id='canard' src="../graphs/duck.png"> STATION WE, LIFOU HS </marquee></div>
+		<div id="avertissement">AVERTISSEMENT:</div>
+		<div id="textavertissement"><marquee behavior="scroll">⚠ STATION WE, LIFOU HS </marquee></div>
 	</footer>
 </body>
 <?php $content = ob_get_clean(); ?>
