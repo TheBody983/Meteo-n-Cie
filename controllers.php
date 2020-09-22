@@ -38,4 +38,8 @@ function allStations_action($login, $error){
     get_all_stations();
     require 'view/model.php';
 }
+
+function accueil_action(){
+    require 'view/accueil.php';
+}
 ?>
