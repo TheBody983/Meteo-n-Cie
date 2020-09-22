@@ -144,21 +144,58 @@ function get_all_stations($userID){
     if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
-        $mesures = array();
-        while($mesure = mysqli_fetch_array($query, MYSQLI_NUM)){
-            $mesuretmp = array(
-                "stationID" => $mesure[0],
-                "userID" => $mesure[1],
-                "model" => $mesure[2],
-                "description" => $mesure[4],
-                "localisation" => $mesure[5]);
-            $mesures[] = $mesuretmp;
+        $stations = array();
+        while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $stationtmp = array(
+                "stationID" => $station[0],
+                "userID" => $station[1],
+                "model" => $station[2],
+                "description" => $station[4],
+                "localisation" => $station[5]);
+            $stations[] = $stationtmp;
         }
     }
 
     close_database_connection($link);
 
-    return $mesures;
+    return $station;
+}
+
+function get_station($stationID){
+    /** Récupère les informations de toutes les stations
+     *
+     * @param int $stationID un identifiant de station
+     *
+     * @return array la liste des stations avec leurs informations
+     */
+
+    $userID = intval($userID);
+
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM stations WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $stations = array();
+        while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $stationtmp = array(
+                "stationID" => $station[0],
+                "userID" => $station[1],
+                "model" => $station[2],
+                "description" => $station[4],
+                "localisation" => $station[5]);
+            $stations[] = $stationtmp;
+        }
+    }
+
+    close_database_connection($link);
+
+    return $station;
 }
 
 //MESURES
