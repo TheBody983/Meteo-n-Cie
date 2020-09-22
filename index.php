@@ -1,6 +1,5 @@
 <?php
 //Code Source : https://github.com/TheBody983/Meteo-n-Cie
-//oui
 // charge et initialise les bibliothèques globales
 require_once 'model.php';
 require_once 'controllers.php';
@@ -28,9 +27,16 @@ if(isset($_POST['mail'])){
 
 // vérification utilisateur authentifié
 if(!isset($_SESSION['login']) ) {
-    if($action == 'index.php' || $action == '')
+    if($action == 'index.php')
+
     {
-        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/login");
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/");
+        exit;
+    }
+
+    elseif($action == '')
+    {
+        accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
         exit;
     }
     elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
