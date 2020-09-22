@@ -126,6 +126,37 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     close_database_connection($link);
 }
 
+function update_station($stationID, $field, $value)
+{
+    /** Créé une nouvelle station dans la BDD
+     *
+     * Récupère les informations d'une station, les sécurise pour éviter les injections, prépare puis envoie la requête
+     *
+     * @param integer $stationID Un indentifiant de station
+     * @param string $field un champ à modifier
+     * @param string $value la valeur par laquelle remplacer ce champ
+    */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    $field = htmlspecialchars($field);
+    $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
+
+    $value = htmlspecialchars($value);
+    $value =  str_replace(array('\n','\r',PHP_EOL),' ',$value);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'UPDATE stations SET ? = ? WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'ssi', $field, $value, $stationID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
 function get_all_stations($userID){
     /** Récupère les informations de toutes les stations
      *
