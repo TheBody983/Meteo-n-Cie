@@ -20,6 +20,7 @@
 			<p><a id="rubrique" href="login.html">Gestion des stations</a></p>
 			<p><a id="rubrique" href="login.html">Messagerie</a></p>
 			<p><a id="rubrique" href="login.html">Projet</a></p>
+        <form method="post" action="donnees"><input type="submit" value="Données"></form>
 	</div>
 	<div id="mapid"></div>
 	<script>

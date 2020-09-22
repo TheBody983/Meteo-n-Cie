@@ -79,7 +79,7 @@ switch ( $action ) {
         logout();
         break;
 
-    case 'donnee' :                     //Recupere les mesures
+    case 'donnees' :                     //Recupere les mesures
         mesures_action();
         break;
 

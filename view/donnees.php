@@ -1,7 +1,6 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
 //temporaire, le temps d'avoir l'accès depuis index
-require_once '../model.php';
 $stations = get_all_stations(1);
 ?>
 <script>
@@ -17,7 +16,7 @@ function showHint(str) {
                 document.getElementById("hint").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "../ajaxtest.php?q=" + str, true);
+        xmlhttp.open("GET", "../ajax/getmesures.php?q=" + str, true);
         xmlhttp.send();
     }
 }
@@ -29,7 +28,7 @@ function search(str){
             document.getElementById("table").innerHTML = this.responseText;
         }
     };
-    xmlhttp.open("GET","../getdonnees.php?q="+str,true);
+    xmlhttp.open("GET","../ajax/getdonnees.php?q="+str,true);
     xmlhttp.send();
 }
 </script>

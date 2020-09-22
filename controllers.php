@@ -25,8 +25,8 @@ function logout(){
 }
 
 function mesures_action(){
-    get_mesure();
-    require 'view/donnee.php';
+    //get_mesures();
+    require 'view/donnees.php';
 }
 
 function station_action($login, $error){

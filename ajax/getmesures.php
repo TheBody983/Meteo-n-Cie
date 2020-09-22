@@ -1,5 +1,5 @@
 <?php
-require_once 'model.php';
+require_once '../model.php';
 
 foreach(get_mesure_name() as $name){
     $a[] = $name;
