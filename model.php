@@ -303,3 +303,28 @@ function get_mesure_name(){
     return $mesure_name;
 }
 
+function del_mesure($date, $stationID)
+{
+    /** Supprime une station dans la BDD
+     *
+     * @param string $date un horodatage de mesure
+     * @param int $stationID un identifiant de station
+     */
+
+    $link = open_database_connection();
+
+    $stationID = intval($userID);
+
+    $date = htmlspecialchars($date);
+    $date =  str_replace(array('\n','\r',PHP_EOL),' ',$date);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM mesures WHERE stationID = ? and date = ?');
+    mysqli_stmt_bind_param($query, 'is', $stationID, $date);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
