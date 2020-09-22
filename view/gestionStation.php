@@ -12,30 +12,28 @@
     let divGestion=document.querySelector("#idGestionStation");
 
     boutonAddStation = document.querySelector("#boutonAddStation");
+    let i=0;
     boutonAddStation.addEventListener('click',function(evt){
-        let divAddStation=document.createElement("div");
-        divAddStation.setAttribute("id","idAddStation");
-        divAddStation.innerHTML='<form action="/Meteo-n-Cie/index.php/addStation"><label>Nom : <input type="text" name="nomStation" id="nomStation"></label><label>Coordonées : <input type="text" name="coordonneesStation" id="coordonneesStation"></label><label>Description : <input type="textarea" name="descriptionStation" id="descriptionStation" placeholder="(facultatif)"></label></form>';
-        divGestion.appendChild(divAddStation);
+        if (i==0){
+            let divAddStation=document.createElement("div");
+            divAddStation.setAttribute("id","idAddStation");
+            divAddStation.innerHTML='<form action="/Meteo-n-Cie/index.php/addStation"><label>Nom : <input type="text" name="nomStation" id="nomStation"></label><label>Coordonées : <input type="text" name="coordonneesStation" id="coordonneesStation"></label><label>Description : <input type="textarea" name="descriptionStation" id="descriptionStation" placeholder="(facultatif)"></label></form>';
+            divGestion.appendChild(divAddStation);
+            i=i+1;}
     })
 
     boutonDelStation = document.querySelector("#boutonDelStation");
     boutonDelStation.addEventListener('click',function(evt) {
         let divDelStation=document.createElement("div");
         divDelStation.setAttribute("id","idDelStation");
-        //divDelStation.innerHTML='<ul><?php //foreach( $stations as $station ) : ?><li><p><?php //echo $station["nom"];?><button id="boutonX">x</button></p></li><?php //endforeach ?></ul>';
-
-        boutonX = document.querySelector("#boutonX");
-        boutonX.addEventListener('click',function(evt){
-            divDelStation.removeChild(boutonX);
-        })
+        divDelStation.innerHTML='<ul><?php foreach( $stations as $station ) : ?><li><?php echo $station["nom"];?><input type="button" value="x" onclick="window.location.href=\'/Meteo-n-Cie/index.php/delStation\'"></li><?php endforeach ?></ul>';
     })
 
     boutonEditStation = document.querySelector("#boutonEditStation");
     boutonEditStation.addEventListener('click',function(evt){
         let divEditStation=document.createElement("div");
         divEditStation.setAttribute("id","idEditStation");
-        //divEditStation.innerHtml='<ul><?php //foreach( $stations as $station ) : ?><li><p><?php //echo $station["nom"];?></p></li><?php //endforeach ?></ul>';
+        divEditStation.innerHtml='<ul><?php foreach( $stations as $station ) : ?><li><?php echo $station["nom"];?><input type="button" value="Editer" onclick="window.location.href=\'/Meteo-n-Cie/index.php/editStation\'"></li><?php endforeach ?></ul>';
     })
 </script>
 <?php $content = ob_get_clean(); ?>
