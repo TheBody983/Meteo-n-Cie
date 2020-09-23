@@ -15,7 +15,7 @@
         <button id="connexion" onclick="window.location.href = 'login';">Se connecter/ S'inscrire</button>
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
-			<p><a id="rubrique" href="allStation">Gestion des stations</a></p>
+			<p><a id="rubrique" href="gestionStation">Gestion des stations</a></p>
 			<p><a id="rubrique" href="">Messagerie</a></p>
 			<p><a id="rubrique" href="">Projet</a></p>
 			<p><a id="rubrique" href="donnees">Données</a></p>

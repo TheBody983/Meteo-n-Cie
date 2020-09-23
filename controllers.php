@@ -30,12 +30,18 @@ function mesures_action($login, $error){
 }
 
 function station_action($login, $error){
-    get_station();
+    $station = get_station($_POST['station']);
     require 'view/station.php';
 }
 
-function allStations_action($login, $error){
-    get_all_stations(get_userID($login));
+function gestionStations_action($login, $error){
+    $stations = get_all_stations(get_userID($login));
+    if(isset($_POST['addStation'])){
+        new_station(get_userID($login),$_POST['model'], 'Private', $_POST['descriptionStation'], $_POST['coordonneesStation']);
+    }
+    if(isset($_POST['delStation'])){
+        del_station($_POST['delStation']);
+    }
     require 'view/gestionStation.php';
 }
 

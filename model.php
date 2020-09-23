@@ -196,7 +196,7 @@ function del_station($stationID)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     //Prepare la requête
     $query = mysqli_prepare($link,'DELETE FROM stations WHERE stationID = ?');
@@ -241,7 +241,7 @@ function get_all_stations($userID){
 
     close_database_connection($link);
 
-    return $station;
+    return $stations;
 }
 
 function get_station($stationID){
@@ -252,13 +252,13 @@ function get_station($stationID){
      * @return array la liste des stations avec leurs informations
      */
 
-    $userID = intval($userID);
+    $stationID = intval($stationID);
 
     $link = open_database_connection();
 
     //Prepare la requête
     $query = mysqli_prepare($link,'SELECT * FROM stations WHERE stationID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
+    mysqli_stmt_bind_param($query, 'i', $stationID);
 
     //Execute la requête
     if(mysqli_stmt_execute($query)) {

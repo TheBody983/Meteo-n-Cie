@@ -44,11 +44,7 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 }
-#connexion:hover{
-	background-color: white;
-	color: royalblue;
-	border: 1px solid royalblue;
-}
+
 p{
 	text-align: center;
 	background: cornflowerblue;
@@ -64,21 +60,7 @@ p{
 	font-weight: 300;
 	text-decoration: none;
 }
-.rubrique:hover{
-	color: white;
-	font-weight: bold;
-	text-decoration: underline;
-}
-p:hover{
-	padding: 3%;
-	font-size: 120%;
-	transition-duration: 0.5s;
-	transition-delay: 0.2s;
-	margin-bottom: 5px;
-}
-section:hover{
-	transition-duration: 0.5s;
-}
+
 #mapid {
 	width: 100%;
 	height: 825px;

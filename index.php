@@ -92,8 +92,8 @@ switch ( $action ) {
         station_action($login, $error);
         break;
 
-    case 'allStation' :                     //Recupère les données de toutes les stations
-        allStations_action($login, $error);
+    case 'gestionStation' :                     //Recupère les données de toutes les stations
+        gestionStations_action($login, $error);
         break;
 
     default :
