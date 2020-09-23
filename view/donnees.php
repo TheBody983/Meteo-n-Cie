@@ -1,8 +1,16 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
-//temporaire, le temps d'avoir l'accès depuis index
-$stations = get_all_stations(1);
 ?>
+
+    <div class="containerCol">
+        <label for="searchbar">Mesures recherchées</label>
+        <input type="text" id="searchbar" name="searchbar" placeholder="Veuillez entrer un terme" onkeyup="showHint(this.value)">
+    </div>
+
+    <p>Mesures existantes : <span id="hint"></span></p>
+    <div id="table" class="containerCol">
+    </div>
+
 <script>
 function showHint(str) {
     if (str.length == 0) {
@@ -32,13 +40,5 @@ function search(str){
     xmlhttp.send();
 }
 </script>
-
-<form action="">
-    <input type="text" id="searchbar" name="searchbar" onkeyup="showHint(this.value)">
-</form>
-<p>Suggestions: <span id="hint"></span></p>
-<table id="table">
-</table>
-
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

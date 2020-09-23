@@ -11,6 +11,24 @@ header{
 	justify-content: center;
 }
 
+p{
+	border-radius: 5px;
+	background-color: darkgray;
+	box-shadow: black 2px 2px 2px;
+	padding: 5px;
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+th, td {
+	padding: 5px;
+}
+
 #mapid {
 	border-style: solid;
 	border-radius: 5px;
@@ -34,13 +52,5 @@ header{
 	flex-flow: column nowrap;
 	justify-content: space-around;
 	align-content: space-around;
-
-}
-
-p{
-	border-radius: 5px;
-	background-color: darkgray;
-	box-shadow: black 2px 2px 2px;
-	padding: 5px;
-	text-align: center;
+	align-items: stretch;
 }
