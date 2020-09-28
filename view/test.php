@@ -1,6 +1,10 @@
 <?php $title= 'Connexion'; ?>
 <?php ob_start(); ?>
+<?php
 
+
+
+?>
 <p>Template</p>
 test
     <button onclick="window.location.href = 'accueil';">Revenir à l'accueil</button>

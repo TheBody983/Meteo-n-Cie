@@ -27,13 +27,12 @@ if(isset($_POST['mail'])){
 
 // vérification utilisateur authentifié
 if(!isset($_SESSION['login']) ) {
-    if($action == 'index.php')
 
+    if($action == 'index.php')
     {
-        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/");
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
         exit;
     }
-
     elseif($action == '')
     {
         accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
@@ -90,6 +89,10 @@ switch ( $action ) {
 
     case 'station' :                     //Recupère les données d'une station
         station_action($login, $error);
+        break;
+
+    case 'test' :                     //Recupère les données d'une station
+        require 'view/test.php';
         break;
 
     case 'gestionStation' :                     //Recupère les données de toutes les stations
