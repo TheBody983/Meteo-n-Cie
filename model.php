@@ -83,7 +83,7 @@ function get_userID($login){
 
 }
 
-function new_user($login,$pwd,$nom,$prenom,$mail)
+function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
 {
     /** Créé un nnouvel utilisateur dans la BDD
      *
@@ -409,4 +409,77 @@ function del_mesure($date, $stationID)
 
     close_database_connection($link);
 }
+//PROJETS
+function new_project($name, $descr){
+    /** Créé un nouveau projet
+     *
+     * @param string $name un nom de projet
+     * @param string $descr la description du projet
+     */
 
+    $link = open_database_connection();
+
+    $name = htmlspecialchars($name);
+    $name =  str_replace(array('\n','\r',PHP_EOL),' ',$name);
+
+    $descr = htmlspecialchars($descr);
+    $descr =  str_replace(array('\n','\r',PHP_EOL),' ',$descr);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO projets(nom, description) VALUES (?, ?)');
+    mysqli_stmt_bind_param($query, 'ss', $name, $descr);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
+function add_user_to_project($userID, $projetID, $priv = NULL){
+    /** Ajoute un utilisateur au projet
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     * @param integer $projetID un identifiiant de projet
+     * @param string $priv un niveau de privilège
+     */
+
+    $link = open_database_connection();
+
+    $userID = intval($userID);
+
+    $projetID =  intval($projetID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO user_projet(userID, projetID, privileges) VALUES (?, ?, ?)');
+    mysqli_stmt_bind_param($query, 'iis', $userID, $projetID, $priv);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+
+}
+
+function add_station_to_project($stationID, $projetID){
+    /** Ajoute un utilisateur au projet
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     * @param integer $projetID un identifiiant de projet
+     */
+
+    $link = open_database_connection();
+
+    $stationID = intval($stationID);
+
+    $projetID =  intval($projetID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'INSERT INTO station_projet(stationID, projetID) VALUES (?, ?)');
+    mysqli_stmt_bind_param($query, 'ii', $stationID, $projetID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+
+}
