@@ -12,13 +12,17 @@
 <div class="container">
 	<div id="menu" class="containerCol">
         <img id='titremenu' src="../graphs/menu.png"/>
-        <button id="connexion" onclick="window.location.href = 'login';">Se connecter/ S'inscrire</button>
+        <?php
+        if(!isset($_SESSION['login']))
+        echo '<button id="connexion" onclick="window.location.href = "login";">Se connecter/ S\'inscrire</button>';
+        ?>
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
 			<p><a id="rubrique" href="gestionStation">Gestion des stations</a></p>
 			<p><a id="rubrique" href="">Messagerie</a></p>
 			<p><a id="rubrique" href="">Projet</a></p>
 			<p><a id="rubrique" href="donnees">Données</a></p>
+			<p><a id="rubrique" href="test">Tests</a></p>
 	</div>
 
 
