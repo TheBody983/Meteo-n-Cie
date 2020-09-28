@@ -23,6 +23,6 @@
 
     <input type="submit" value="Envoyer"/>
 </form>
-<a href="http://localhost/Meteo-n-Cie/index.php/main"> Annuler </a>
+<input type ="button" value = "Annuler"  onclick = "history.back()">
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

@@ -53,7 +53,7 @@
         function onMapClick(e) {
             popup
                 .setLatLng(e.latlng)
-                .setContent("Vous avez cliqué à " + e.latlng.toString())
+                .setContent("Coordonnées: " + e.latlng.toString())
                 .openOn(mymap);
         }
 
