@@ -20,6 +20,7 @@ foreach($stations as $station){
 }
 
 ?>
+
 <div id="idGestionStation">
     <form method="post"action="gestionStation">
         <input type="text" name="addStation" id="addStation" value = "yes" hidden>

@@ -245,11 +245,11 @@ function get_all_stations($userID){
 }
 
 function get_station($stationID){
-    /** Récupère les informations de toutes les stations
+    /** Récupère les informations d'une station
      *
      * @param int $stationID un identifiant de station
      *
-     * @return array la liste des stations avec leurs informations
+     * @return array les information de la station
      */
 
     $stationID = intval($stationID);
@@ -409,6 +409,7 @@ function del_mesure($date, $stationID)
 
     close_database_connection($link);
 }
+
 //PROJETS
 function new_project($name, $descr){
     /** Créé un nouveau projet
@@ -482,4 +483,72 @@ function add_station_to_project($stationID, $projetID){
 
     close_database_connection($link);
 
+}
+
+function get_projet($projetID){
+    /** Retourne toutes les informations d'un projet
+     *
+     * @param integer $projetID un identifiiant de projet
+     *
+     * @return array composé des infos du projet, des stations et utilisateurs le composant
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    $projetID =  intval($projetID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link, 'SELECT * FROM projets WHERE projetID=?');
+    mysqli_stmt_bind_param($query, 'i', $projetID);
+
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $info = mysqli_fetch_array($query, MYSQLI_NUM);
+        $projetInfo = array(
+            "projetID" => $info[0],
+            "nom" => $info[1],
+            "description" => $info[2]
+        );
+    }
+
+    //Prepare la requête
+    $query = mysqli_prepare($link, 'SELECT stationID FROM station_projet WHERE projetID=?');
+    mysqli_stmt_bind_param($query, 'i', $projetID);
+
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $stations = array();
+        while($stationID = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $stations[] = get_station($stationID);
+        }
+    }
+
+    //Prepare la requête
+    $query = mysqli_prepare($link, 'SELECT login FROM user_projet NATURAL JOIN users WHERE projetID=?');
+    mysqli_stmt_bind_param($query, 'i', $projetID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $users = array();
+        while($login = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $users[] = $login;
+        }
+    }
+
+
+    close_database_connection($link);
+    return array(
+        "infos" => $projetInfo,
+        "stations" => $stations,
+        "users" => $users
+    );
 }
