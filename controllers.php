@@ -4,6 +4,10 @@ function login_action($login , $error)
     require 'view/login.php';
 }
 
+function acces_controller_admin($login)
+{
+    require 'view/admin.php';
+}
 function register_action($login, $error)
 {
     require 'view/register.php';

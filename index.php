@@ -30,12 +30,12 @@ if(!isset($_SESSION['login']) ) {
 
     if($action == 'index.php')
     {
-        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/");
         exit;
     }
-    elseif($action == '')
+    elseif($action == 'main')
     {
-        accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
+        main_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
         exit;
     }
     elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
@@ -54,6 +54,10 @@ if(!isset($_SESSION['login']) ) {
 }
 else{
     $login = $_SESSION['login'] ;
+
+    if($login == $admin){
+        acces_controller_admin($login);
+    }
 }
 
 if(!isset($error)){
@@ -73,7 +77,7 @@ switch ( $action ) {
         main_action($login, $error);
         break;
 
-    case 'index.php':                   //Rediriger vers annonces si index.php
+    case 'index.php':                   //Rediriger vers l'accueil si index.php
         homepage($login, $error);
         break;
 
