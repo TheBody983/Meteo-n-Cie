@@ -11,6 +11,7 @@ function register_action($login, $error)
 
 function main_action($login, $error)
 {
+    $stations = get_all_stations(get_userID($login));
     require 'view/accueil.php';
 }
 
@@ -46,6 +47,7 @@ function gestionStations_action($login, $error){
 }
 
 function accueil_action(){
+    $stations = get_all_stations(get_userID($login));
     require 'view/accueil.php';
 }
 ?>

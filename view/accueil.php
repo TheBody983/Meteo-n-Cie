@@ -1,6 +1,6 @@
 <?php $title= 'Accueil'; ?>
 <?php ob_start(); ?>
-<!--<head>
+<head>
 	<title>Meteo'N'Cie</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +8,13 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 	<link rel="stylesheet" href="../index.css"/>
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-</head>-->
+</head>
 <div class="container">
 	<div id="menu" class="containerCol">
         <img id='titremenu' src="../graphs/menu.png"/>
         <?php
         if(!isset($_SESSION['login']))
-        echo '<button id="connexion" onclick="window.location.href = "login";">Se connecter/ S\'inscrire</button>';
+        echo '<button id="connexion" onclick="window.location.href = \'login\';">Se connecter/ S\'inscrire</button>';
         ?>
 		<p><a id="rubrique" href="">Liste des stations</a></p>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
@@ -43,7 +43,9 @@
             tileSize: 512,
             zoomOffset: -1
         }).addTo(mymap);
-
+        <?php foreach($stations as $station){
+            echo 'var marker = L.marker(['.$station[localisation].']).addTo(mymap);marker.bindPopup("<b>'.$station[description].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>);';
+        }?>
         var marker = L.marker([-20.916709, -192.734699]).addTo(mymap);
         marker.bindPopup("<b>Wé, Lifou</b><br><a href=''>Cliquez pour plus d'infos</a>");
 

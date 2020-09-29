@@ -63,8 +63,6 @@ if(!isset($login)){
     $login = ' ';
 }
 
-
-
 switch ( $action ) {
 
     case 'login' :                      //Connecter si pas de session
@@ -101,7 +99,7 @@ switch ( $action ) {
 
     default :
         header('Status: 404 Not Found');
-        echo '<html><body><h1>My Page Not Found</h1></body></html>';
+        echo '<html lang="fr"><body><h1>My Page Not Found</h1></body></html>';
 
         echo $action;
 
