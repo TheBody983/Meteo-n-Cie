@@ -38,9 +38,12 @@ function gestionStations_action($login, $error){
     $stations = get_all_stations(get_userID($login));
     if(isset($_POST['addStation'])){
         new_station(get_userID($login),$_POST['model'], 'Private', $_POST['descriptionStation'], $_POST['coordonneesStation']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/gestionStation");
+
     }
     if(isset($_POST['delStation'])){
         del_station($_POST['delStation']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/gestionStation");
     }
     require 'view/gestionStation.php';
 }
