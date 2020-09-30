@@ -59,6 +59,4 @@ function listeStations_action($login, $error){
     $stations = get_all_stations(get_userID($login));
 
     require 'view/listeStation.php';
-}
-
 ?>

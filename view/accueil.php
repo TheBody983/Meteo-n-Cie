@@ -10,26 +10,54 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 </head>
 <div class="container">
-	<div id="menu" class="containerCol">
+	<article id="menu" class="containerCol">
         <img id='titremenu' src="../graphs/menu.png"/>
         <?php
         if(!isset($_SESSION['login']))
-        echo '<button id="connexion" onclick="window.location.href = \'login\';">Se connecter/ S\'inscrire</button>';
+        echo '<button id="connexion" onclick="window.location.href = \'login\'">Se connecter/ S\'inscrire</button>';
         ?>
-		<p><a id="rubrique" href="listeStation">Liste des stations</a></p>
+        <article>
+            <div>
+                <a id="rubrique" href="listeStation">
+                    <section>
+                        <p id="listmenu" align="middle">Liste des stations</p>
+                    </section>
+            </div>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
-			<p><a id="rubrique" href="gestionStation">Gestion des stations</a></p>
-			<p><a id="rubrique" href="">Messagerie</a></p>
-			<p><a id="rubrique" href="">Projet</a></p>
-			<p><a id="rubrique" href="donnees">Données</a></p>
-			<p><a id="rubrique" href="test">Tests</a></p>
-	</div>
-
-
+            <div>
+                <a id="rubrique" href="gestionStation">
+                    <section>
+                        <p id="listmenu" align="middle">Gestion des stations</p>
+                    </section>
+            </div>
+            <div>
+                <a id="rubrique" href="">
+                    <section>
+                        <p id="listmenu" align="middle">Messagerie</p>
+                    </section>
+            </div>
+            <div>
+                <a id="rubrique" href="">
+                    <section>
+                        <p id="listmenu" align="middle">Projet</p>
+                    </section>
+            </div>
+            <div>
+                <a id="rubrique" href="donnees">
+                    <section>
+                        <p id="listmenu" align="middle">Données</p>
+                    </section>
+            </div>
+            <div>
+                <a id="rubrique" href="test">
+                    <section>
+                        <p id="listmenu" align="middle">Tests</p>
+                    </section>
+            </div>
+	    </article>
+    </article>
 	<div id="mapid" ></div>
 </div>
-	<footer>
-    </footer>
     <script>
 
         var mymap = L.map('mapid').setView([-21, -194.55], 8);
@@ -43,9 +71,7 @@
             tileSize: 512,
             zoomOffset: -1
         }).addTo(mymap);
-        <?php foreach($stations as $station){
-            echo 'var marker = L.marker(['.$station[localisation].']).addTo(mymap);marker.bindPopup("<b>'.$station[description].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>);';
-        }?>
+
         var marker = L.marker([-20.916709, -192.734699]).addTo(mymap);
         marker.bindPopup("<b>Wé, Lifou</b><br><a href=''>Cliquez pour plus d'infos</a>");
 
