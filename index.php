@@ -55,7 +55,7 @@ if(!isset($_SESSION['login']) ) {
 else{
     $login = $_SESSION['login'] ;
 
-    if($login == $admin){
+    if($login == "admin"){
         acces_controller_admin($login);
     }
 }
