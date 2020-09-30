@@ -83,6 +83,35 @@ function get_userID($login){
 
 }
 
+function get_login($userID){
+    /** récupère le login d'un utilisateur
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     *
+     * @return string un login
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Securise la chaîne userID
+    $userID = intval($userID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT login FROM users WHERE userID=?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //Execute la requête
+    mysqli_stmt_execute($query);
+
+    $query = mysqli_stmt_get_result($query);
+    $login = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+
+    close_database_connection($link);
+    return $login;
+
+}
+
 function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
 {
     /** Créé un nnouvel utilisateur dans la BDD
