@@ -30,12 +30,18 @@ if(!isset($_SESSION['login']) ) {
 
     if($action == 'index.php')
     {
-        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/");
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
         exit;
     }
     elseif($action == 'main')
     {
-        accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
+        if(!isset($error)){
+            $error = ' ';
+        }
+        if(!isset($login)){
+            $login = ' ';
+        }
+        main_action($login, $error);       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
         exit;
     }
     elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
