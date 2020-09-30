@@ -45,6 +45,8 @@ else
 <?php echo $content; ?>
 
 <footer>
+    <div id="avertissement">AVERTISSEMENT</div>
+    <div id="textavertissement"><marquee behavior="scroll">⚠ STATION WE, LIFOU HS</marquee></div>
 </footer>
 </body>
 </html>

@@ -21,8 +21,8 @@
     <input type="password" name="password" id="idpassword" required/>
     <br />
 
-    <input type="submit" value="Envoyer"/>
+    <input id="connexion" type="submit" value="Envoyer"/>
 </form>
-<input type ="button" value = "Annuler"  onclick = "history.back()">
+<button id="connexion" onclick = "history.back()">Annuler</button>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

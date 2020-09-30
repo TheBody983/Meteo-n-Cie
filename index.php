@@ -25,17 +25,12 @@ if(isset($_POST['mail'])){
     new_user($_POST['login'], $_POST['password'], $_POST['name'],$_POST['surname'],$_POST['mail']);
 }
 
-// vérification utilisateur authentifié
-if(!isset($_SESSION['login']) ) {
-
-    if($action == 'index.php')
-    {
+    if($action == 'index.php') {
         header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/");
         exit;
     }
-    elseif($action == 'main')
-    {
-        main_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
+    elseif($action == '') {
+        accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
         exit;
     }
     elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
@@ -51,14 +46,6 @@ if(!isset($_SESSION['login']) ) {
         $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
     }
-}
-else{
-    $login = $_SESSION['login'] ;
-
-    if($login == $admin){
-        acces_controller_admin($login);
-    }
-}
 
 if(!isset($error)){
     $error = ' ';
@@ -66,6 +53,8 @@ if(!isset($error)){
 if(!isset($login)){
     $login = ' ';
 }
+
+
 
 switch ( $action ) {
 
@@ -77,7 +66,7 @@ switch ( $action ) {
         main_action($login, $error);
         break;
 
-    case 'index.php':                   //Rediriger vers l'accueil si index.php
+    case 'index.php':                   //Rediriger vers annonces si index.php
         homepage($login, $error);
         break;
 
@@ -103,7 +92,7 @@ switch ( $action ) {
 
     default :
         header('Status: 404 Not Found');
-        echo '<html lang="fr"><body><h1>My Page Not Found</h1></body></html>';
+        echo '<html><body><h1>My Page Not Found</h1></body></html>';
 
         echo $action;
 

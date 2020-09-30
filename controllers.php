@@ -52,9 +52,10 @@ function gestionStations_action($login, $error){
     }
     require 'view/gestionStation.php';
 }
-
 function accueil_action(){
+    if(isset($login)){
     $stations = get_all_stations(get_userID($login));
+    }
     require 'view/accueil.php';
 }
 ?>
