@@ -25,17 +25,21 @@ if(isset($_POST['mail'])){
     new_user($_POST['login'], $_POST['password'], $_POST['name'],$_POST['surname'],$_POST['mail']);
 }
 
+
+if($action == 'index.php') {
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
+    exit;
+}
+
 if(!isset($_SESSION['login']) ) {
     if (!isset($_POST['login']) || !isset($_POST['password'])) {
         $error = 'not connected';
-        $action = 'login';
         if($action == 'main'){
             main_action(' ', ' ');       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
             exit;
         }
     } elseif (!is_user($_POST['login'], $_POST['password'])) {
         $error = 'bad login/pwd';
-        $action = 'login';
     } else {
         $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
