@@ -46,7 +46,7 @@ else
 
 <footer>
     <div id="avertissement">AVERTISSEMENT</div>
-    <div id="textavertissement"><marquee behavior="scroll">LUDO IS GAY</marquee></div>
+    <div id="textavertissement"><marquee behavior="scroll">LE SITE MARCHE (ENFIN PRESQUE)</marquee></div>
 </footer>
 </body>
 </html>
