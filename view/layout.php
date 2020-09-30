@@ -21,9 +21,9 @@ else
 
 <body>
 <header class="container">
-    <a href="../index.php"><img id='titre' src="../graphs/titre.png"></a>
+    <a href="../index.php/main"><img id='titre' src="../graphs/titre.png"></a>
 
-    <?php
+    <?php /*
     if(isset($login)) {
         if ($login != ' ') {
             echo '<div><p>Connecté en tant que ' . $login . '</p> ';
@@ -38,7 +38,7 @@ else
                 echo "<p>Erreur d'authentification. Veuillez vous connecter ou vous créer un compte.</p>";
                 break;
         }
-    }?>
+    }*/ ?>
 
 </header>
 
@@ -46,7 +46,7 @@ else
 
 <footer>
     <div id="avertissement">AVERTISSEMENT</div>
-    <div id="textavertissement"><marquee behavior="scroll">⚠ STATION WE, LIFOU HS</marquee></div>
+    <div id="textavertissement"><marquee behavior="scroll"><?php if(isset($_SESSION['login']) ) echo $login?></marquee></div>
 </footer>
 </body>
 </html>

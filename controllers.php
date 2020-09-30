@@ -54,9 +54,11 @@ function gestionStations_action($login, $error){
     require 'view/gestionStation.php';
 }
 
-function listeStations_action($login, $error){
+function listeStations_action($login, $error)
+{
 
     $stations = get_all_stations(get_userID($login));
 
     require 'view/listeStation.php';
+}
 ?>

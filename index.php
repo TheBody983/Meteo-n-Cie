@@ -25,28 +25,25 @@ if(isset($_POST['mail'])){
     new_user($_POST['login'], $_POST['password'], $_POST['name'],$_POST['surname'],$_POST['mail']);
 }
 
-    if($action == 'index.php') {
-        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
-        exit;
-    }
-    elseif($action == 'main')
-        main_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
-        exit;
-    }
-    elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
-        $error='not connected';
+if(!isset($_SESSION['login']) ) {
+    if (!isset($_POST['login']) || !isset($_POST['password'])) {
+        $error = 'not connected';
         $action = 'login';
-    }
-    elseif( !is_user($_POST['login'],$_POST['password']) ){
-        $error='bad login/pwd';
+        if($action == 'main'){
+            main_action(' ', ' ');       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
+            exit;
+        }
+    } elseif (!is_user($_POST['login'], $_POST['password'])) {
+        $error = 'bad login/pwd';
         $action = 'login';
-    }
-    else {
-        //$_SESSION['userID'] = getUserID($_POST['login']);
+    } else {
         $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
     }
-
+}
+else {
+    $login = $_SESSION['login'];
+}
 
 if(!isset($error)){
     $error = ' ';

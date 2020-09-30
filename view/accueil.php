@@ -22,6 +22,7 @@
                     <section>
                         <p id="listmenu" align="middle">Liste des stations</p>
                     </section>
+                </a>
             </div>
 		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
             <div>
@@ -29,30 +30,35 @@
                     <section>
                         <p id="listmenu" align="middle">Gestion des stations</p>
                     </section>
+                </a>
             </div>
             <div>
                 <a id="rubrique" href="">
                     <section>
                         <p id="listmenu" align="middle">Messagerie</p>
                     </section>
+                </a>
             </div>
             <div>
                 <a id="rubrique" href="">
                     <section>
                         <p id="listmenu" align="middle">Projet</p>
                     </section>
+                </a>
             </div>
             <div>
                 <a id="rubrique" href="donnees">
                     <section>
                         <p id="listmenu" align="middle">Données</p>
                     </section>
+                </a>
             </div>
             <div>
                 <a id="rubrique" href="test">
                     <section>
                         <p id="listmenu" align="middle">Tests</p>
                     </section>
+                </a>
             </div>
 	    </article>
     </article>
