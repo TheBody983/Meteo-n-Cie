@@ -237,8 +237,10 @@ function del_station($stationID)
     close_database_connection($link);
 }
 
-function get_all_stations($userID){
+function get_all_stations($userID=0){
     /** Récupère les informations de toutes les stations
+     *
+     * @param integer $userID un identifiant d'utilisateur. 0 pour avoir toutes les stations
      *
      * @return array la liste des stations avec leurs informations
      */
@@ -248,8 +250,17 @@ function get_all_stations($userID){
     $link = open_database_connection();
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
+    if($userID == 0) {
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public"');
+    }
+    else if($userID == -1){
+        $query = mysqli_prepare($link, 'SELECT * FROM stations');
+        mysqli_stmt_bind_param($query, 'i', $userID);
+    }
+    else {
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
+        mysqli_stmt_bind_param($query, 'i', $userID);
+    }
 
     //Execute la requête
     if(mysqli_stmt_execute($query)) {
@@ -258,12 +269,18 @@ function get_all_stations($userID){
 
         $stations = array();
         while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
+            $loc = explode(' ', $station[5]);
+            $lat = floatval($loc[0]);
+            $long = floatval($loc[1]);
+
             $stationtmp = array(
                 "stationID" => $station[0],
                 "userID" => $station[1],
                 "model" => $station[2],
+                "visibility" => $station[3],
                 "description" => $station[4],
-                "localisation" => $station[5]);
+                "localisation" => $station[5],
+                "coord" => array($lat,$long));
             $stations[] = $stationtmp;
         }
     }
@@ -299,6 +316,7 @@ function get_station($stationID){
                 "stationID" => $stationtmp[0],
                 "userID" => $stationtmp[1],
                 "model" => $stationtmp[2],
+                "visibility" => $stationtmp[3],
                 "description" => $stationtmp[4],
                 "localisation" => $stationtmp[5]);
     }

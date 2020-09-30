@@ -35,7 +35,7 @@ if(!isset($_SESSION['login']) ) {
     }
     elseif($action == 'main')
     {
-        main_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
+        accueil_action();       // Rediriger vers accueil quand l'utilisateur arrive pour la première fois
         exit;
     }
     elseif( !isset($_POST['login']) || !isset($_POST['password']) ) {
@@ -99,6 +99,10 @@ switch ( $action ) {
 
     case 'gestionStation' :                     //Recupère les données de toutes les stations
         gestionStations_action($login, $error);
+        break;
+
+    case 'listeStation' :                     //Recupère les données de toutes les stations
+        listeStations_action($login, $error);
         break;
 
     default :

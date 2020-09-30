@@ -5,24 +5,15 @@
 echo '<p>Liste des Stations :</p>';
 
 echo '<table>';
-echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th><th>Actions</th></tr>';
+echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Description</th><th>Localisation</th></tr>';
 
 foreach($stations as $station){
     echo '<tr>';
-    if($station["userID"]==get_userID($login)){
         echo '<td>'.$station["stationID"].'</td>';
         echo '<td>'.get_login($station["userID"]).'</td>';
         echo '<td>'.$station["model"].'</td>';
-        echo '<td>'.$station["visibility"].'</td>';
         echo '<td>'.$station["description"].'</td>';
         echo '<td>'.$station["localisation"].'</td>';
-        echo '<td class="container"><form method="post"action="gestionStation">
-            <input type="text" name="delStation" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Supprimer"></form>';
-        echo '<form method="post"action="station">
-            <input type="text" name="station" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Editer"></form></td>';
-    }
     echo '</tr>';
 }
 echo '</table>';
