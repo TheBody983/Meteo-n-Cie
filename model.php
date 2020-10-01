@@ -1,13 +1,10 @@
 <?php
 //DATABASE CONNECTION
-function open_database_connection()
-{
-    $link = mysqli_connect('localhost', 'model', '1234', 'meteo_n_cie');
-    return $link;
+function open_database_connection(){
+    return mysqli_connect('localhost', 'model', '1234', 'meteo_n_cie');
 }
 
-function close_database_connection($link)
-{
+function close_database_connection($link){
     mysqli_close($link);
 }
 
@@ -23,7 +20,6 @@ function user_exists($userID){
     $exists = False;
 
     if(gettype($userID)=="integer"){
-
         //Sécurise la valeur $userID
         $userID = intval($userID);
 
@@ -34,21 +30,49 @@ function user_exists($userID){
         $query = mysqli_prepare($link,'SELECT password FROM users WHERE userID=?');
         mysqli_stmt_bind_param($query, 'i', $userID);
 
-        //Execute la requête et compte le nombre de résultats
-        if(mysqli_num_rows(mysqli_stmt_execute($query))){
-            $exists = True;
-        }
+        //Si la requête se passe bien
+        if(mysqli_stmt_execute($query)){
+            //Récupère le résultat
+            $result = mysqli_stmt_get_result($query);
 
+            //Si il y a un résultat
+            if (mysqli_num_rows($result)){
+                $exists = True;
+            }
+        }
         //Fermeture de la connexion à la BDD
         close_database_connection($link);
-
     }
 
+    elseif(gettype($userID)=="string"){
+        //Securise la chaîne login
+        $userID = htmlspecialchars($userID);
+        $userID = str_replace(array('\n', '\r', PHP_EOL), ' ', $userID);
+
+        //Connexion à la BDD
+        $link = open_database_connection();
+
+        //Prepare la requête
+        $query = mysqli_prepare($link,'SELECT password FROM users WHERE login=?');
+        mysqli_stmt_bind_param($query, 's', $login);
+
+        //Si la requête se passe bien
+        if(mysqli_stmt_execute($query)){
+            //Récupère le résultat
+            $result = mysqli_stmt_get_result($query);
+
+            //Si il y a un résultat
+            if (mysqli_num_rows($result)){
+                $exists = True;
+            }
+        }
+        //Fermeture de la connexion à la BDD
+        close_database_connection($link);
+    }
     return $exists;
 }
 
-function is_user( $login, $password )
-{
+function is_user( $login, $password ){
     /** Verifie si un utilisateur est enregistré
      *
      * Récupère un login et un password, les sécurise pour éviter les injections, prépare puis envoie la requête
@@ -60,29 +84,37 @@ function is_user( $login, $password )
      */
     $isuser = False ;
 
-    //Connexion à la BDD
-    $link = open_database_connection();
+    //Vérifie que les paramètres soient bien du bon type
+    if(gettype($login)=="string" && gettype($password)=="string"){
+        //Connexion à la BDD
+        $link = open_database_connection();
 
-    //Securise la chaîne login
-    $login = htmlspecialchars($login);
-    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
+        //Securise la chaîne login
+        $login = htmlspecialchars($login);
+        $login = str_replace(array('\n', '\r', PHP_EOL), ' ', $login);
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT password FROM users WHERE login=?');
-    mysqli_stmt_bind_param($query, 's', $login);
+        //Prepare la requête
+        $query = mysqli_prepare($link, 'SELECT password FROM users WHERE login=?');
+        mysqli_stmt_bind_param($query, 's', $login);
 
-    //Execute la requête
-    if(mysqli_stmt_execute($query)) {
+        //si l'exécution de la requête se passe bien
+        if (mysqli_stmt_execute($query)){
+            //Récupère le résultat
+            $result = mysqli_stmt_get_result($query);
 
-        //Récupère le résultat
-        $query = mysqli_stmt_get_result($query);
-        $hash = mysqli_fetch_array($query, MYSQLI_NUM)[0];
-        if(password_verify($password, $hash)) { //Vérifie si le mot de passe entré correspond au mot de passe stocké
-            $isuser = True;
+            //Si il y a un résultat
+            if(mysqli_num_rows($result)){
+                //Récupère le hash du mot de passe
+                $hash = mysqli_fetch_row($result)[0];
+                //Vérifie si le mot de passe entré correspond au mot de passe stocké
+                if (password_verify($password, $hash)){
+                    $isuser = True;
+                }
+            }
         }
+        //Ferme la connexion à la BDD
+        close_database_connection($link);
     }
-
-    close_database_connection($link);
     return $isuser;
 }
 
@@ -96,27 +128,34 @@ function get_userID($login){
      * @return integer un identifiant d'utilisateur
      */
 
-    //Connexion à la BDD
-    $link = open_database_connection();
+    $userID = NULL;
 
-    //Securise la chaîne login
-    $login = htmlspecialchars($login);
-    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
+    if(gettype($login)=="string") {
+        if (user_exists($login)){
+            //Connexion à la BDD
+            $link = open_database_connection();
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT userID FROM users WHERE login=?');
-    mysqli_stmt_bind_param($query, 's', $login);
+            //Securise la chaîne login
+            $login = htmlspecialchars($login);
+            $login = str_replace(array('\n', '\r', PHP_EOL), ' ', $login);
 
-    //Execute la requête
-    mysqli_stmt_execute($query);
+            //Prepare la requête
+            $query = mysqli_prepare($link, 'SELECT userID FROM users WHERE login=?');
+            mysqli_stmt_bind_param($query, 's', $login);
 
-    $query = mysqli_stmt_get_result($query);
-    $res=mysqli_fetch_array($query, MYSQLI_NUM);
-    if( $res != NULL )
-        $userID = $res[0];
-    else $userID=NULL;
+            //Si la requête se passe bien
+            if(mysqli_stmt_execute($query)){
+                //Récupère les résultats de la requête
+                $result = mysqli_stmt_get_result($query);
 
-    close_database_connection($link);
+                //Si il y a un résultat
+                if (mysqli_num_rows($result)){
+                    $userID = mysqli_fetch_row($result)[0];
+                }
+            }
+            close_database_connection($link);
+        }
+    }
     return $userID;
 
 }
@@ -129,32 +168,39 @@ function get_login($userID){
      * @return string un login
      */
 
-    //Connexion à la BDD
-    $link = open_database_connection();
+    $login = NULL;
 
-    //Securise la chaîne userID
-    $userID = intval($userID);
+    if(gettype($userID)=="integer") {
+        if (user_exists($userID)){
+            //Connexion à la BDD
+            $link = open_database_connection();
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT login FROM users WHERE userID=?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
+            //Securise la chaîne login
+            $userID = intval($userID);
 
-    //Execute la requête
-    mysqli_stmt_execute($query);
+            //Prepare la requête
+            $query = mysqli_prepare($link, 'SELECT login FROM users WHERE userID=?');
+            mysqli_stmt_bind_param($query, 'i', $userID);
 
-    $query = mysqli_stmt_get_result($query);
-    $login = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+            //Si la requête se passe bien
+            if(mysqli_stmt_execute($query)){
+                //Récupère les résultats de la requête
+                $result = mysqli_stmt_get_result($query);
 
-    close_database_connection($link);
+                //Si il y a un résultat
+                if (mysqli_num_rows($result)){
+                    $login = mysqli_fetch_row($result)[0];
+                }
+            }
+            close_database_connection($link);
+        }
+    }
     return $login;
-
 }
 
 function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
 {
     /** Créé un nnouvel utilisateur dans la BDD
-     *
-     * Récupère un login et un password, les sécurise pour éviter les injections, prépare puis envoie la requête
      *
      * @param string $login un nom d'utilisateur
      * @param string $password un mot de passe
@@ -163,26 +209,45 @@ function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
      * @param string $mail le mail de l'utilisateur
      */
     $link = open_database_connection();
+    if(gettype($login)=="integer"
+    && gettype($pwd)=="integer"
+    && gettype($nom)=="integer"
+    && gettype($prenom)=="integer"
+    && gettype($mail)=="integer") {
 
-    //Securise la chaîne login
-    $login = htmlspecialchars($login);
-    $login =  str_replace(array('\n','\r',PHP_EOL),' ',$login);
+        //Securise la chaîne login
+        $login = htmlspecialchars($login);
+        $login = str_replace(array('\n', '\r', PHP_EOL), ' ', $login);
 
-    //Securise la chaîne pwd
-    $pwd = htmlspecialchars($pwd);
-    $pwd =  str_replace(array('\n','\r',PHP_EOL),' ',$pwd);
+        //Securise la chaîne pwd
+        $pwd = htmlspecialchars($pwd);
+        $pwd = str_replace(array('\n', '\r', PHP_EOL), ' ', $pwd);
 
-    //hash le pwd
-    $pwd= password_hash($pwd, PASSWORD_DEFAULT);
+        //Securise la chaîne pwd
+        $nom = htmlspecialchars($nom);
+        $nom = str_replace(array('\n', '\r', PHP_EOL), ' ', $nom);
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'INSERT INTO users(login, password, nom, prenom, mail) VALUES (?, ?, ?, ?, ?)');
-    mysqli_stmt_bind_param($query, 'sssss', $login, $pwd,$nom,$prenom,$mail);
+        //Securise la chaîne login
+        $prenom = htmlspecialchars($prenom);
+        $prenom = str_replace(array('\n', '\r', PHP_EOL), ' ', $prenom);
 
-    //execute la requête
-    mysqli_stmt_execute($query);
+        //Securise la chaîne pwd
+        $mail = htmlspecialchars($mail);
+        $mail = str_replace(array('\n', '\r', PHP_EOL), ' ', $mail);
 
-    close_database_connection($link);
+        //hash le pwd
+        $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+        //Prepare la requête
+        $query = mysqli_prepare($link, 'INSERT INTO users(login, password, nom, prenom, mail) VALUES (?, ?, ?, ?, ?)');
+        mysqli_stmt_bind_param($query, 'sssss', $login, $pwd, $nom, $prenom, $mail);
+
+        //execute la requête
+        mysqli_stmt_execute($query);
+
+        //Ferme la connexion à la BDD
+        close_database_connection($link);
+    }
 }
 
 function del_user($userID)
@@ -192,57 +257,71 @@ function del_user($userID)
      * @param integer $userID Un indentifiant de station
      */
 
-    $link = open_database_connection();
+    if(gettype($userID)=='integer') {
+        //Sécurise $userID
+        $userID = intval($userID);
 
-    $userID = intval($userID);
+        //Connexion à la BDD
+        $link = open_database_connection();
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'DELETE FROM users WHERE stationID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
+        //Prepare la requête
+        $query = mysqli_prepare($link, 'DELETE FROM users WHERE userID = ?');
+        mysqli_stmt_bind_param($query, 'i', $userID);
 
-    //execute la requête
-    mysqli_stmt_execute($query);
+        //execute la requête
+        mysqli_stmt_execute($query);
 
-    close_database_connection($link);
+        //ferme la connexion à la BDD
+        close_database_connection($link);
+    }
 }
 
 function get_user($userID){
-    /** Récupère les informations d'une station
+    /** Récupère les informations d'un utilisateur
      *
-     * @param int $userID un identifiant de station
+     * @param int $userID un identifiant d'utilisateur
      *
      * @return array les information de l'utilisateur
      */
+    $user = NULL;
 
-    $userID = intval($userID);
+    if(gettype($userID)=='integer') {
+        if(user_exists($userID)) {
+            //Sécurise $userID
+            $userID = intval($userID);
 
-    $link = open_database_connection();
+            //Connexion à la BDD
+            $link = open_database_connection();
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT * FROM users WHERE userID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
+            //Prepare la requête
+            $query = mysqli_prepare($link, 'SELECT * FROM users WHERE userID = ?');
+            mysqli_stmt_bind_param($query, 'i', $userID);
 
-    //Execute la requête
-    if(mysqli_stmt_execute($query)) {
-        //Récupère le résultat
-        $query = mysqli_stmt_get_result($query);
+            //Execute la requête
+            if (mysqli_stmt_execute($query)) {
+                //Récupère le résultat
+                $result = mysqli_stmt_get_result($query);
 
-        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
-        $station = array(
-            "userID" => $stationtmp[0],
-            "login" => $stationtmp[1],
-            "nom" => $stationtmp[3],
-            "prenom" => $stationtmp[4],
-            "mail" => $stationtmp[5],
-            "permissions" => $stationtmp[6],
-            "date_inscription" => $stationtmp[7],
-            "description" => $stationtmp[8]
-        );
+                //Stocke les données récupérées
+                $usertmp = mysqli_fetch_array($result, MYSQLI_NUM);
+
+                //Créé l'array à retourner
+                $user = array(
+                    "userID" => $usertmp[0],
+                    "login" => $usertmp[1],
+                    "nom" => $usertmp[3],
+                    "prenom" => $usertmp[4],
+                    "mail" => $usertmp[5],
+                    "permissions" => $usertmp[6],
+                    "date_inscription" => $usertmp[7],
+                    "description" => $usertmp[8]
+                );
+            }
+            //Ferme la connexion à la BDD
+            close_database_connection($link);
+        }
     }
-
-    close_database_connection($link);
-
-    return $station;
+    return $user;
 }
 
 //STATIONS
@@ -259,30 +338,32 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
      * @param string $loc la localisation de la station
     */
 
-    $link = open_database_connection();
+    if(user_exists($userID)) {
+        $link = open_database_connection();
 
-    $userID = intval($userID);
+        $userID = intval($userID);
 
-    $model = htmlspecialchars($model);
-    $model =  str_replace(array('\n','\r',PHP_EOL),' ',$model);
+        $model = htmlspecialchars($model);
+        $model = str_replace(array('\n', '\r', PHP_EOL), ' ', $model);
 
-    $vis = htmlspecialchars($vis);
-    $vis =  str_replace(array('\n','\r',PHP_EOL),' ',$vis);
+        $vis = htmlspecialchars($vis);
+        $vis = str_replace(array('\n', '\r', PHP_EOL), ' ', $vis);
 
-    $descr = htmlspecialchars($descr);
-    $descr =  str_replace(array('\n','\r',PHP_EOL),' ',$descr);
+        $descr = htmlspecialchars($descr);
+        $descr = str_replace(array('\n', '\r', PHP_EOL), ' ', $descr);
 
-    $loc = htmlspecialchars($loc);
-    $loc =  str_replace(array('\n','\r',PHP_EOL),' ',$loc);
+        $loc = htmlspecialchars($loc);
+        $loc = str_replace(array('\n', '\r', PHP_EOL), ' ', $loc);
 
-    //Prepare la requête
-    $query = mysqli_prepare($link,'INSERT INTO stations(userID, model, visibility, description, localisation) VALUES (?, ?, ?, ?, ?)');
-    mysqli_stmt_bind_param($query, 'issss', $userID, $model, $vis, $descr, $loc);
-    
-    //execute la requête
-    mysqli_stmt_execute($query);
+        //Prepare la requête
+        $query = mysqli_prepare($link, 'INSERT INTO stations(userID, model, visibility, description, localisation) VALUES (?, ?, ?, ?, ?)');
+        mysqli_stmt_bind_param($query, 'issss', $userID, $model, $vis, $descr, $loc);
 
-    close_database_connection($link);
+        //execute la requête
+        mysqli_stmt_execute($query);
+
+        close_database_connection($link);
+    }
 }
 
 function update_station($stationID, $field, $value)
@@ -296,7 +377,7 @@ function update_station($stationID, $field, $value)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $field = htmlspecialchars($field);
     $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
@@ -347,14 +428,16 @@ function get_all_stations($userID=0){
 
     $link = open_database_connection();
 
-    //Prepare la requête
+    //Les stations publiques
     if($userID == 0) {
         $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public"');
     }
+    //Toutes les stations (admin)
     else if($userID == -1){
         $query = mysqli_prepare($link, 'SELECT * FROM stations');
         mysqli_stmt_bind_param($query, 'i', $userID);
     }
+    //Les stations publiques et celles d'un utilisateur
     else {
         $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
         mysqli_stmt_bind_param($query, 'i', $userID);
@@ -670,7 +753,7 @@ function get_projet($projetID){
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $stations = array();
-        while($stationID = mysqli_fetch_array($query, MYSQLI_NUM)){
+        while($stationID = mysqli_fetch_array($query, MYSQLI_NUM)[0]){
             $stations[] = get_station($stationID);
         }
     }
@@ -684,8 +767,8 @@ function get_projet($projetID){
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
-        while($login = mysqli_fetch_array($query, MYSQLI_NUM)){
-            $users[] = $login;
+        while($login = mysqli_fetch_array($query, MYSQLI_NUM)[0]){
+            $users[] = get_user(get_userID($login));
         }
     }
 
@@ -697,3 +780,35 @@ function get_projet($projetID){
         "users" => $users
     );
 }
+
+function get_all_projet(){
+    /** Retourne toutes les informations d'un projet
+     *
+     * @return array une liste de projets
+     */
+
+    //Connexion à la BDD
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link, 'SELECT * FROM projets');
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $projets = array();
+        while($info = mysqli_fetch_row($query)) {
+            $projet = array(
+                "projetID" => $info[0],
+                "nom" => $info[1],
+                "description" => $info[2]
+            );
+            $projets[]=$projet;
+        }
+    }
+
+    close_database_connection($link);
+    return $projets;
+}
+?>
