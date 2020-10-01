@@ -32,6 +32,7 @@ if($action == 'index.php') {
 }
 
 if(!isset($_SESSION['login']) ) {
+
     if (!isset($_POST['login']) || !isset($_POST['password'])) {
         $error = 'not connected';
         if($action == 'main'){
@@ -59,7 +60,6 @@ if(!isset($login)){
 
 
 switch ( $action ) {
-
     case 'login' :                      //Connecter si pas de session
         login_action($login, $error);
         break;

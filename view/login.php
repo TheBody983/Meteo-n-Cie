@@ -12,7 +12,7 @@
         <p>Pas de compte ? </p>
         <button id="connexion" onclick="window.location.href = 'register'">S'inscrire</button>
     </form>
-    <button id="connexion" onclick="window.location.href = '../index.php'">Annuler</button>
+    <button id="connexion" onclick="window.location.href = 'main'">Annuler</button>
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>
