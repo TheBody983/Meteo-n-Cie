@@ -150,6 +150,66 @@ function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
     close_database_connection($link);
 }
 
+function del_user($userID)
+{
+    /** Supprime un utilisateur dans la BDD
+     *
+     * @param integer $userID Un indentifiant de station
+     */
+
+    $link = open_database_connection();
+
+    $userID = intval($userID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM users WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+}
+
+function get_user($userID){
+    /** Récupère les informations d'une station
+     *
+     * @param int $userID un identifiant de station
+     *
+     * @return array les information de l'utilisateur
+     */
+
+    $userID = intval($userID);
+
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM users WHERE userID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+
+        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
+        $station = array(
+            "userID" => $stationtmp[0],
+            "login" => $stationtmp[1],
+            "nom" => $stationtmp[3],
+            "prenom" => $stationtmp[4],
+            "mail" => $stationtmp[5],
+            "permissions" => $stationtmp[6],
+            "date_inscription" => $stationtmp[7],
+            "description" => $stationtmp[8]
+        );
+    }
+
+    close_database_connection($link);
+
+    return $station;
+}
+
 //STATIONS
 function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $loc = ' ')
 {
