@@ -78,11 +78,12 @@
             zoomOffset: -1
         }).addTo(mymap);
 
-        var marker = L.marker([-20.916709, -192.734699]).addTo(mymap);
-        marker.bindPopup("<b>Wé, Lifou</b><br><a href=''>Cliquez pour plus d'infos</a>");
-
-        var marker = L.marker([-22.297812, -193.561785]).addTo(mymap);
-        marker.bindPopup("<b>Baie des Citrons, Nouméa</b><br><a href=''>Cliquez pour plus d'infos</a>");
+		<?php foreach($stations as $station){
+			echo 'var coordinates = [];';
+			echo 'coordinates[0] = parseFloat('.$station["coord"][0].');'; 
+			echo 'coordinates[1] = parseFloat('.$station["coord"][1].'); ';
+            echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>'.$station["description"].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
+        }?>
 
         var marker = L.marker([-21.607084, -194.545169]).addTo(mymap);
         marker.bindPopup("<b>Baie des Tortues, Bourail</b><br><a href=''>Cliquez pour plus d'infos</a>");
