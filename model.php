@@ -76,7 +76,10 @@ function get_userID($login){
     mysqli_stmt_execute($query);
 
     $query = mysqli_stmt_get_result($query);
-    $userID = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+    $res=mysqli_fetch_array($query, MYSQLI_NUM);
+    if( $res != NULL )
+        $userID = $res[0];
+    else $userID=NULL;
 
     close_database_connection($link);
     return $userID;
