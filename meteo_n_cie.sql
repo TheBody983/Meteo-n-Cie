@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 26 sep. 2020 à 07:27
+-- Généré le : jeu. 01 oct. 2020 à 02:20
 -- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.2.32
 
@@ -41,8 +41,7 @@ CREATE TABLE `mesures` (
 INSERT INTO `mesures` (`date`, `stationID`, `mesure_name`, `mesure_value`) VALUES
 ('2020-09-20 09:58:38', 1, 'temperature', 25),
 ('2020-09-20 13:08:11', 1, 'humidite', 0.8),
-('2020-09-20 17:07:22', 1, 'temperature', 30),
-('2020-09-21 09:20:23', 1, 'test', 1231350);
+('2020-09-20 17:07:22', 1, 'temperature', 30);
 
 -- --------------------------------------------------------
 
@@ -61,7 +60,7 @@ CREATE TABLE `projets` (
 --
 
 INSERT INTO `projets` (`projetID`, `nom`, `description`) VALUES
-(1, 'premier projet', 'un premier projet test');
+(1, 'projet_test', 'un projet pour tester les fonctions');
 
 -- --------------------------------------------------------
 
@@ -83,7 +82,8 @@ CREATE TABLE `stations` (
 --
 
 INSERT INTO `stations` (`stationID`, `userID`, `model`, `visibility`, `description`, `localisation`) VALUES
-(23, 1, '123', 'Private', 'test', 'par là');
+(1, 1, 'adminstation public', 'public', 'Sur le toit du bâtiment F', '-22.262706 -193.596497'),
+(2, 1, 'adminstation private', 'Private', 'private', '-20.558738, -193.716431');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ INSERT INTO `stations` (`stationID`, `userID`, `model`, `visibility`, `descripti
 
 CREATE TABLE `station_projet` (
   `stationID` int(5) UNSIGNED NOT NULL,
-  `projetID` int(5) NOT NULL
+  `projetID` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `station_projet` (
 --
 
 INSERT INTO `station_projet` (`stationID`, `projetID`) VALUES
-(23, 1);
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -126,7 +126,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `login`, `password`, `nom`, `prenom`, `mail`, `permissions`, `date_inscription`) VALUES
 (1, 'admin', '$2y$10$p5axrK2lUcx05eavkjSszutakzmcq6Gx9zZOHeJgXPlPHCoZSZ0/C', NULL, NULL, NULL, 0, '2020-09-20 11:02:02'),
-(5, 'Aphaz', '$2y$10$yZGQvamVdjyeF2vN/N0frePhEeQ8t6Q4/5FRBv21GgEomPehyEUci', 'Damien', 'Richard', 'd@mi.en', 0, '2020-09-22 13:46:02');
+(2, 'Aphaz', '$2y$10$yZGQvamVdjyeF2vN/N0frePhEeQ8t6Q4/5FRBv21GgEomPehyEUci', 'Damien', 'Richard', 'd@mi.en', 0, '2020-09-22 13:46:02'),
+(3, 'Shadouii', '$2y$10$4dMrwHOtdDhgn5JJOW5Jx.UPfLvZMWAu54s/YBOnz2Lq9AwKkT6Ou', 'albani', 'bryan', 'oui@gmail.com', 0, '2020-10-01 11:09:23'),
+(4, 'joris', '$2y$10$dQ3sYwnm7D1pvFOd8KK5seQLMgfuKoqfn.kQ.Mf1p5OhJc/5wqmke', 'Derquennes', 'Joris', 'joris@gmail.com', 0, '2020-10-01 11:10:45'),
+(5, 'mathieu', '$2y$10$TMgF1oyR6R8XifdFpHXW3.rhxuz/z3yBUzOVd3WCFQ0Y4EWe973wi', 'bisson', 'mathieu', 'm@gmail.com', 0, '2020-10-01 11:11:38'),
+(6, 'ludo', '$2y$10$BwROHhLCysRfa5nJ3zE53eGTX2HNwJscQMFnBYcQinHgTi28.2C5.', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:12:31'),
+(7, 'ludo', '$2y$10$JhQv88DINw2gtqWaRMBSKeHLXEY33E29vksvexFyJdGeJDis/4GmK', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:17:40');
 
 -- --------------------------------------------------------
 
@@ -145,7 +150,7 @@ CREATE TABLE `user_projet` (
 --
 
 INSERT INTO `user_projet` (`userID`, `projetID`, `privileges`) VALUES
-(1, 1, NULL);
+(1, 1, 'creator');
 
 --
 -- Index pour les tables déchargées
@@ -202,23 +207,17 @@ ALTER TABLE `projets`
 -- AUTO_INCREMENT pour la table `stations`
 --
 ALTER TABLE `stations`
-  MODIFY `stationID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `stationID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Contraintes pour les tables déchargées
 --
-
---
--- Contraintes pour la table `station_projet`
---
-ALTER TABLE `station_projet`
-  ADD CONSTRAINT `station` FOREIGN KEY (`stationID`) REFERENCES `stations` (`stationID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user_projet`
