@@ -713,7 +713,8 @@ function add_station_to_project($stationID, $projetID){
 
 }
 
-function get_projet($projetID){
+function get_projet($projetID)
+{
     /** Retourne toutes les informations d'un projet
      *
      * @param integer $projetID un identifiiant de projet
@@ -724,7 +725,7 @@ function get_projet($projetID){
     //Connexion à la BDD
     $link = open_database_connection();
 
-    $projetID =  intval($projetID);
+    $projetID = intval($projetID);
 
     //Prepare la requête
     $query = mysqli_prepare($link, 'SELECT * FROM projets WHERE projetID=?');
@@ -732,7 +733,7 @@ function get_projet($projetID){
 
 
     //Execute la requête
-    if(mysqli_stmt_execute($query)) {
+    if (mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $info = mysqli_fetch_array($query, MYSQLI_NUM);
@@ -749,11 +750,12 @@ function get_projet($projetID){
 
 
     //Execute la requête
-    if(mysqli_stmt_execute($query)) {
+    if (mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $stations = array();
         while($stationID = mysqli_fetch_array($query, MYSQLI_NUM)[0]){
+
             $stations[] = get_station($stationID);
         }
     }
@@ -763,7 +765,7 @@ function get_projet($projetID){
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
     //Execute la requête
-    if(mysqli_stmt_execute($query)) {
+    if (mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
