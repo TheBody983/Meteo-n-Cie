@@ -12,6 +12,41 @@ function close_database_connection($link)
 }
 
 //USERS
+function user_exists($userID){
+    /** Vérifie si un utilisateur existe dans la BDD
+     *
+     * @param mixed $userID l'identifiant de l'utilisateur à vérifier
+     *
+     * @return boolean si l'utilisateur existe
+     *
+     */
+    $exists = False;
+
+    if(gettype($userID)=="integer"){
+
+        //Sécurise la valeur $userID
+        $userID = intval($userID);
+
+        //Connexion à la BDD
+        $link = open_database_connection();
+
+        //Prepare la requête
+        $query = mysqli_prepare($link,'SELECT password FROM users WHERE userID=?');
+        mysqli_stmt_bind_param($query, 'i', $userID);
+
+        //Execute la requête et compte le nombre de résultats
+        if(mysqli_num_rows(mysqli_stmt_execute($query))){
+            $exists = True;
+        }
+
+        //Fermeture de la connexion à la BDD
+        close_database_connection($link);
+
+    }
+
+    return $exists;
+}
+
 function is_user( $login, $password )
 {
     /** Verifie si un utilisateur est enregistré
