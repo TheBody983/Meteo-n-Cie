@@ -37,6 +37,7 @@ function mesures_action($login, $error){
 }
 
 function station_action($login, $error){
+    if(isset($_POST['station']))
     $station = get_station($_POST['station']);
     require 'view/station.php';
 }

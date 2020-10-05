@@ -44,6 +44,9 @@ if(!isset($_SESSION['login']) ) {
     } else {
         $_SESSION['login'] = $_POST['login'];
         $login = $_SESSION['login'];
+        $_SESSION['ID'] = get_userID($login);
+        $userID = $_SESSION['ID'];
+
     }
 }
 else {

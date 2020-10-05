@@ -1,6 +1,9 @@
 <?php $title= 'Station'; ?>
 <?php ob_start(); ?>
-<?php
+<?php if(!isset($station)){
+    echo "Aucune station n'est sélectionnée, retournez à l'accueil";
+}
+else {
 echo '<input type="text" name="station" value ='.$station["stationID"].' hidden>';
 echo '<p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
 echo '<table>';
@@ -58,5 +61,6 @@ echo '</table>';
         xmlhttp.send();
     }
 </script>
+    <?php } ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

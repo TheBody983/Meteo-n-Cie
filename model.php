@@ -261,7 +261,7 @@ function update_station($stationID, $field, $value)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $field = htmlspecialchars($field);
     $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
@@ -270,8 +270,8 @@ function update_station($stationID, $field, $value)
     $value =  str_replace(array('\n','\r',PHP_EOL),' ',$value);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'UPDATE stations SET ? = ? WHERE stationID = ?');
-    mysqli_stmt_bind_param($query, 'ssi', $field, $value, $stationID);
+    $query = mysqli_prepare($link,'UPDATE stations SET '.$field.' = ? WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'ss', $value, $stationID);
 
     //execute la requête
     mysqli_stmt_execute($query);
