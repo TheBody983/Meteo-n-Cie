@@ -298,7 +298,7 @@ function update_station($stationID, $field, $value)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $field = htmlspecialchars($field);
     $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
@@ -411,6 +411,7 @@ function get_station($stationID){
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
 
+        $mesures = array();
         $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
         $station = array(
                 "stationID" => $stationtmp[0],
@@ -418,7 +419,28 @@ function get_station($stationID){
                 "model" => $stationtmp[2],
                 "visibility" => $stationtmp[3],
                 "description" => $stationtmp[4],
-                "localisation" => $stationtmp[5]);
+                "localisation" => $stationtmp[5],
+                "mesures" => $mesures
+        );
+    }
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM mesures WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $stationID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+
+        while ($mesure = mysqli_fetch_array($query, MYSQLI_NUM)) {
+            $mesuretmp = array(
+                "date" => $mesure[0],
+                "stationID" => $mesure[1],
+                "name" => $mesure[2],
+                "value" => $mesure[3]);
+            $station["mesures"][] = $mesuretmp;
+        }
     }
 
     close_database_connection($link);
@@ -542,7 +564,7 @@ function del_mesure($date, $stationID)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $date = htmlspecialchars($date);
     $date =  str_replace(array('\n','\r',PHP_EOL),' ',$date);
@@ -700,6 +722,7 @@ function get_projet($projetID)
         "users" => $users
     );
 }
+
 function get_all_projet(){
     /** Retourne toutes les informations d'un projet
      *

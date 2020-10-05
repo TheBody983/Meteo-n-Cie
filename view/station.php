@@ -14,8 +14,28 @@ echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité<
         echo '<td><div id="description">'.$station["description"].'</div></td>';
         echo '<td><div id="localisation">'.$station["localisation"].'</div></td>';
     echo '</tr>';
-echo '</table></div></div>';
+echo '</table></div>';?>
+
+<div class="containerCol">
+<table>
+<tr>
+  <th>Date de la Mesure</th>
+  <th>Valeur</th>
+</tr>
+<?php
+foreach($station["mesures"] as $mesure) {
+    echo "<tr>";
+    echo "<td>" . $mesure['date'] . "</td>";
+    echo "<td>" . $mesure['name'] . "</td>";
+    echo "<td>" . $mesure['value'] . "</td>";
+    echo "</tr>";
+}
 ?>
+</table>
+
+</div></div>
+
+
 <script>
     let model = document.getElementById("model");
     let visibility = document.getElementById("visibility");
