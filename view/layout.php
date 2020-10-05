@@ -43,9 +43,13 @@
         echo '<button id="connexion" onclick="window.location.href = \'login\'">Se connecter/ S\'inscrire</button>';
     ?>
     <p>
-        <a class="menu" href="listeStation">Liste des stations</a>
+        <a class="menu" href="main">Page d'Accueil</a>
     </p>
     <p>
+        <a class="menu" href="listeStation">Liste des stations</a>
+    </p>
+    <?php if (isset($_SESSION['login'])) {
+        echo '<p>
         <a class="menu" href="gestionStation">Gestion des stations</a>
     </p>
     <p>
@@ -53,7 +57,9 @@
     </p>
     <p>
         <a class="menu" href="gestionProjet">Projet</a>
-    </p>
+    </p>';
+    }
+    ?>
     <p>
         <a class="menu" href="donnees">Données</a>
     </p>
