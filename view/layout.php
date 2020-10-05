@@ -20,14 +20,15 @@ else
 </head>
 
 <body>
-<header class="container">
+<header class="containerLog">
     <a href="../index.php/main"><img id='titre' src="../graphs/titre.png"></a>
 
     <?php
     if(isset($login)) {
         if ($login != ' ') {
-            echo '<div><p>Connecté en tant que ' . $login . '</p> ';
-            echo '<button><a href="../index.php/logout">Déconnexion</a></button></div>';
+            echo '<div id="log"><p>Connecté en tant que ' . $login . '</p> ';
+            echo '<button id="logout"><a href="../index.php/logout">Déconnexion</a></button>';
+            echo '<img id="pdp" src="../graphs/avatar.png"></div>';
         }
 
         switch ($error) {
@@ -45,6 +46,8 @@ else
 <?php echo $content; ?>
 
 <footer>
+    <div id="avertissement">AVERTISSEMENT</div>
+    <div id="textavertissement"><marquee behavior="scroll">JEEESES SCRIPT</marquee></div>
 </footer>
 </body>
 </html>
