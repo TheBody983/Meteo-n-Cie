@@ -13,6 +13,12 @@ function register_action($login, $error)
     require 'view/register.php';
 }
 
+function admin_action($login,$error)
+{
+	$users = get_all_users();
+	require 'view/admin.php';
+}
+
 function main_action($login, $error)
 {
     if(isset($login) && ($userid = get_userID($login) ) != NULL)

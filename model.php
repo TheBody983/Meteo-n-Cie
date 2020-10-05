@@ -192,22 +192,59 @@ function get_user($userID){
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
 
-        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
-        $station = array(
-            "userID" => $stationtmp[0],
-            "login" => $stationtmp[1],
-            "nom" => $stationtmp[3],
-            "prenom" => $stationtmp[4],
-            "mail" => $stationtmp[5],
-            "permissions" => $stationtmp[6],
-            "date_inscription" => $stationtmp[7],
-            "description" => $stationtmp[8]
+        $result = mysqli_fetch_array($query, MYSQLI_NUM);
+        $user = array(
+            "userID" => $result[0],
+            "login" => $result[1],
+            "nom" => $result[3],
+            "prenom" => $result[4],
+            "mail" => $result[5],
+            "permissions" => $result[6],
+            "date_inscription" => $result[7],
+            "description" => $result[8]
         );
+    }
+
+
+    close_database_connection($link);
+
+    return $user;
+}
+
+function get_all_users(){
+    /** Récupère les informations d'une station
+     *
+     * @return array les information des utilisateurs
+     */
+
+    $link = open_database_connection();
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM users');
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+        $users = array();
+        while($tmp = mysqli_fetch_array($query,MYSQLI_NUM)) {
+            $user = array(
+                "userID" => $tmp[0],
+                "login" => $tmp[1],
+                "nom" => $tmp[3],
+                "prenom" => $tmp[4],
+                "mail" => $tmp[5],
+                "permissions" => $tmp[6],
+                "date_inscription" => $tmp[7],
+                "description" => $tmp[8]
+            );
+            $users[] = $user;
+        }
     }
 
     close_database_connection($link);
 
-    return $station;
+    return $users;
 }
 
 //STATIONS
