@@ -39,13 +39,13 @@ th, td {
 #mapborder{
 	padding: 5px;
 	border: solid 5px;
-	border-radius: 5px;
+	border-radius: 10px;
 	flex-grow: 10;
 }
 
 #menu {
 	border-style: solid;
-	border-radius: 2px;
+	border-radius: 5px;
 	padding: 5px;
 }
 

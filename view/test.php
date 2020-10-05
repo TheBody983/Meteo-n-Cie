@@ -1,4 +1,4 @@
-<?php $title= 'Connexion'; ?>
+<?php $title= 'test'; ?>
 <?php ob_start(); ?>
 <?php
 echo '<div class="containerCol">';

@@ -1,7 +1,7 @@
 <?php $title= 'Gestion des Projets'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol">';
+echo '<div class="containerCol"><div class="containerCol">';
 
 echo '<p>Liste des Projets :</p>';
 
@@ -24,7 +24,7 @@ foreach($projets as $projet){
 
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
 ?>
 
 <div id="idGestionProjet">
