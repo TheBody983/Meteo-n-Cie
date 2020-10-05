@@ -45,8 +45,6 @@ else
 <?php echo $content; ?>
 
 <footer>
-    <div id="avertissement">AVERTISSEMENT</div>
-    <div id="textavertissement"><marquee behavior="scroll">JEEESES SCRIPT</marquee></div>
 </footer>
 </body>
 </html>

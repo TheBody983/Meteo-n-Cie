@@ -60,6 +60,11 @@
                     </section>
                 </a>
             </div>
+			<?php
+				if (isset($_SESSION['login'])){
+					echo '<div><a id="rubrique" href="admin"><section><p id="listmenu" align="middle">Administration</p></section><a></div>';
+					}
+					?>
 	    </article>
     </article>
 	<div id="mapid" ></div>
@@ -84,9 +89,6 @@
 			echo 'coordinates[1] = parseFloat('.$station["coord"][1].'); ';
             echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>'.$station["description"].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
         }?>
-
-        var marker = L.marker([-21.607084, -194.545169]).addTo(mymap);
-        marker.bindPopup("<b>Baie des Tortues, Bourail</b><br><a href=''>Cliquez pour plus d'infos</a>");
 
         var popup = L.popup()
         function onMapClick(e) {
