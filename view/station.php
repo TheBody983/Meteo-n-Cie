@@ -8,7 +8,7 @@ echo '<table>';
 echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th></tr>';
     echo '<tr>';
         echo '<td><div>'.$station["stationID"].'</div></td>';
-        echo '<td><div>'.get_login(["userID"]).'</div></td>';
+        echo '<td><div>'.get_login($station["userID"]).'</div></td>';
         echo '<td><div id="model">'.$station["model"].'</div></td>';
         echo '<td><div id="visibility">'.$station["visibility"].'</div></td>';
         echo '<td><div id="description">'.$station["description"].'</div></td>';
@@ -17,9 +17,12 @@ echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité<
 echo '</table></div>';?>
 
 <div class="containerCol">
+    <p>Mesures de la Station</p>
 <table>
 <tr>
-  <th>Date de la Mesure</th>
+  <th>Date</th>
+  <th>Mesure</th>
+
   <th>Valeur</th>
 </tr>
 <?php
@@ -35,7 +38,7 @@ foreach($station["mesures"] as $mesure) {
 
 </div></div>
 
-
+<?php if($station["userID"] == get_userID($login)){ ?>
 <script>
     let model = document.getElementById("model");
     let visibility = document.getElementById("visibility");
@@ -79,5 +82,6 @@ foreach($station["mesures"] as $mesure) {
         xmlhttp.send();
     }
 </script>
-<?php $content = ob_get_clean(); ?>
+<?php }
+$content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>
