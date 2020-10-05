@@ -85,7 +85,7 @@ switch ( $action ) {
         break;
 
     case 'test' :                     //Recupère les données d'une station
-        projet_action($login, $error);
+        require 'view/test.php';
         break;
 
     case 'gestionStation' :                     //Recupère les données de toutes les stations
@@ -95,28 +95,11 @@ switch ( $action ) {
     case 'listeStation' :                     //Recupère les données de toutes les stations
         listeStations_action($login, $error);
         break;
-
-
-
-    case 'gestionProjet' :                     //Recupère les données de toutes les stations
-        gestion_projets_action($login, $error);
-        break;
-
-    case 'projet' :                     //Recupère les données de toutes les stations
-        projet_action($login, $error);
-        break;
-
-    case 'gestionUserProjet' :                     //Recupère les données de toutes les stations
-        gestionUserProjets_action($login, $error);
-        break;
-
-    case 'listeProjet' :                     //Recupère les données de toutes les stations
-        listeProjets_action($login, $error);
-        break;
-
-
-
-
+	
+	case 'admin' : 					//Administration
+		admin_action($login,$error);
+		break;
+		
     default :
         header('Status: 404 Not Found');
         echo '<html><body><h1>My Page Not Found</h1></body></html>';

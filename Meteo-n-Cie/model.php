@@ -87,11 +87,12 @@ function get_userID($login){
 }
 
 function get_login($userID){
-    /** récupère le login d'un utilisateur
+	
+    /** récupère les informations d'un utilisateur
      *
      * @param integer $userID un identifiant d'utilisateur
      *
-     * @return string un login
+     * @return array la liste des utilisateurs avec leur liste de données
      */
 
     //Connexion à la BDD
@@ -101,17 +102,40 @@ function get_login($userID){
     $userID = intval($userID);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT login FROM users WHERE userID=?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
-
+	if($userID == 0) {
+        $query = mysqli_prepare($link, 'SELECT userID,login FROM users');
+    }
+    else {
+        $query = mysqli_prepare($link, 'SELECT userID,login,nom,prenom,mail,permissions,date_inscription FROM users');
+    }
     //Execute la requête
-    mysqli_stmt_execute($query);
-
-    $query = mysqli_stmt_get_result($query);
-    $login = mysqli_fetch_array($query, MYSQLI_NUM)[0];
+	if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+		$users = array();
+		while($user = mysqli_fetch_array($query, MYSQLI_NUM)){
+			if ($userID == 0){
+				$usertmp == array(
+					"userID" => $user[0],
+					"login" => $user[1]);
+				$users[] = $usertmp;
+				}
+			else {
+				$usertmp = array(
+					"userID" => $user[0],
+					"login" => $user[1],
+					"nom" => $user[2],
+					"prenom" => $user[3],
+					"mail" => $user[4],
+					"permissions" => $user[5],
+					"date_inscription" => $user[6]);
+				$users[] = $usertmp;
+				}
+			}
+		}
 
     close_database_connection($link);
-    return $login;
+    return $users;
 
 }
 
@@ -148,66 +172,6 @@ function new_user($login,$pwd,$nom = NULL,$prenom = NULL,$mail = NULL)
     mysqli_stmt_execute($query);
 
     close_database_connection($link);
-}
-
-function del_user($userID)
-{
-    /** Supprime un utilisateur dans la BDD
-     *
-     * @param integer $userID Un indentifiant de station
-     */
-
-    $link = open_database_connection();
-
-    $userID = intval($userID);
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'DELETE FROM users WHERE stationID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
-
-    //execute la requête
-    mysqli_stmt_execute($query);
-
-    close_database_connection($link);
-}
-
-function get_user($userID){
-    /** Récupère les informations d'une station
-     *
-     * @param int $userID un identifiant de station
-     *
-     * @return array les information de l'utilisateur
-     */
-
-    $userID = intval($userID);
-
-    $link = open_database_connection();
-
-    //Prepare la requête
-    $query = mysqli_prepare($link,'SELECT * FROM users WHERE userID = ?');
-    mysqli_stmt_bind_param($query, 'i', $userID);
-
-    //Execute la requête
-    if(mysqli_stmt_execute($query)) {
-        //Récupère le résultat
-        $query = mysqli_stmt_get_result($query);
-
-        $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
-        $station = array(
-            "userID" => $stationtmp[0],
-            "login" => $stationtmp[1],
-            "nom" => $stationtmp[3],
-            "prenom" => $stationtmp[4],
-            "mail" => $stationtmp[5],
-            "permissions" => $stationtmp[6],
-            "date_inscription" => $stationtmp[7],
-            "description" => $stationtmp[8]
-        );
-    }
-
-    close_database_connection($link);
-
-    return $station;
 }
 
 //STATIONS
@@ -313,7 +277,7 @@ function get_all_stations($userID=0){
     $link = open_database_connection();
 
     //Prepare la requête
-    if($userID == 0) {
+    /*if($userID == 0) {
         $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public"');
     }
     else if($userID == -1){
@@ -321,9 +285,11 @@ function get_all_stations($userID=0){
         mysqli_stmt_bind_param($query, 'i', $userID);
     }
     else {
-        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" || visibility = "private" OR userID = ?');
         mysqli_stmt_bind_param($query, 'i', $userID);
-    }
+    }*/
+	$query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" || visibility = "private" OR userID = ?');
+    mysqli_stmt_bind_param($query, 'i', $userID);
 
     //Execute la requête
     if(mysqli_stmt_execute($query)) {
@@ -595,8 +561,7 @@ function add_station_to_project($stationID, $projetID){
 
 }
 
-function get_projet($projetID)
-{
+function get_projet($projetID){
     /** Retourne toutes les informations d'un projet
      *
      * @param integer $projetID un identifiiant de projet
@@ -607,7 +572,7 @@ function get_projet($projetID)
     //Connexion à la BDD
     $link = open_database_connection();
 
-    $projetID = intval($projetID);
+    $projetID =  intval($projetID);
 
     //Prepare la requête
     $query = mysqli_prepare($link, 'SELECT * FROM projets WHERE projetID=?');
@@ -615,7 +580,7 @@ function get_projet($projetID)
 
 
     //Execute la requête
-    if (mysqli_stmt_execute($query)) {
+    if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $info = mysqli_fetch_array($query, MYSQLI_NUM);
@@ -632,11 +597,11 @@ function get_projet($projetID)
 
 
     //Execute la requête
-    if (mysqli_stmt_execute($query)) {
+    if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $stations = array();
-        while ($stationID = mysqli_fetch_array($query, MYSQLI_NUM)[0]) {
+        while($stationID = mysqli_fetch_array($query, MYSQLI_NUM)){
             $stations[] = get_station($stationID);
         }
     }
@@ -646,11 +611,11 @@ function get_projet($projetID)
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
     //Execute la requête
-    if (mysqli_stmt_execute($query)) {
+    if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
-        while ($login = mysqli_fetch_array($query, MYSQLI_NUM)) {
+        while($login = mysqli_fetch_array($query, MYSQLI_NUM)){
             $users[] = $login;
         }
     }
@@ -662,34 +627,4 @@ function get_projet($projetID)
         "stations" => $stations,
         "users" => $users
     );
-}
-function get_all_projet(){
-    /** Retourne toutes les informations d'un projet
-     *
-     * @return array une liste de projets
-     */
-
-    //Connexion à la BDD
-    $link = open_database_connection();
-
-    //Prepare la requête
-    $query = mysqli_prepare($link, 'SELECT * FROM projets');
-
-    //Execute la requête
-    if(mysqli_stmt_execute($query)) {
-        //Récupère le résultat
-        $query = mysqli_stmt_get_result($query);
-        $projets = array();
-        while($info = mysqli_fetch_row($query)) {
-            $projet = array(
-                "projetID" => $info[0],
-                "nom" => $info[1],
-                "description" => $info[2]
-            );
-            $projets[]=$projet;
-        }
-    }
-
-    close_database_connection($link);
-    return $projets;
 }

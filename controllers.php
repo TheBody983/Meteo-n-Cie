@@ -16,8 +16,8 @@ function register_action($login, $error)
 function main_action($login, $error)
 {
     if(isset($login) && ($userid = get_userID($login) ) != NULL)
-            get_all_stations($userid);
-    else get_all_stations();
+            $stations=get_all_stations($userid);
+    else $stations=get_all_stations();
     require 'view/accueil.php';
 }
 
@@ -57,9 +57,51 @@ function gestionStations_action($login, $error){
 
 function listeStations_action($login, $error)
 {
-
     $stations = get_all_stations(get_userID($login));
-
     require 'view/listeStation.php';
 }
+
+
+
+
+
+function gestion_projets_action($login, $error){
+    $projets = get_all_projet();
+    if(isset($_POST['addProjet'])){
+        new_project($_POST['nameProjet'], $_POST['descriptionProjet']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/gestionProjet");
+    }
+    if(isset($_POST['delProjet'])){
+        del_projet($_POST['delProjet']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/gestionProjet");
+    }
+    require 'view/gestionProjet.php';
+}
+
+function projet_action($login, $error){
+    $projet = get_projet($_POST["projet"]);
+    if(isset($_POST['addStationProjet'])){
+        add_station_to_project($_POST["addStationProjet"], $projetID);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
+    }
+    if(isset($_POST['removeStationProjet'])){
+        remove_station($_POST['removeStationProjet']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
+    }
+    require 'view/projet.php';
+}
+/*
+function gestionUserProjets_action($login, $error){
+    $projet = get_projet(1);
+    if(isset($_POST['addUserProjet'])){
+        add_user_to_project($userID, $projetID, $priv = NULL);
+		header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
+    }
+    if(isset($_POST['removeUserProjet'])){
+        remove_user($_POST['removeUserProjet']);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
+    }
+    require 'view/projet.php';
+}
+*/
 ?>
