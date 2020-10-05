@@ -10,62 +10,27 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 </head>
 <div class="container">
-	<article id="menu" class="containerCol">
+    <article id="menu" class="containerCol">
         <img id='titremenu' src="../graphs/menu.png"/>
         <?php
         if(!isset($_SESSION['login']))
-        echo '<button id="connexion" onclick="window.location.href = \'login\'">Se connecter/ S\'inscrire</button>';
+            echo '<button id="connexion" onclick="window.location.href = \'login\'">Se connecter/ S\'inscrire</button>';
         ?>
-        <article>
-            <div>
-                <a id="rubrique" href="listeStation">
-                    <section>
-                        <p id="listmenu" align="middle">Liste des stations</p>
-                    </section>
-                </a>
-            </div>
-		<!-- Envoie à la page souhaitée si connecté, sinon renvoit à la page de login -->
-            <div>
-                <a id="rubrique" href="gestionStation">
-                    <section>
-                        <p id="listmenu" align="middle">Gestion des stations</p>
-                    </section>
-                </a>
-            </div>
-            <div>
-                <a id="rubrique" href="">
-                    <section>
-                        <p id="listmenu" align="middle">Messagerie</p>
-                    </section>
-                </a>
-            </div>
-            <div>
-                <a id="rubrique" href="gestionProjet">
-                    <section>
-                        <p id="listmenu" align="middle">Projet</p>
-                    </section>
-                </a>
-            </div>
-            <div>
-                <a id="rubrique" href="donnees">
-                    <section>
-                        <p id="listmenu" align="middle">Données</p>
-                    </section>
-                </a>
-            </div>
-            <div>
-                <a id="rubrique" href="test">
-                    <section>
-                        <p id="listmenu" align="middle">Tests</p>
-                    </section>
-                </a>
-            </div>
-			<?php
-				if (isset($_SESSION['login'])){
-					echo '<div><a id="rubrique" href="admin"><section><p id="listmenu" align="middle">Administration</p></section><a></div>';
-					}
-					?>
-	    </article>
+        <div class="list">
+            <ul>
+                <li><span><a href="listeStation">Liste des stations</a></span></li>
+                <li><span><a href="gestionStation">Gestion des stations</a></span></li>
+                <li><span><a href="">Messagerie</a></span></li>
+                <li><span><a href="gestionProjet">Projets</a></span></li>
+                <li><span><a href="donnees">Données</a></span></li>
+                <li><span><a href="test">Tests</a></span></li>
+            </ul>
+        </div>
+        <?php
+        if (isset($_SESSION['login'])){
+            echo '<div><a id="rubrique" href="admin"><section><p id="listmenu" align="middle">Administration</p></section><a></div>';
+        }
+        ?>
     </article>
 	<div id="mapid" ></div>
 </div>
@@ -83,12 +48,11 @@
             zoomOffset: -1
         }).addTo(mymap);
 
-		<?php foreach($stations as $station){
-			echo 'var coordinates = [];';
-			echo 'coordinates[0] = parseFloat('.$station["coord"][0].');'; 
-			echo 'coordinates[1] = parseFloat('.$station["coord"][1].'); ';
-            echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>'.$station["description"].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
-        }?>
+        var marker = L.marker([-20.916709, -192.734699]).addTo(mymap);
+        marker.bindPopup("<b>Wé, Lifou</b><br><a href=''>Cliquez pour plus d'infos</a>");
+
+        var marker = L.marker([-22.297812, -193.561785]).addTo(mymap);
+        marker.bindPopup("<b>Baie des Citrons, Nouméa</b><br><a href=''>Cliquez pour plus d'infos</a>");
 
         var popup = L.popup()
         function onMapClick(e) {

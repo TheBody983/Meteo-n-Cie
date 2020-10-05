@@ -2,7 +2,7 @@
 //DATABASE CONNECTION
 function open_database_connection()
 {
-    $link = mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
+    $link = mysqli_connect('localhost', 'model', '1234', 'meteo_n_cie');
     return $link;
 }
 
