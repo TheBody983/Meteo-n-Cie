@@ -16,8 +16,8 @@ function register_action($login, $error)
 function main_action($login, $error)
 {
     if(isset($login) && ($userid = get_userID($login) ) != NULL)
-            get_all_stations($userid);
-    else get_all_stations();
+            $stations=get_all_stations($userid);
+    else $stations=get_all_stations();
     require 'view/accueil.php';
 }
 
