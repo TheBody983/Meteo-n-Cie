@@ -1,8 +1,9 @@
 <?php $title= 'Gestion des Stations'; ?>
 <?php ob_start(); ?>
 <?php
+echo '<div class="containerCol">';
 
-echo '<p>Liste des Stations :</p>';
+echo '<div class="containerCol"><p>Liste des Stations :</p>';
 
 echo '<table>';
 echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th><th>Actions</th></tr>';
@@ -25,7 +26,7 @@ foreach($stations as $station){
     }
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
 ?>
 
 <div id="idGestionStation">
@@ -41,5 +42,6 @@ echo '</table>';
 </div>
 
 
+<?php echo '</div>'; ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

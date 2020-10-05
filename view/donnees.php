@@ -1,5 +1,7 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
+echo '<div class="containerCol">';
+
 ?>
 
     <div class="containerCol">
@@ -40,5 +42,7 @@ function search(str){
     xmlhttp.send();
 }
 </script>
+
+<?php echo '</div>'; ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

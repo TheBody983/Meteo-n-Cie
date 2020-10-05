@@ -30,14 +30,22 @@ th, td {
 }
 
 #mapid {
-	border-style: solid;
+	width: 50vw;
+	order: 2;
+	padding: 5px;
+	height: 100%;
+}
+
+#mapborder{
+	padding: 5px;
+	border: solid 5px;
 	border-radius: 5px;
 	flex-grow: 10;
 }
 
 #menu {
 	border-style: solid;
-	border-radius: 5px;
+	border-radius: 2px;
 	padding: 5px;
 }
 
@@ -45,12 +53,13 @@ th, td {
 	display: flex;
 	justify-content: space-around;
 	align-content: space-around;
+	align-items: stretch;
 }
 
 .containerCol{
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-around;
-	align-content: space-around;
+	align-content: center;
 	align-items: stretch;
 }

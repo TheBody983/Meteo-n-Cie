@@ -1,6 +1,7 @@
 <?php $title= 'Gestion des Projets'; ?>
 <?php ob_start(); ?>
 <?php
+echo '<div class="containerCol">';
 
 echo '<p>Liste des Projets :</p>';
 
@@ -38,5 +39,6 @@ echo '</table>';
 </div>
 
 
+<?php echo '</div>' ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

@@ -679,7 +679,7 @@ function get_projet($projetID)
     }
 
     //Prepare la requête
-    $query = mysqli_prepare($link, 'SELECT login FROM user_projet NATURAL JOIN users WHERE projetID=?');
+    $query = mysqli_prepare($link, 'SELECT userID FROM user_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
     //Execute la requête
@@ -687,8 +687,8 @@ function get_projet($projetID)
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
-        while ($login = mysqli_fetch_array($query, MYSQLI_NUM)) {
-            $users[] = $login;
+        while ($userID = mysqli_fetch_array($query, MYSQLI_NUM)) {
+            $users[] = get_user($userID);
         }
     }
 

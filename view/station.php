@@ -1,8 +1,9 @@
 <?php $title= 'Station'; ?>
 <?php ob_start(); ?>
 <?php
+echo '<div class="containerCol">';
 echo '<input type="text" name="station" value ='.$station["stationID"].' hidden>';
-echo '<p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
+echo '<div><p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
 echo '<table>';
 echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th></tr>';
     echo '<tr>';
@@ -13,7 +14,7 @@ echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité<
         echo '<td><div id="description">'.$station["description"].'</div></td>';
         echo '<td><div id="localisation">'.$station["localisation"].'</div></td>';
     echo '</tr>';
-echo '</table>';
+echo '</table></div></div>';
 ?>
 <script>
     let model = document.getElementById("model");
