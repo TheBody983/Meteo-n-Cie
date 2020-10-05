@@ -30,7 +30,7 @@ echo '</table>';
     <p>Ajouter un Projet</p>
 
     <form method="post"action="gestionProjet">
-        <input type="text" name="addProjet" value = "yes" hidden>
+        <input type="text" name="addProjet" value = "" hidden>
         <label for="nameProjet">Nom de Projet</label> :<input type="text" name="nameProjet" id="nameProjet" value = "" >
         <label for="descriptionProjet">Description du projet</label> : <input type="text" name="descriptionProjet" id="descriptionProjet">
         <input type="submit" value="Ajouter">

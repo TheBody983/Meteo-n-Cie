@@ -102,15 +102,6 @@ switch ( $action ) {
         projet_action($login, $error);
         break;
 
-    case 'gestionUserProjet' :                     //Recupère les données de toutes les stations
-        gestionUserProjets_action($login, $error);
-        break;
-
-    case 'listeProjet' :                     //Recupère les données de toutes les stations
-        listeProjets_action($login, $error);
-        break;
-
-
 
 
     default :

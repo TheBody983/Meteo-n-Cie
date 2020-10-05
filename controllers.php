@@ -80,27 +80,24 @@ function gestion_projets_action($login, $error){
 function projet_action($login, $error){
     $projet = get_projet($_POST["projet"]);
     if(isset($_POST['addStationProjet'])){
-        add_station_to_project($_POST["addStationProjet"], $projetID);
+        add_station_to_project($_POST["nameStation"], $projet);
         header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
     }
     if(isset($_POST['removeStationProjet'])){
         remove_station($_POST['removeStationProjet']);
         header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
     }
-    require 'view/projet.php';
-}
-/*
-function gestionUserProjets_action($login, $error){
-    $projet = get_projet(1);
+
     if(isset($_POST['addUserProjet'])){
-        add_user_to_project($userID, $projetID, $priv = NULL);
-		header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
+        add_user_to_project($_POST["nameUser"], $projet);
+        header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
     }
     if(isset($_POST['removeUserProjet'])){
         remove_user($_POST['removeUserProjet']);
         header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/projet");
     }
+
     require 'view/projet.php';
+
 }
-*/
 ?>

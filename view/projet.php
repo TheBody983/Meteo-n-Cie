@@ -3,31 +3,28 @@
 <?php
 
 //echo '<input type="text" name="projet" value ='.$projet["projetID"].' hidden>';
-echo '<p>Edition de projet (Double-cliquer pour éditer la donnée)</p>';
+echo '<p>Edition de projet</p>';
 
 echo '<table>';
-echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
-
+echo '<tr><th>ID Projet</th><th>Nom</th><th>Description</th>';
     echo '<tr>';
-    echo '<td><div>'.$projet["infos"]["projetID"].'</div></td>';
-    echo '<td><div id="nom">'.$projet["infos"]["nom"].'</div></td>';
-    echo '<td><div id="description">'.$projet["infos"]["description"].'</div></td>';
+    echo '<td><div id="idprojet">' . $projet["infos"]["projetID"] . '</div></td>';
+    echo '<td><div id="nom">' . $projet["infos"]["nom"] . '</div></td>';
+    echo '<td><div id="description">' . $projet["infos"]["description"] . '</div></td>';
     echo '</tr>';
 
 echo '</table>';
 
 echo '<table>';
+echo '<tr><th>Station</th><th>Model</th><th>Localisation</th>';
 foreach($projet["stations"] as $station){
     echo '<tr>';
     
         echo '<td>'.$station["stationID"].'</td>';
-        echo '<td>'.$station["userID"].'</td>';
         echo '<td>'.$station["model"].'</td>';
-        echo '<td>'.$station["visibility"].'</td>';
-        echo '<td>'.$station["description"].'</td>';
         echo '<td>'.$station["localisation"].'</td>';
 		
-        echo '<td class="container"><form method="post"action="gestionStationProjet">
+        echo '<td class="container"><form method="post"action="projet">
             <input type="text" name="removeStationProjet" value ='.$station["stationID"].' hidden>
             <input type="submit" value="Supprimer"></form>';
     
@@ -35,13 +32,15 @@ foreach($projet["stations"] as $station){
 }
 echo '</table>';
 
-
+echo '<table>';
+echo '<tr><th>ID Utilisateur</th><th>Nom</th><th>Prenom</th>';
 foreach($projet["users"] as $user){
     echo '<tr>';
-    
-        echo '<td>'.$user[0].'</td>';
-		
-        echo '<td class="container"><form method="post"action="gestionUserProjet">
+        echo '<td>'.$user["0"].'</td>';
+        echo '<td>'.$user["0"].'</td>';
+        echo '<td>'.$user["0"].'</td>';
+
+        echo '<td class="container"><form method="post"action="projet">
             <input type="text" name="removeUserProjet" value ='.$station["stationID"].' hidden>
             <input type="submit" value="Supprimer"></form>';
     
@@ -55,22 +54,23 @@ echo '</table>';
 <div id="idGestionStationProjet">
     <p>Ajouter une station au Projet</p>
 
-    <form method="post"action="gestionStationProjet">
-        <label for="addStationProjet">Num de la station</label> :<input type="text" name="addStationProjet" id="addStationProjet" value = "">
+    <form method="post"action="projet">
+        <input type="text" name="addStationProjet" value = "" hidden>
+        <label for="nameStation">Nom de la Station</label> :<input type="text" name="nameStation" id="nameStation" value = "" >
         <input type="submit" value="Ajouter">
     </form>
 </div>
-    <!--
-    <div id="idGestionUserProjet">
-        <p>Ajouter un utilisateur au Projet</p>
 
-        <form method="post"action="gestionUserProjet">
-            <label for="addUserProjet">Nom de l'utilisateur</label> :<input type="text" name="addUserProjet" id="addUserProjet" value = "yes" hidden>
-            <label for="prenomUserProjet">Prenom</label> : <input type="text" name="prenomUserProjet" id="prenomUserProjet">
-            <input type="submit" value="Ajouter">
-        </form>
-    </div>
-    -->
+<div id="idGestionUserProjet">
+    <p>Ajouter un utilisateur au Projet</p>
+
+    <form method="post"action="projet">
+        <input type="text" name="addUserProjet" value = "" hidden>
+        <label for="nameUser">ID Utilisateur</label> :<input type="text" name="nameUser" id="nameUser" value = "" >
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
+
 <script>
     let visibility = document.getElementById("visibility");
     let description = document.getElementById("description");
