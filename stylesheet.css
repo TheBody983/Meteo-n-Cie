@@ -67,7 +67,13 @@ th, td {
 
 }
 
-
+.box{
+	border-style: solid;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px;
+	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
+}
 
 .container{
 	display: flex;
@@ -94,7 +100,12 @@ th, td {
 	border: solid 2px black;
 	border-radius: 5px;
 }
+
 #textavertissement{
 	float:right;
 	width: 75%;
+}
+
+.inputbox{
+	background-color: whitesmoke;
 }

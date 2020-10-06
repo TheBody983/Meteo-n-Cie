@@ -1,7 +1,7 @@
 <?php $title= 'Gestion des Stations'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol"><div class="containerCol">';
+echo '<div class="containerCol"><div class="containerCol box">';
 echo '<p>Liste des Stations :</p>';
 
 echo '<table>';
@@ -14,9 +14,9 @@ foreach($stations as $station){
         echo '<td>'.$station["model"].'</td>';
         echo '<td>'.$station["description"].'</td>';
         echo '<td>'.$station["localisation"].'</td>';
-        echo '<td><form method="post"action="station">
-            <input type="text" name="station" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Accéder aux mesures"></form></td>';
+    echo '<td><form method="get" action="station">
+            <input type="text" name="stationID" value="'.$station["stationID"].'" hidden >
+            <input type="submit" value="Accèder aux mesures"></form></td>';
     echo '</tr>';
 }
 echo '</table>';

@@ -1,7 +1,7 @@
 <?php $title= 'projet'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol"><div class="containerCol ">';
+echo '<div class="containerCol"><div class="containerCol box">';
 //echo '<input type="text" name="projet" value ='.$projet["projetID"].' hidden>';
 echo '<p>Edition de projet (Double-cliquer pour éditer la donnée)</p>';
 
@@ -16,7 +16,7 @@ echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
 
 echo '</table></div>';
 
-echo '<div><table class="containerCol">';
+echo '<div class="containerCol box"><table>';
 foreach($projet["stations"] as $station){
     echo '<tr>';
     
@@ -34,7 +34,7 @@ foreach($projet["stations"] as $station){
     echo '</tr>';
 }
 echo '</table></div>';
-echo '<div class="containerCol"><table>';
+echo '<div class="containerCol box"><table>';
 
 
 foreach($projet["users"] as $user){
@@ -53,7 +53,7 @@ echo '</table></div>';
 
 ?>
 
-<div id="idGestionStationProjet">
+<div id="idGestionStationProjet" class="box">
     <p>Ajouter une station au Projet</p>
 
     <form method="post"action="gestionStationProjet">

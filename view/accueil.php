@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 
     <div class="mapborder">
-        <div id="mapid" ></div><footer class="container">
+        <div id="mapid"></div><footer class="container">
             <div id="avertissement">AVERTISSEMENT</div>
             <div id="textavertissement"><marquee behavior="scroll">Bonne journée</marquee></div>
         </footer>
@@ -27,7 +27,7 @@
             echo 'var coordinates = [];';
             echo 'coordinates[0] = parseFloat(' . $station["coord"][0] . ');';
             echo 'coordinates[1] = parseFloat(' . $station["coord"][1] . '); ';
-            echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>' . $station["description"] . '</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
+            echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>' . $station["description"] . '</b><br><a href=\"station?stationID='.$station["stationID"].'\">Accèder à la station</a>");';
         }
     }?>
 

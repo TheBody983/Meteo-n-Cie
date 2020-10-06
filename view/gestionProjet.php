@@ -1,7 +1,7 @@
 <?php $title= 'Gestion des Projets'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol"><div class="containerCol">';
+echo '<div class="containerCol"><div class="containerCol box">';
 
 echo '<p>Liste des Projets :</p>';
 
@@ -27,7 +27,7 @@ foreach($projets as $projet){
 echo '</table></div>';
 ?>
 
-<div id="idGestionProjet">
+<div id="idGestionProjet" class="box">
     <p>Ajouter un Projet</p>
 
     <form method="post"action="gestionProjet">

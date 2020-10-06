@@ -3,7 +3,7 @@
 <?php
 echo '<div class="containerCol">';
 echo '<input type="text" name="station" value ='.$station["stationID"].' hidden>';
-echo '<div><p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
+echo '<div class="box"><p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
 echo '<table>';
 echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th></tr>';
     echo '<tr>';
@@ -16,7 +16,7 @@ echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité<
     echo '</tr>';
 echo '</table></div>';?>
 
-<div class="containerCol">
+<div class="containerCol box">
     <p>Mesures de la Station</p>
 <table>
 <tr>
