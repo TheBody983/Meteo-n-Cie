@@ -14,11 +14,11 @@ foreach($projets as $projet){
     echo '<td><div id="nom">'.$projet["nom"].'</div></td>';
     echo '<td><div id="description">'.$projet["description"].'</div></td>';
 
-    echo '<td class="container"><form method="post"action="gestionProjet">
+    /*echo '<form method="post"action="gestionProjet">
         <input type="text" name="delprojet" value ='.$projet["projetID"].' hidden>
-        <input type="submit" value="Supprimer"></form>';
+        <input type="submit" value="Supprimer"></form>';*/
 
-    echo '<form method="get"action="projet">
+    echo '<td class="container"><form method="get"action="projet">
         <input type="text" name="projet" value ='.$projet["projetID"].' hidden>
         <input type="submit" value="Editer"></form></td>';
 
