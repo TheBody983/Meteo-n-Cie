@@ -15,44 +15,71 @@ echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
 
 echo '</table></div>';
 
-
-
-echo '<div class="containerCol box"><table>';
-foreach($projet["stations"] as $station){
+echo '<div class="containerCol box">';
+if(count($projet["stations"])!=0) {
+    echo '<table>';
     echo '<tr>';
-    
-        echo '<td>'.$station["stationID"].'</td>';
-        echo '<td>'.$station["userID"].'</td>';
-        echo '<td>'.$station["model"].'</td>';
-        echo '<td>'.$station["visibility"].'</td>';
-        echo '<td>'.$station["description"].'</td>';
-        echo '<td>'.$station["localisation"].'</td>';
-		
-        echo '<td class="container">
-            <form method="post" action="projet?projet='.$projet["infos"]["projetID"].'">
-            <input type="text" name="delStationProjet" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Supprimer"></form>';
-    
+    echo '<th>StationID</th>';
+    echo '<th>Propriétaire</th>';
+    echo '<th>Modèle</th>';
+    echo '<th>Description</th>';
+    echo '<th>Localisation</th>';
+    echo '<th>Actions</th>';
     echo '</tr>';
+
+    foreach ($projet["stations"] as $station) {
+        echo '<tr>';
+
+        echo '<td>' . $station["stationID"] . '</td>';
+        echo '<td>' . $station["userID"] . '</td>';
+        echo '<td>' . $station["model"] . '</td>';
+        echo '<td>' . $station["description"] . '</td>';
+        echo '<td>' . $station["localisation"] . '</td>';
+
+        echo '<td class="container">
+            <form method="post" action="projet?projet=' . $projet["infos"]["projetID"] . '">
+            <input type="text" name="delStationProjet" value =' . $station["stationID"] . ' hidden>
+            <input type="submit" value="Supprimer"></form>';
+
+        echo '</tr>';
+    }
+    echo '</table>';
 }
-echo '</table></div>';
+else echo '<p> Aucune station dans ce projet </p>';
+echo '</div>';
 
 
 
-echo '<div class="containerCol box"><table>';
-foreach($projet["users"] as $user){
+echo '<div class="containerCol box">';
+if(count($projet["users"])!=0) {
+    echo '<table>';
     echo '<tr>';
+    echo '<th>userID</th>';
+    echo '<th>Login</th>';
+    echo '<th>Nom</th>';
+    echo '<th>Prenom</th>';
+    echo '<th>Mail</th>';
+    echo '<th>Permissions</th>';
+    echo '<th>date d\'Inscription</th>';
+    echo '<th>Description</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    foreach ($projet["users"] as $user) {
+        echo '<tr>';
         foreach ($user as $info) {
             echo '<td>' . $info . '</td>';
         }
         echo '<td class="container">
-            <form method="post"action="projet?projet='.$projet["infos"]["projetID"].'">
-            <input type="text" name="delUserProjet" value ='.$user["userID"].' hidden>
+            <form method="post"action="projet?projet=' . $projet["infos"]["projetID"] . '">
+            <input type="text" name="delUserProjet" value =' . $user["userID"] . ' hidden>
             <input type="submit" value="Supprimer"></form>';
-    
-    echo '</tr>';
+
+        echo '</tr>';
+    }
+    echo '</table>';
 }
-echo '</table></div>';
+else echo '<p> Aucun utilisateur dans ce projet </p>';
+echo '</div>';
 
 
 ?>
