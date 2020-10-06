@@ -55,8 +55,9 @@ echo '</table>';
     <p>Ajouter une station au Projet</p>
 
     <form method="post"action="projet">
-        <input type="text" name="addStationProjet" value = "" hidden>
-        <label for="nameStation">Nom de la Station</label> :<input type="text" name="nameStation" id="nameStation" value = "" >
+        <input type="text" name="addStationProjet" value = "yes" hidden>
+        <input type="text" name="projet" value = "<?php echo $projet["infos"]["projetID"]; ?>" hidden>
+        <label for="station">Nom de la Station</label> :<input type="text" name="station" id="station">
         <input type="submit" value="Ajouter">
     </form>
 </div>
@@ -65,8 +66,9 @@ echo '</table>';
     <p>Ajouter un utilisateur au Projet</p>
 
     <form method="post"action="projet">
-        <input type="text" name="addUserProjet" value = "" hidden>
-        <label for="nameUser">ID Utilisateur</label> :<input type="text" name="nameUser" id="nameUser" value = "" >
+        <input type="text" name="addUserProjet" value = "yes" hidden>
+        <input type="text" name="projet" value = "<?php echo $projet["infos"]["projetID"]; ?>" hidden>
+        <label for="userID">ID Utilisateur</label> :<input type="text" name="userID" id="userID">
         <input type="submit" value="Ajouter">
     </form>
 </div>
