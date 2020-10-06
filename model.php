@@ -2,8 +2,7 @@
 //DATABASE CONNECTION
 function open_database_connection()
 {
-    $link = mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
-    return $link;
+    return mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
 }
 
 function close_database_connection($link)
@@ -162,7 +161,7 @@ function del_user($userID)
     $userID = intval($userID);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'DELETE FROM users WHERE stationID = ?');
+    $query = mysqli_prepare($link,'DELETE FROM users WHERE userID = ?');
     mysqli_stmt_bind_param($query, 'i', $userID);
 
     //execute la requête
@@ -178,6 +177,8 @@ function get_user($userID){
      *
      * @return array les information de l'utilisateur
      */
+
+    $user = NULL;
 
     $userID = intval($userID);
 
@@ -216,6 +217,8 @@ function get_all_users(){
      *
      * @return array les information des utilisateurs
      */
+
+    $users = NULL;
 
     $link = open_database_connection();
 
@@ -351,15 +354,19 @@ function get_all_stations($userID=0){
 
     //Prepare la requête
     if($userID == 0) {
-        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public"');
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = ?');
+        $vis = "public";
+        mysqli_stmt_bind_param($query, 's', $vis);
+
     }
     else if($userID == -1){
         $query = mysqli_prepare($link, 'SELECT * FROM stations');
         mysqli_stmt_bind_param($query, 'i', $userID);
     }
     else {
-        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
-        mysqli_stmt_bind_param($query, 'i', $userID);
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = ? OR userID = ?');
+        $vis = "public";
+        mysqli_stmt_bind_param($query, 'si', $vis,$userID);
     }
 
     //Execute la requête
@@ -370,9 +377,14 @@ function get_all_stations($userID=0){
         $stations = array();
         while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
             $loc = explode(' ', $station[5]);
-            $lat = floatval($loc[0]);
-            $long = floatval($loc[1]);
-
+            if(count($loc)==2) {
+                $lat = floatval($loc[0]);
+                $long = floatval($loc[1]);
+            }
+            else {
+                $lat = NULL;
+                $long = NULL;
+            }
             $stationtmp = array(
                 "stationID" => $station[0],
                 "userID" => $station[1],

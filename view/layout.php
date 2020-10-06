@@ -35,8 +35,9 @@
 
 </header>
 <div class="container">
-<?php if($title != 'Connexion'){?>
-<nav id="menu" class="containerCol">
+<?php if($title != 'Connexion' && $title != 'Register'){?>
+
+    <nav id="menu" class="containerCol" >
     <img id='titremenu' src="../graphs/menu.png"/>
     <?php
     if(!isset($_SESSION['login']))
@@ -63,11 +64,9 @@
     <p>
         <a class="menu" href="donnees">Données</a>
     </p>
-    <p>
-        <a class="menu" href="test">Tests</a>
-    </p>
     <?php
-    if (isset($_SESSION['login'])){
+    if (isset($_SESSION['login'])) {
+        echo '<p><a class="menu" href="test">Tests</a></p>';
         echo '<p><a class="menu" href="admin">Administration</a></p>';
     }
     ?>

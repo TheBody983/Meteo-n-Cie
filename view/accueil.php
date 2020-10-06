@@ -1,14 +1,12 @@
 <?php $title= 'Accueil'; ?>
 <?php ob_start(); ?>
 
-
-
-
     <div class="mapborder">
-        <div id="mapid" ></div>
+        <div id="mapid" ></div><footer class="container">
+            <div id="avertissement">AVERTISSEMENT</div>
+            <div id="textavertissement"><marquee behavior="scroll">Bonne journée</marquee></div>
+        </footer>
     </div>
-
-
 
 <script>
 
@@ -25,10 +23,12 @@
     }).addTo(mymap);
 
     <?php foreach($stations as $station){
-        echo 'var coordinates = [];';
-        echo 'coordinates[0] = parseFloat('.$station["coord"][0].');';
-        echo 'coordinates[1] = parseFloat('.$station["coord"][1].'); ';
-        echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>'.$station["description"].'</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
+        if($station["coord"][0]!=NULL) {
+            echo 'var coordinates = [];';
+            echo 'coordinates[0] = parseFloat(' . $station["coord"][0] . ');';
+            echo 'coordinates[1] = parseFloat(' . $station["coord"][1] . '); ';
+            echo 'var marker = L.marker(coordinates).addTo(mymap);marker.bindPopup("<b>' . $station["description"] . '</b><br><a href=\'\'>Cliquez pour plus d\'infos</a>");';
+        }
     }?>
 
     var popup = L.popup()
