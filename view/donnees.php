@@ -3,8 +3,8 @@
 echo '<div class="containerCol">';
 
 ?>
-
-    <div class="containerCol">
+<div class="box">
+    <div class="containerCol ">
         <label for="searchbar">Mesures recherchées</label>
         <input type="text" id="searchbar" name="searchbar" placeholder="Veuillez entrer un terme" onkeyup="showHint(this.value)">
     </div>
@@ -12,6 +12,7 @@ echo '<div class="containerCol">';
     <p>Mesures existantes : <span id="hint"></span></p>
     <div id="table" class="containerCol">
     </div>
+</div>
 
 <script>
 function showHint(str) {

@@ -22,7 +22,6 @@ echo '</table></div>';?>
 <tr>
   <th>Date</th>
   <th>Mesure</th>
-
   <th>Valeur</th>
 </tr>
 <?php

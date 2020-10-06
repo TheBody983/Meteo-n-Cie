@@ -3,10 +3,10 @@
 <div class="containerCol">
     <div  class="containerCol">
     <form method="post" action="main" class="containerCol box">
-        <p><label for="login"> Identifiant </label> :</p>
+        <label for="login"> Identifiant </label> :
         <input type="text" name="login" id="login" class="inputbox" maxlength="12" required/>
         <br />
-        <p><label for="password"> Mot de Passe </label> :</p>
+        <label for="password"> Mot de Passe </label> :
         <input type="password" name="password" id="password" maxlength="12" required />
         <br/>
         <input id="connexion" type="submit" value="Envoyer">

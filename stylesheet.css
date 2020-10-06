@@ -64,6 +64,7 @@ th, td {
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
+	box-shadow: black 2px 2px 2px;
 
 }
 
@@ -72,6 +73,8 @@ th, td {
 	border-radius: 10px;
 	padding: 10px;
 	margin: 10px;
+	box-shadow: black 2px 2px 2px;
+
 	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
 }
 
@@ -108,4 +111,8 @@ th, td {
 
 .inputbox{
 	background-color: whitesmoke;
+}
+
+.box label{
+	color: white;
 }

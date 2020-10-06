@@ -1,7 +1,7 @@
 <?php $title= 'Administration'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol">';
+echo '<div class="containerCol box">';
 
 echo '<table>';
     echo '<tr><th>userID</th><th>login</th><th>prenom</th><th>nom</th><th>mail</th><th>authorisations</th><th>date inscription</th><th>description</th><th>actions</th></tr>';

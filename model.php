@@ -698,7 +698,7 @@ function get_projet($projetID)
     }
 
     //Prepare la requête
-    $query = mysqli_prepare($link, 'SELECT stationID FROM station_projet WHERE projetID=?');
+    $query = mysqli_prepare($link, 'SELECT DISTINCT stationID FROM station_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
 
@@ -713,7 +713,7 @@ function get_projet($projetID)
     }
 
     //Prepare la requête
-    $query = mysqli_prepare($link, 'SELECT userID FROM user_projet WHERE projetID=?');
+    $query = mysqli_prepare($link, 'SELECT DISTINCT userID FROM user_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
     //Execute la requête
