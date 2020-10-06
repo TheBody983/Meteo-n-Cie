@@ -2,8 +2,8 @@
 <?php ob_start(); ?>
 
 <!-- Demande à l'utilisateur ces informations pour la création de son compte -->
-
-<form method="post" action="main">
+<div class="containerCol">
+<form method="post" action="main" class="containerCol box">
     <label for="name"> Nom </label> :
     <input type="text" name="name" id="name" required/>
     <br />
@@ -23,6 +23,9 @@
 
     <input id="connexion" type="submit" value="Envoyer"/>
 </form>
+    <div class="containerCol box">
 <button id="connexion" onclick = "history.back()">Annuler</button>
+    </div>
+</div>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

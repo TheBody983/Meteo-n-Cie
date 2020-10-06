@@ -1,6 +1,7 @@
 <?php $title= 'Gestion des Projets'; ?>
 <?php ob_start(); ?>
 <?php
+echo '<div class="containerCol"><div class="containerCol box">';
 
 echo '<p>Liste des Projets :</p>';
 
@@ -23,10 +24,10 @@ foreach($projets as $projet){
 
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
 ?>
 
-<div id="idGestionProjet">
+<div id="idGestionProjet" class="box">
     <p>Ajouter un Projet</p>
 
     <form method="post"action="gestionProjet">
@@ -38,5 +39,6 @@ echo '</table>';
 </div>
 
 
+<?php echo '</div>' ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

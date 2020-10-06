@@ -1,7 +1,7 @@
 <?php $title= 'projet'; ?>
 <?php ob_start(); ?>
 <?php
-
+echo '<div class="containerCol"><div class="containerCol box">';
 //echo '<input type="text" name="projet" value ='.$projet["projetID"].' hidden>';
 echo '<p>Edition de projet (Double-cliquer pour éditer la donnée)</p>';
 
@@ -14,9 +14,9 @@ echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
     echo '<td><div id="description">'.$projet["infos"]["description"].'</div></td>';
     echo '</tr>';
 
-echo '</table>';
+echo '</table></div>';
 
-echo '<table>';
+echo '<div class="containerCol box"><table>';
 foreach($projet["stations"] as $station){
     echo '<tr>';
     
@@ -33,26 +33,27 @@ foreach($projet["stations"] as $station){
     
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
+echo '<div class="containerCol box"><table>';
 
 
 foreach($projet["users"] as $user){
     echo '<tr>';
-    
-        echo '<td>'.$user[0].'</td>';
-		
+        foreach ($user as $info) {
+            echo '<td>' . $info . '</td>';
+        }
         echo '<td class="container"><form method="post"action="gestionUserProjet">
             <input type="text" name="removeUserProjet" value ='.$station["stationID"].' hidden>
             <input type="submit" value="Supprimer"></form>';
     
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
 
 
 ?>
 
-<div id="idGestionStationProjet">
+<div id="idGestionStationProjet" class="box">
     <p>Ajouter une station au Projet</p>
 
     <form method="post"action="gestionStationProjet">

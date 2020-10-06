@@ -1,0 +1,111 @@
+body{
+	display: flex;
+	flex-flow: column nowrap;
+	background-image: url("https://www.pxwall.com/wp-content/uploads/2019/03/Sky-HD-Background.jpg");
+
+}
+
+header{
+	align-items: center;
+	justify-content: center;
+	height: 20vh;
+}
+
+p{
+	border-radius: 5px;
+	background-color: lightgray;
+	box-shadow: black 2px 2px 2px;
+	padding: 5px;
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+table{background-color: darkgray;}
+tr:nth-child(even) {background-color: lightgray;}
+tr:nth-child(odd) {background-color: whitesmoke;}
+th{background-color: #f2f2f2;}
+
+th, td {
+	padding: 5px;
+}
+
+#mapid {
+	width: 50vw;
+	order: 2;
+	padding: 5px;
+	border: solid 2px;
+	border-radius: 10px;
+
+	height: 70vh;
+}
+
+#mapborder{
+	padding: 5px;
+	border: solid 5px;
+	border-radius: 10px;
+	flex-grow: 10;
+}
+
+#titremenu{
+	margin: 20px;
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
+
+#menu {
+	border-style: solid;
+	border-radius: 10px;
+	padding: 10px;
+	height: 70vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
+
+}
+
+.box{
+	border-style: solid;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px;
+	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
+}
+
+.container{
+	display: flex;
+	justify-content: space-around;
+	align-content: space-around;
+	align-items: stretch;
+}
+
+.containerCol{
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-evenly;
+	align-content: center;
+	align-items: stretch;
+}
+
+#avertissement{
+	float:left;
+	background-color: royalblue;
+	width: 25%;
+	height: 100%;
+	font-size: 120%;
+	color: white;
+	border: solid 2px black;
+	border-radius: 5px;
+}
+
+#textavertissement{
+	float:right;
+	width: 75%;
+}
+
+.inputbox{
+	background-color: whitesmoke;
+}

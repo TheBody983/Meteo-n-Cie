@@ -2,8 +2,7 @@
 //DATABASE CONNECTION
 function open_database_connection()
 {
-    $link = mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
-    return $link;
+    return mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
 }
 
 function close_database_connection($link)
@@ -162,7 +161,7 @@ function del_user($userID)
     $userID = intval($userID);
 
     //Prepare la requête
-    $query = mysqli_prepare($link,'DELETE FROM users WHERE stationID = ?');
+    $query = mysqli_prepare($link,'DELETE FROM users WHERE userID = ?');
     mysqli_stmt_bind_param($query, 'i', $userID);
 
     //execute la requête
@@ -178,6 +177,8 @@ function get_user($userID){
      *
      * @return array les information de l'utilisateur
      */
+
+    $user = NULL;
 
     $userID = intval($userID);
 
@@ -216,6 +217,8 @@ function get_all_users(){
      *
      * @return array les information des utilisateurs
      */
+
+    $users = NULL;
 
     $link = open_database_connection();
 
@@ -298,7 +301,7 @@ function update_station($stationID, $field, $value)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $field = htmlspecialchars($field);
     $field =  str_replace(array('\n','\r',PHP_EOL),' ',$field);
@@ -351,15 +354,19 @@ function get_all_stations($userID=0){
 
     //Prepare la requête
     if($userID == 0) {
-        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public"');
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = ?');
+        $vis = "public";
+        mysqli_stmt_bind_param($query, 's', $vis);
+
     }
     else if($userID == -1){
         $query = mysqli_prepare($link, 'SELECT * FROM stations');
         mysqli_stmt_bind_param($query, 'i', $userID);
     }
     else {
-        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = "public" OR userID = ?');
-        mysqli_stmt_bind_param($query, 'i', $userID);
+        $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = ? OR userID = ?');
+        $vis = "public";
+        mysqli_stmt_bind_param($query, 'si', $vis,$userID);
     }
 
     //Execute la requête
@@ -370,9 +377,14 @@ function get_all_stations($userID=0){
         $stations = array();
         while($station = mysqli_fetch_array($query, MYSQLI_NUM)){
             $loc = explode(' ', $station[5]);
-            $lat = floatval($loc[0]);
-            $long = floatval($loc[1]);
-
+            if(count($loc)==2) {
+                $lat = floatval($loc[0]);
+                $long = floatval($loc[1]);
+            }
+            else {
+                $lat = NULL;
+                $long = NULL;
+            }
             $stationtmp = array(
                 "stationID" => $station[0],
                 "userID" => $station[1],
@@ -411,6 +423,7 @@ function get_station($stationID){
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
 
+        $mesures = array();
         $stationtmp = mysqli_fetch_array($query, MYSQLI_NUM);
         $station = array(
                 "stationID" => $stationtmp[0],
@@ -418,7 +431,28 @@ function get_station($stationID){
                 "model" => $stationtmp[2],
                 "visibility" => $stationtmp[3],
                 "description" => $stationtmp[4],
-                "localisation" => $stationtmp[5]);
+                "localisation" => $stationtmp[5],
+                "mesures" => $mesures
+        );
+    }
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'SELECT * FROM mesures WHERE stationID = ?');
+    mysqli_stmt_bind_param($query, 'i', $stationID);
+
+    //Execute la requête
+    if(mysqli_stmt_execute($query)) {
+        //Récupère le résultat
+        $query = mysqli_stmt_get_result($query);
+
+        while ($mesure = mysqli_fetch_array($query, MYSQLI_NUM)) {
+            $mesuretmp = array(
+                "date" => $mesure[0],
+                "stationID" => $mesure[1],
+                "name" => $mesure[2],
+                "value" => $mesure[3]);
+            $station["mesures"][] = $mesuretmp;
+        }
     }
 
     close_database_connection($link);
@@ -542,7 +576,7 @@ function del_mesure($date, $stationID)
 
     $link = open_database_connection();
 
-    $stationID = intval($userID);
+    $stationID = intval($stationID);
 
     $date = htmlspecialchars($date);
     $date =  str_replace(array('\n','\r',PHP_EOL),' ',$date);
@@ -679,7 +713,7 @@ function get_projet($projetID)
     }
 
     //Prepare la requête
-    $query = mysqli_prepare($link, 'SELECT login FROM user_projet NATURAL JOIN users WHERE projetID=?');
+    $query = mysqli_prepare($link, 'SELECT userID FROM user_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
     //Execute la requête
@@ -687,8 +721,8 @@ function get_projet($projetID)
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
-        while ($login = mysqli_fetch_array($query, MYSQLI_NUM)) {
-            $users[] = $login;
+        while ($userID = mysqli_fetch_array($query, MYSQLI_NUM)) {
+            $users[] = get_user($userID);
         }
     }
 
@@ -700,6 +734,7 @@ function get_projet($projetID)
         "users" => $users
     );
 }
+
 function get_all_projet(){
     /** Retourne toutes les informations d'un projet
      *

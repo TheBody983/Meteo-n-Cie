@@ -8,18 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" type="image/x-icon" href="../graphs/meteoncie.ico" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<?php if(isset($login)){if($login == "Aphaz"||$login == "aphaz")
-{
-    echo '<link rel="stylesheet" href="../index2.css"/>';
-}
-else
-{
-    echo '<link rel="stylesheet" href="../index.css"/>';
-}} ?>
+<link rel="stylesheet" href="../stylesheet.css"/>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 </head>
 
-<body>
+<body class = "container">
 <header class="container">
     <a href="../index.php/main"><img id='titre' src="../graphs/titre.png"></a>
 
@@ -41,9 +34,47 @@ else
     } ?>
 
 </header>
+<div class="container">
+<?php if($title != 'Connexion' && $title != 'Register'){?>
 
-<?php echo $content; ?>
+    <nav id="menu" class="containerCol" >
+    <img id='titremenu' src="../graphs/menu.png"/>
+    <?php
+    if(!isset($_SESSION['login']))
+        echo '<button id="connexion" onclick="window.location.href = \'login\'">Se connecter/ S\'inscrire</button>';
+    ?>
+    <p>
+        <a class="menu" href="main">Page d'Accueil</a>
+    </p>
+    <p>
+        <a class="menu" href="listeStation">Liste des stations</a>
+    </p>
+    <?php if (isset($_SESSION['login'])) {
+        echo '<p>
+        <a class="menu" href="gestionStation">Gestion des stations</a>
+    </p>
+    <p>
+        <a class="menu" href="">Messagerie</a>
+    </p>
+    <p>
+        <a class="menu" href="gestionProjet">Projet</a>
+    </p>';
+    }
+    ?>
+    <p>
+        <a class="menu" href="donnees">Données</a>
+    </p>
+    <?php
+    if (isset($_SESSION['login'])) {
+        echo '<p><a class="menu" href="test">Tests</a></p>';
+        echo '<p><a class="menu" href="admin">Administration</a></p>';
+    }
+    ?>
+    </section>
+</nav>
 
+<?php } echo $content; ?>
+</div>
 <footer>
 </footer>
 </body>

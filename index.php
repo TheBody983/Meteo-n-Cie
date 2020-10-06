@@ -30,6 +30,10 @@ if($action == 'index.php') {
     header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
     exit;
 }
+if($action == '') {
+    header("refresh:0;url=http://localhost/Meteo-n-Cie/index.php/main");
+    exit;
+}
 
 if(!isset($_SESSION['login']) ) {
 
