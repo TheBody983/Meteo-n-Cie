@@ -18,7 +18,7 @@ foreach($projets as $projet){
         <input type="text" name="delprojet" value ='.$projet["projetID"].' hidden>
         <input type="submit" value="Supprimer"></form>';
 
-    echo '<form method="post"action="projet">
+    echo '<form method="get"action="projet">
         <input type="text" name="projet" value ='.$projet["projetID"].' hidden>
         <input type="submit" value="Editer"></form></td>';
 

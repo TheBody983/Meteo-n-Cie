@@ -642,6 +642,30 @@ function add_user_to_project($userID, $projetID, $priv = NULL){
 
 }
 
+function del_user_from_project($userID, $projetID){
+    /** Retire un utilisateur d'un projet
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     * @param integer $projetID un identifiiant de projet
+     */
+
+    $link = open_database_connection();
+
+    $userID = intval($userID);
+
+    $projetID =  intval($projetID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM user_projet WHERE userID = ? AND projetID = ?');
+    mysqli_stmt_bind_param($query, 'ii', $userID, $projetID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+
+}
+
 function add_station_to_project($stationID, $projetID){
     /** Ajoute un utilisateur au projet
      *
@@ -665,6 +689,31 @@ function add_station_to_project($stationID, $projetID){
     close_database_connection($link);
 
 }
+
+function del_station_from_project($stationID, $projetID){
+    /** Retire un utilisateur d'un projet
+     *
+     * @param integer $userID un identifiant d'utilisateur
+     * @param integer $projetID un identifiiant de projet
+     */
+
+    $link = open_database_connection();
+
+    $stationID = intval($stationID);
+
+    $projetID =  intval($projetID);
+
+    //Prepare la requête
+    $query = mysqli_prepare($link,'DELETE FROM station_projet WHERE stationID = ? AND projetID = ?');
+    mysqli_stmt_bind_param($query, 'ii', $stationID, $projetID);
+
+    //execute la requête
+    mysqli_stmt_execute($query);
+
+    close_database_connection($link);
+
+}
+
 
 function get_projet($projetID)
 {
@@ -721,7 +770,7 @@ function get_projet($projetID)
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
         $users = array();
-        while ($userID = mysqli_fetch_array($query, MYSQLI_NUM)) {
+        while ($userID = mysqli_fetch_array($query, MYSQLI_NUM)[0]) {
             $users[] = get_user($userID);
         }
     }
