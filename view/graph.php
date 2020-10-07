@@ -2,7 +2,7 @@
 
 <?php ob_start();?>
 
-<body>
+<div class="container content">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <canvas id="myChart" class="box" width="1000" height="400"></canvas>
 	<!--
@@ -26,7 +26,7 @@
             <label for="backcolor">Couleur de fond</label>
             <input type="color" id="backcolor">
         </div>-->
-</body>
+</div>
 <script>
     /*function showHint(str) {
         if (str.length == 0) {

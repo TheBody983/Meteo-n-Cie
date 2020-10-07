@@ -2,7 +2,7 @@
 //DATABASE CONNECTION
 function open_database_connection()
 {
-    return mysqli_connect('localhost', 'root', '', 'meteo_n_cie');
+    return mysqli_connect('localhost', 'model', '1234', 'meteo_n_cie');
 }
 
 function close_database_connection($link)
@@ -229,6 +229,7 @@ function get_all_users(){
     if(mysqli_stmt_execute($query)) {
         //Récupère le résultat
         $query = mysqli_stmt_get_result($query);
+
         $users = array();
         while($tmp = mysqli_fetch_array($query,MYSQLI_NUM)) {
             $user = array(
@@ -264,8 +265,10 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
      * @param string $loc la localisation de la station
     */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $userID = intval($userID);
 
     $model = htmlspecialchars($model);
@@ -287,6 +290,7 @@ function new_station($userID, $model = NULL, $vis = 'Private', $descr = ' ', $lo
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 }
 
@@ -299,8 +303,10 @@ function update_station($stationID, $field, $value)
      * @param string $value la valeur par laquelle remplacer ce champ
     */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     $field = htmlspecialchars($field);
@@ -316,6 +322,7 @@ function update_station($stationID, $field, $value)
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 }
 
@@ -326,8 +333,10 @@ function del_station($stationID)
      * @param integer $stationID Un indentifiant de station
     */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     //Prepare la requête
@@ -337,6 +346,7 @@ function del_station($stationID)
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 }
 
@@ -348,9 +358,13 @@ function get_all_stations($userID=0){
      * @return array la liste des stations avec leurs informations
      */
 
-    $userID = intval($userID);
+    $stations = NULL;
 
+    //Connexion à la BDD
     $link = open_database_connection();
+
+    //Vérification des paramètres
+    $userID = intval($userID);
 
     //Prepare la requête
     if($userID == 0) {
@@ -409,11 +423,13 @@ function get_station($stationID){
      * @return array les information de la station
      */
 
-    $stationID = intval($stationID);
-
+    //Connexion à la BDD
     $link = open_database_connection();
 
-    //Prepare la requête
+    //Vérification des paramètres
+    $stationID = intval($stationID);
+
+    //Prepare la requête pour les information de la station
     $query = mysqli_prepare($link,'SELECT * FROM stations WHERE stationID = ?');
     mysqli_stmt_bind_param($query, 'i', $stationID);
 
@@ -435,7 +451,7 @@ function get_station($stationID){
         );
     }
 
-    //Prepare la requête
+    //Prepare la requête pour les mesures liées à la station
     $query = mysqli_prepare($link,'SELECT * FROM mesures WHERE stationID = ?');
     mysqli_stmt_bind_param($query, 'i', $stationID);
 
@@ -471,9 +487,10 @@ function new_mesure($stationID, $name, $value)
      * @param string $value une valeur de mesure
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
-
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     $value = floatval($value);
@@ -488,6 +505,7 @@ function new_mesure($stationID, $name, $value)
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 }
 
@@ -531,6 +549,7 @@ function get_mesures($mesure_name, $filter = NULL){
         }
     }
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
     return $mesures;
 }
@@ -544,11 +563,8 @@ function get_mesure_name(){
     //Connexion à la BDD
     $link = open_database_connection();
 
-
     //Prepare la requête
-    if(!isset($filter)) {
-        $query = mysqli_prepare($link, 'SELECT DISTINCT mesure_name FROM mesures');
-    }
+    $query = mysqli_prepare($link, 'SELECT DISTINCT mesure_name FROM mesures');
 
     //Execute la requête
     if(mysqli_stmt_execute($query)) {
@@ -573,8 +589,10 @@ function del_mesure($date, $stationID)
      * @param int $stationID un identifiant de station
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     $date = htmlspecialchars($date);
@@ -587,6 +605,7 @@ function del_mesure($date, $stationID)
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 }
 
@@ -598,8 +617,10 @@ function new_project($name, $descr){
      * @param string $descr la description du projet
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $name = htmlspecialchars($name);
     $name =  str_replace(array('\n','\r',PHP_EOL),' ',$name);
 
@@ -613,6 +634,7 @@ function new_project($name, $descr){
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à le BDD
     close_database_connection($link);
 }
 
@@ -624,8 +646,10 @@ function add_user_to_project($userID, $projetID, $priv = NULL){
      * @param string $priv un niveau de privilège
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $userID = intval($userID);
 
     $projetID =  intval($projetID);
@@ -637,6 +661,7 @@ function add_user_to_project($userID, $projetID, $priv = NULL){
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 
 }
@@ -648,8 +673,10 @@ function del_user_from_project($userID, $projetID){
      * @param integer $projetID un identifiiant de projet
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $userID = intval($userID);
 
     $projetID =  intval($projetID);
@@ -661,6 +688,7 @@ function del_user_from_project($userID, $projetID){
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 
 }
@@ -672,8 +700,10 @@ function add_station_to_project($stationID, $projetID){
      * @param integer $projetID un identifiiant de projet
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     $projetID =  intval($projetID);
@@ -685,6 +715,7 @@ function add_station_to_project($stationID, $projetID){
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 
 }
@@ -696,8 +727,10 @@ function del_station_from_project($stationID, $projetID){
      * @param integer $projetID un identifiiant de projet
      */
 
+    //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $stationID = intval($stationID);
 
     $projetID =  intval($projetID);
@@ -709,6 +742,7 @@ function del_station_from_project($stationID, $projetID){
     //execute la requête
     mysqli_stmt_execute($query);
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
 
 }
@@ -726,9 +760,10 @@ function get_projet($projetID)
     //Connexion à la BDD
     $link = open_database_connection();
 
+    //Vérification des paramètres
     $projetID = intval($projetID);
 
-    //Prepare la requête
+    //Prepare la requête de récupération des données du projet
     $query = mysqli_prepare($link, 'SELECT * FROM projets WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
@@ -745,7 +780,7 @@ function get_projet($projetID)
         );
     }
 
-    //Prepare la requête
+    //Prepare la requête de récupération des stations du projet
     $query = mysqli_prepare($link, 'SELECT DISTINCT stationID FROM station_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
@@ -760,7 +795,7 @@ function get_projet($projetID)
         }
     }
 
-    //Prepare la requête
+    //Prepare la requête de récupération des utilisateurs du projet
     $query = mysqli_prepare($link, 'SELECT DISTINCT userID FROM user_projet WHERE projetID=?');
     mysqli_stmt_bind_param($query, 'i', $projetID);
 
@@ -774,8 +809,9 @@ function get_projet($projetID)
         }
     }
 
-
+    //Ferme la connexion à la BDD
     close_database_connection($link);
+
     return array(
         "infos" => $projetInfo,
         "stations" => $stations,
@@ -810,6 +846,8 @@ function get_all_projet(){
         }
     }
 
+    //Ferme la connexion à la BDD
     close_database_connection($link);
+
     return $projets;
 }

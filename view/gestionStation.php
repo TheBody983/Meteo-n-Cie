@@ -1,7 +1,7 @@
 <?php $title= 'Gestion des Stations'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol">';
+echo '<div class="containerCol content">';
 
 echo '<div class="containerCol box"><p>Liste des Stations :</p>';
 

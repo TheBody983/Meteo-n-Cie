@@ -1,7 +1,7 @@
 <?php $title= 'projet'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol"><div class="containerCol box">';
+echo '<div class="containerCol content"><div class="containerCol box">';
 echo '<p>Edition de projet</p>';
 
 echo '<table>';

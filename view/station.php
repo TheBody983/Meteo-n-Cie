@@ -1,7 +1,7 @@
 <?php $title= 'Station'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol">';
+echo '<div class="containerCol content">';
 echo '<input type="text" name="station" value ='.$station["stationID"].' hidden>';
 echo '<div class="box"><p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
 echo '<table>';

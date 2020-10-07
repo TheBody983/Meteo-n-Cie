@@ -1,7 +1,7 @@
 <?php $title= 'Gestion des Projets'; ?>
 <?php ob_start(); ?>
 <?php
-echo '<div class="containerCol"><div class="containerCol box">';
+echo '<div class="containerCol content"><div class="containerCol box">';
 
 echo '<p>Liste des Projets :</p>';
 

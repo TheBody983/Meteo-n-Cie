@@ -1,7 +1,7 @@
 <?php $title= 'Accueil'; ?>
 <?php ob_start(); ?>
 
-    <div class="mapborder">
+    <div class="mapborder content">
         <div id="mapid"></div><footer class="container">
             <div id="avertissement">AVERTISSEMENT</div>
             <div id="textavertissement"><marquee behavior="scroll">Bonne journée</marquee></div>
@@ -22,7 +22,9 @@
         zoomOffset: -1
     }).addTo(mymap);
 
-    <?php foreach($stations as $station){
+    <?php
+    //Créé un marqueur sur la carte pour chaque station avec des coordonées valides
+    foreach($stations as $station){
         if($station["coord"][0]!=NULL) {
             echo 'var coordinates = [];';
             echo 'coordinates[0] = parseFloat(' . $station["coord"][0] . ');';

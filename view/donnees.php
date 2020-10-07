@@ -1,6 +1,6 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
-echo '<div class="containerCol">';
+echo '<div class="containerCol content">';
 
 ?>
 <div class="box">

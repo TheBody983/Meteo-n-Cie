@@ -78,6 +78,11 @@ th, td {
 	background-image: url("https://miro.medium.com/max/500/1*JjVVvCymLfqTXACE8dfRNw.jpeg");
 }
 
+.content{
+	width: 70vw;
+
+}
+
 .container{
 	display: flex;
 	justify-content: space-around;
