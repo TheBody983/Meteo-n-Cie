@@ -107,4 +107,9 @@ function projet_action($login, $error){
     require 'view/projet.php';
 }
 
+function graph_action($login,$error){
+	$mesures=get_mesures($_GET['mesures']);
+	require 'view/graph.php';
+}
+
 ?>

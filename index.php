@@ -119,7 +119,10 @@ switch ( $action ) {
     case 'listeProjet' :                     //Recupère les données de toutes les stations
         listeProjets_action($login, $error);
         break;
-
+	
+	case 'graph' :
+		graph_action($login,$error);
+		break;
 
 
 

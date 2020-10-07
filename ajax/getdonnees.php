@@ -21,3 +21,4 @@ foreach($mesures as $mesure) {
 }
 echo "</table>";
 ?>
+<button onclick="window.location.href='../index.php/graph?mesures=<?php echo $q; ?>'">Voir le graphique</button>
