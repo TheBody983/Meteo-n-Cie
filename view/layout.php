@@ -49,25 +49,18 @@
     <p>
         <a class="menu" href="listeStation">Liste des stations</a>
     </p>
-    <?php if (isset($_SESSION['login'])) {
-        echo '<p>
-        <a class="menu" href="gestionStation">Gestion des stations</a>
-    </p>
-    <p>
-        <a class="menu" href="">Messagerie</a>
-    </p>
-    <p>
-        <a class="menu" href="gestionProjet">Projet</a>
-    </p>';
-    }
-    ?>
-    <p>
-        <a class="menu" href="donnees">Données</a>
-    </p>
+    <?php if (isset($_SESSION['login'])) {?>
+        <p><a class="menu" href="gestionStation">Gestion des stations</a></p>
+        <p><a class="menu" href="gestionProjet">Projet</a></p>
+    <?php } ?>
+    <p><a class="menu" href="donnees">Données</a></p>
     <?php
     if (isset($_SESSION['login'])) {
-        echo '<p><a class="menu" href="test">Tests</a></p>';
-        echo '<p><a class="menu" href="admin">Administration</a></p>';
+        if(get_userID($_SESSION['login'])==1){
+            echo '<p><a class="menu" href="test">Tests</a></p>';
+            echo '<p><a class="menu" href="admin">Administration</a></p>';
+            echo '<p><a class="menu" href="">Messagerie</a></p>';
+        }
     }
     ?>
     </section>

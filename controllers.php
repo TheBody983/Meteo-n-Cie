@@ -45,10 +45,13 @@ function mesures_action($login, $error){
 
 function station_action($login, $error){
     if(isset($_GET['stationID'])){
+        if(isset($_POST['addMesure'])){
+            new_mesure($_GET['stationID'], $_POST['mesure'], $_POST['valeur']);
+            header('refresh:0;url=http://localhost/Meteo-n-Cie/index.php/station?stationID='.$_GET['stationID']);
+        }
         $station = get_station($_GET['stationID']);
     }
-    else
-    $station = get_station($_POST['station']);
+
     require 'view/station.php';
 }
 

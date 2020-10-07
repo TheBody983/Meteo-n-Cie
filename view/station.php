@@ -35,7 +35,21 @@ foreach($station["mesures"] as $mesure) {
 ?>
 </table>
 
-</div></div>
+</div>
+
+<div class="containerCol box">
+    <p>Ajouter une Mesure</p>
+
+    <form method="post"action="station?stationID=<?php echo $station["stationID"]; ?>">
+        <input type="text" name="addMesure" id="addMesure" value = "yes" hidden>
+        <label for="mesure">Mesure</label> : <input type="text" name="mesure" id="mesure" value="temperature">
+        <label for="valeur">Valeur</label> : <input type="text" name="valeur" id="valeur" placeholder="(facultatif)">
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
+
+
+    </div>
 
 <?php if($station["userID"] == get_userID($login)){ ?>
 <script>
