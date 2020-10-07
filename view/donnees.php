@@ -2,6 +2,8 @@
 <?php ob_start();
 ?>
 
+    <body style="background-image: url('../graphs/fondcarte.png');">
+    <div id="containerListat">
     <div class="containerCol">
         <label for="searchbar">Mesures recherchées</label>
         <input type="text" id="searchbar" name="searchbar" placeholder="Veuillez entrer un terme" onkeyup="showHint(this.value)">
@@ -10,6 +12,8 @@
     <p>Mesures existantes : <span id="hint"></span></p>
     <div id="table" class="containerCol">
     </div>
+    </div>
+    </body>
 
 <script>
 function showHint(str) {
