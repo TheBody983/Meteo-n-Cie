@@ -361,7 +361,6 @@ function get_all_stations($userID=0){
     }
     else if($userID == -1){
         $query = mysqli_prepare($link, 'SELECT * FROM stations');
-        mysqli_stmt_bind_param($query, 'i', $userID);
     }
     else {
         $query = mysqli_prepare($link, 'SELECT * FROM stations WHERE visibility = ? OR userID = ?');
