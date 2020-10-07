@@ -22,7 +22,8 @@ function admin_action($login,$error)
 function main_action($login, $error)
 {
     if(isset($login) && ($userid = get_userID($login) ) != NULL)
-            $stations=get_all_stations($userid);
+        if(get_userID($login) == 1) $stations=get_all_stations(-1);
+        else $stations=get_all_stations($userid);
     else $stations=get_all_stations();
     require 'view/accueil.php';
 }
