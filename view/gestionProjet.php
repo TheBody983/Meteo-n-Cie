@@ -3,6 +3,7 @@
 <body style="background-image: url('../graphs/fondcarte.png');">
 <div id="containerListat">
 <?php
+echo '<div class="containerCol"><div class="containerCol box">';
 
 echo '<p>Liste des Projets :</p>';
 
@@ -41,5 +42,6 @@ if(isset($_SESSION['login']))
 </div>
 </body>
 
+<?php echo '</div>' ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

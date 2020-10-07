@@ -1,6 +1,6 @@
 <?php $title= 'Donnees'; ?>
 <?php ob_start();
-?>
+echo '<div class="containerCol">';
 
     <body style="background-image: url('../graphs/fondcarte.png');">
     <div id="containerListat">
@@ -44,5 +44,7 @@ function search(str){
     xmlhttp.send();
 }
 </script>
+
+<?php echo '</div>'; ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

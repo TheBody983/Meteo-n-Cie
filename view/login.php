@@ -6,7 +6,7 @@
         <p><label for="login"> Identifiant </label> :</p>
         <input type="text" name="login" id="login" maxlength="12" required/>
         <br />
-        <p><label for="password"> Mot de Passe </label> :</p>
+        <label for="password"> Mot de Passe </label> :
         <input type="password" name="password" id="password" maxlength="12" required />
         <br/>
         <input id="connexionLog" type="submit" value="Envoyer">

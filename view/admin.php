@@ -3,11 +3,13 @@
 <body style="background-image: url('../graphs/fondcarte.png');">
 <div id="containerListat">
 <?php
+echo '<div class="containerCol box">';
+
 echo '<table>';
+    echo '<tr><th>userID</th><th>login</th><th>prenom</th><th>nom</th><th>mail</th><th>authorisations</th><th>date inscription</th><th>description</th><th>actions</th></tr>';
     foreach($users as $user) {
         echo '<tr>';
             foreach ($user as $donnee) {
-
                 echo '<td>' . $donnee . '</td>';
             }
             echo '<td><form method="post"action="admin">
@@ -18,7 +20,8 @@ echo '<table>';
                   <input type="submit" value="Editer"></form></td>';
         echo '</tr>';
     }
-echo '</table>'
+echo '</table>';
+    echo '</div>';
 ?>
 </div>
 </body>

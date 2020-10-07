@@ -1,20 +1,43 @@
 <?php $title= 'Station'; ?>
 <?php ob_start(); ?>
 <?php
+echo '<div class="containerCol">';
 echo '<input type="text" name="station" value ='.$station["stationID"].' hidden>';
-echo '<p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
+echo '<div class="box"><p>Edition de Station (Double-cliquer pour éditer la donnée)</p>';
 echo '<table>';
 echo '<tr><th>Station</th><th>Propriétaire</th><th>Modèle</th><th>Visibilité</th><th>Description</th><th>Localisation</th></tr>';
     echo '<tr>';
         echo '<td><div>'.$station["stationID"].'</div></td>';
-        echo '<td><div>'.get_login(["userID"]).'</div></td>';
+        echo '<td><div>'.get_login($station["userID"]).'</div></td>';
         echo '<td><div id="model">'.$station["model"].'</div></td>';
         echo '<td><div id="visibility">'.$station["visibility"].'</div></td>';
         echo '<td><div id="description">'.$station["description"].'</div></td>';
         echo '<td><div id="localisation">'.$station["localisation"].'</div></td>';
     echo '</tr>';
-echo '</table>';
+echo '</table></div>';?>
+
+<div class="containerCol box">
+    <p>Mesures de la Station</p>
+<table>
+<tr>
+  <th>Date</th>
+  <th>Mesure</th>
+  <th>Valeur</th>
+</tr>
+<?php
+foreach($station["mesures"] as $mesure) {
+    echo "<tr>";
+    echo "<td>" . $mesure['date'] . "</td>";
+    echo "<td>" . $mesure['name'] . "</td>";
+    echo "<td>" . $mesure['value'] . "</td>";
+    echo "</tr>";
+}
 ?>
+</table>
+
+</div></div>
+
+<?php if($station["userID"] == get_userID($login)){ ?>
 <script>
     let model = document.getElementById("model");
     let visibility = document.getElementById("visibility");
@@ -58,5 +81,6 @@ echo '</table>';
         xmlhttp.send();
     }
 </script>
-<?php $content = ob_get_clean(); ?>
+<?php }
+$content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

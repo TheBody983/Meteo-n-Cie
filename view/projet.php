@@ -1,9 +1,8 @@
 <?php $title= 'projet'; ?>
 <?php ob_start(); ?>
 <?php
-
-//echo '<input type="text" name="projet" value ='.$projet["projetID"].' hidden>';
-echo '<p>Edition de projet (Double-cliquer pour éditer la donnée)</p>';
+echo '<div class="containerCol"><div class="containerCol box">';
+echo '<p>Edition de projet</p>';
 
 echo '<table>';
 echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
@@ -14,52 +13,99 @@ echo '<tr><th>Projet</th><th>Nom</th><th>Description</th>';
     echo '<td><div id="description">'.$projet["infos"]["description"].'</div></td>';
     echo '</tr>';
 
-echo '</table>';
+echo '</table></div>';
 
-echo '<table>';
-foreach($projet["stations"] as $station){
+echo '<div class="containerCol box">';
+if(count($projet["stations"])!=0) {
+    echo '<table>';
     echo '<tr>';
-    
-        echo '<td>'.$station["stationID"].'</td>';
-        echo '<td>'.$station["userID"].'</td>';
-        echo '<td>'.$station["model"].'</td>';
-        echo '<td>'.$station["visibility"].'</td>';
-        echo '<td>'.$station["description"].'</td>';
-        echo '<td>'.$station["localisation"].'</td>';
-		
-        echo '<td class="container"><form method="post"action="gestionStationProjet">
-            <input type="text" name="removeStationProjet" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Supprimer"></form>';
-    
+    echo '<th>StationID</th>';
+    echo '<th>Propriétaire</th>';
+    echo '<th>Modèle</th>';
+    echo '<th>Description</th>';
+    echo '<th>Localisation</th>';
+    echo '<th>Actions</th>';
     echo '</tr>';
+
+    foreach ($projet["stations"] as $station) {
+        echo '<tr>';
+
+        echo '<td>' . $station["stationID"] . '</td>';
+        echo '<td>' . $station["userID"] . '</td>';
+        echo '<td>' . $station["model"] . '</td>';
+        echo '<td>' . $station["description"] . '</td>';
+        echo '<td>' . $station["localisation"] . '</td>';
+
+        echo '<td class="container">
+            <form method="post" action="projet?projet=' . $projet["infos"]["projetID"] . '">
+            <input type="text" name="delStationProjet" value =' . $station["stationID"] . ' hidden>
+            <input type="submit" value="Supprimer"></form>';
+
+        echo '</tr>';
+    }
+    echo '</table>';
 }
-echo '</table>';
+else echo '<p> Aucune station dans ce projet </p>';
+echo '</div>';
 
 
-foreach($projet["users"] as $user){
+
+echo '<div class="containerCol box">';
+if(count($projet["users"])!=0) {
+    echo '<table>';
     echo '<tr>';
-    
-        echo '<td>'.$user[0].'</td>';
-		
-        echo '<td class="container"><form method="post"action="gestionUserProjet">
-            <input type="text" name="removeUserProjet" value ='.$station["stationID"].' hidden>
-            <input type="submit" value="Supprimer"></form>';
-    
+    echo '<th>userID</th>';
+    echo '<th>Login</th>';
+    echo '<th>Nom</th>';
+    echo '<th>Prenom</th>';
+    echo '<th>Mail</th>';
+    echo '<th>Permissions</th>';
+    echo '<th>date d\'Inscription</th>';
+    echo '<th>Description</th>';
+    echo '<th>Actions</th>';
     echo '</tr>';
+    foreach ($projet["users"] as $user) {
+        echo '<tr>';
+        foreach ($user as $info) {
+            echo '<td>' . $info . '</td>';
+        }
+        echo '<td class="container">
+            <form method="post"action="projet?projet=' . $projet["infos"]["projetID"] . '">
+            <input type="text" name="delUserProjet" value =' . $user["userID"] . ' hidden>
+            <input type="submit" value="Supprimer"></form>';
+
+        echo '</tr>';
+    }
+    echo '</table>';
 }
-echo '</table>';
+else echo '<p> Aucun utilisateur dans ce projet </p>';
+echo '</div>';
 
 
 ?>
 
-<div id="idGestionStationProjet">
+<div id="addStationProjet" class="box">
     <p>Ajouter une station au Projet</p>
 
-    <form method="post"action="gestionStationProjet">
-        <label for="addStationProjet">Num de la station</label> :<input type="text" name="addStationProjet" id="addStationProjet" value = "">
+    <form method="post" action="projet?projet=<?php echo $projet["infos"]["projetID"];?>">
+        <label for="addStationProjet">stationID</label> :
+        <input type="text" name="addStationProjet" id="addStationProjet">
         <input type="submit" value="Ajouter">
     </form>
 </div>
+
+
+
+<div id="addUserProjet" class="box">
+    <p>Ajouter un utilisateur au Projet</p>
+
+    <form method="post" action="projet?projet=<?php echo $projet["infos"]["projetID"];?>">
+        <label for="addUserProjet">userID</label> :
+        <input type="text" name="addUserProjet" id="addUserProjet">
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
+
     <!--
     <div id="idGestionUserProjet">
         <p>Ajouter un utilisateur au Projet</p>
@@ -71,44 +117,6 @@ echo '</table>';
         </form>
     </div>
     -->
-<script>
-    let visibility = document.getElementById("visibility");
-    let description = document.getElementById("description");
 
-    visibility.addEventListener('dblclick', function(evt){edit(visibility)});
-    description.addEventListener('dblclick', function(evt){edit(description)});
-
-    function edit (node){
-        tmp = document.createElement("input");
-        tmp.setAttribute('name',node.id);
-        tmp.setAttribute('id',node.id);
-        tmp.setAttribute('value',node.textContent);
-        id = node.id;
-        tmp.setAttribute('onChange','update("'+id+'","'+node.innerHTML+'",<?php echo $projet["projetID"];?>)');
-        node.parentNode.replaceChild(tmp, node);
-    }
-
-    function update(id,textcontent,projetID){
-        let node = document.getElementById(id);
-        value = node.value;
-        tmp = document.createElement("div");
-        tmp.setAttribute('id',id);
-        tmp.setAttribute('value',textcontent);
-
-
-        tmp.textContent = value;
-        tmp.addEventListener('dblclick', function(evt){edit(tmp)});
-        node.parentNode.replaceChild(tmp, node);
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function(evt) {
-            if (this.readyState == 4 && this.status == 200) {
-                node.textContent = this.responseText;
-            }
-        };
-        xmlhttp.open("GET","../ajax/updateProjet.php?id="+id+'&textcontent='+value+'&projetID='+projetID,true);
-        xmlhttp.send();
-    }
-</script>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>

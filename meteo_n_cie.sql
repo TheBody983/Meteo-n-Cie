@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 01 oct. 2020 à 02:20
+-- Généré le : mar. 06 oct. 2020 à 04:09
 -- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.2.32
 
@@ -60,7 +60,8 @@ CREATE TABLE `projets` (
 --
 
 INSERT INTO `projets` (`projetID`, `nom`, `description`) VALUES
-(1, 'projet_test', 'un projet pour tester les fonctions');
+(1, 'projet_test', 'un projet pour tester les fonctions'),
+(2, 'bla', 'bli blou');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,12 @@ CREATE TABLE `stations` (
 
 INSERT INTO `stations` (`stationID`, `userID`, `model`, `visibility`, `description`, `localisation`) VALUES
 (1, 1, 'adminstation public', 'public', 'Sur le toit du bâtiment F', '-22.262706 -193.596497'),
-(2, 1, 'adminstation private', 'Private', 'private', '-20.558738, -193.716431');
+(2, 1, 'adminstation private', 'Private', 'private', '-20.558738 -193.716431'),
+(3, 1, 'bla', 'public', 'La foa', '-21.710241, -194.170351'),
+(4, 2, 'mk1', 'Private', 'new test', '-21.710241, -195.170351'),
+(5, 2, 'oui', 'Private', 'regarde ludo', '-20.900898, -195.132843'),
+(6, 2, 'yo', 'Private', 'rap', 'le'),
+(7, 2, 'kouma', 'Private', 'toit de la cuisine', '-20.392906, -195.624481');
 
 -- --------------------------------------------------------
 
@@ -117,21 +123,22 @@ CREATE TABLE `users` (
   `prenom` varchar(20) DEFAULT NULL,
   `mail` varchar(50) DEFAULT NULL,
   `permissions` int(1) DEFAULT 0,
-  `date_inscription` datetime NOT NULL DEFAULT current_timestamp()
+  `date_inscription` datetime NOT NULL DEFAULT current_timestamp(),
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`userID`, `login`, `password`, `nom`, `prenom`, `mail`, `permissions`, `date_inscription`) VALUES
-(1, 'admin', '$2y$10$p5axrK2lUcx05eavkjSszutakzmcq6Gx9zZOHeJgXPlPHCoZSZ0/C', NULL, NULL, NULL, 0, '2020-09-20 11:02:02'),
-(2, 'Aphaz', '$2y$10$yZGQvamVdjyeF2vN/N0frePhEeQ8t6Q4/5FRBv21GgEomPehyEUci', 'Damien', 'Richard', 'd@mi.en', 0, '2020-09-22 13:46:02'),
-(3, 'Shadouii', '$2y$10$4dMrwHOtdDhgn5JJOW5Jx.UPfLvZMWAu54s/YBOnz2Lq9AwKkT6Ou', 'albani', 'bryan', 'oui@gmail.com', 0, '2020-10-01 11:09:23'),
-(4, 'joris', '$2y$10$dQ3sYwnm7D1pvFOd8KK5seQLMgfuKoqfn.kQ.Mf1p5OhJc/5wqmke', 'Derquennes', 'Joris', 'joris@gmail.com', 0, '2020-10-01 11:10:45'),
-(5, 'mathieu', '$2y$10$TMgF1oyR6R8XifdFpHXW3.rhxuz/z3yBUzOVd3WCFQ0Y4EWe973wi', 'bisson', 'mathieu', 'm@gmail.com', 0, '2020-10-01 11:11:38'),
-(6, 'ludo', '$2y$10$BwROHhLCysRfa5nJ3zE53eGTX2HNwJscQMFnBYcQinHgTi28.2C5.', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:12:31'),
-(7, 'ludo', '$2y$10$JhQv88DINw2gtqWaRMBSKeHLXEY33E29vksvexFyJdGeJDis/4GmK', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:17:40');
+INSERT INTO `users` (`userID`, `login`, `password`, `nom`, `prenom`, `mail`, `permissions`, `date_inscription`, `description`) VALUES
+(1, 'admin', '$2y$10$p5axrK2lUcx05eavkjSszutakzmcq6Gx9zZOHeJgXPlPHCoZSZ0/C', NULL, NULL, NULL, 0, '2020-09-20 11:02:02', NULL),
+(2, 'Aphaz', '$2y$10$yZGQvamVdjyeF2vN/N0frePhEeQ8t6Q4/5FRBv21GgEomPehyEUci', 'Damien', 'Richard', 'd@mi.en', 0, '2020-09-22 13:46:02', NULL),
+(3, 'Shadouii', '$2y$10$4dMrwHOtdDhgn5JJOW5Jx.UPfLvZMWAu54s/YBOnz2Lq9AwKkT6Ou', 'albani', 'bryan', 'oui@gmail.com', 0, '2020-10-01 11:09:23', NULL),
+(4, 'joris', '$2y$10$dQ3sYwnm7D1pvFOd8KK5seQLMgfuKoqfn.kQ.Mf1p5OhJc/5wqmke', 'Derquennes', 'Joris', 'joris@gmail.com', 0, '2020-10-01 11:10:45', NULL),
+(5, 'mathieu', '$2y$10$TMgF1oyR6R8XifdFpHXW3.rhxuz/z3yBUzOVd3WCFQ0Y4EWe973wi', 'bisson', 'mathieu', 'm@gmail.com', 0, '2020-10-01 11:11:38', NULL),
+(6, 'ludo', '$2y$10$BwROHhLCysRfa5nJ3zE53eGTX2HNwJscQMFnBYcQinHgTi28.2C5.', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:12:31', NULL),
+(7, 'ludo', '$2y$10$JhQv88DINw2gtqWaRMBSKeHLXEY33E29vksvexFyJdGeJDis/4GmK', 'ludo', 'ludoprenom', 'ludomail', 0, '2020-10-01 11:17:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -201,13 +208,13 @@ ALTER TABLE `user_projet`
 -- AUTO_INCREMENT pour la table `projets`
 --
 ALTER TABLE `projets`
-  MODIFY `projetID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `projetID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `stations`
 --
 ALTER TABLE `stations`
-  MODIFY `stationID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `stationID` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `users`

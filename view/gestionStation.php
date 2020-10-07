@@ -3,6 +3,7 @@
 <body style="background-image: url('../graphs/fondcarte.png');">
 <div id="containerListGestat">
 <?php
+echo '<div class="containerCol">';
 
 echo '<p><h1>Liste des Stations :</h1></p>';
 
@@ -27,7 +28,7 @@ foreach($stations as $station){
     }
     echo '</tr>';
 }
-echo '</table>';
+echo '</table></div>';
 ?>
     <div id="containerGestat">
         <p>Ajouter une Station</p>
@@ -43,5 +44,6 @@ echo '</table>';
 </div>
 </body>
 
+<?php echo '</div>'; ?>
 <?php $content = ob_get_clean(); ?>
 <?php include 'layout.php'; ?>
